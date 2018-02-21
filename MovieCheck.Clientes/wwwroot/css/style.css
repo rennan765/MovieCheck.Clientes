@@ -1,0 +1,3683 @@
+/* RESET */
+*{
+	margin: 0;
+	padding: 0;
+}
+.fontzero{
+	font-size: 0em;
+}
+.clear{
+	clear: both;
+}
+
+.mainContainer{
+	width: 50%;
+	position: relative;
+	float: left;
+}
+
+aside.developedBy{
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	text-decoration: none;
+	text-align: right;
+	font-size: .85em;
+	color: #eee;
+}
+
+aside.developedBy img{
+	width: 25px;
+}
+
+/* STRUCT */
+
+html, body{
+	width: 100%;
+	font-family: 'Lato', sans-serif;
+	background-color: #E1140B;
+}
+
+/* HIDE DIV */
+.hidden{
+	width: 0;
+	height: 0;
+	display: none;
+	background-color: none;
+}
+
+.hideMainMessages{
+	color: #fff;
+}
+
+.hideMainMessages:hover{
+	color: #eee;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+/* 1024 x 768 */
+
+@media (max-width: 1169px){
+/* LOGIN SCREEN */
+section.loginScreen img{
+	display: block;
+	margin: 0 auto;
+	margin-top: 200px;
+}
+
+section.loginScreen p{
+	margin: 50px 0 0 10px;
+	text-decoration: none;
+	font-size: 1.3em;
+	line-height: 1.3;
+	color: #eee;
+}
+
+section.loginScreen p a{
+	text-decoration: underline;
+	color: #eee;
+	cursor: pointer;
+}
+
+.loginBox{
+	width: 70%;
+	height: 350px;
+	margin: 0 auto;
+	margin-top: 180px;
+	position: inherit;
+	box-sizing: border-box;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.loginBox form legend{
+	width: 100%;
+	padding: 10px 0;
+	position: relative;
+	float: left;
+}
+
+.loginBox form legend h2{
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.6em;
+	color: #E1140B;
+}
+
+.loginBox form input[type=email], .loginBox form input[type=password]{
+	width: 93%;
+	height: 25px;
+	margin: 0 2%;
+	padding-left: 5px;
+	position: relative;
+	float: left;
+	font-size: .9em;
+}
+.loginBox form input[type=email]{
+	margin-top: 40px;
+	margin-bottom: 10px;
+}
+.loginBox form input[type=password]{
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.loginBox form button[type=submit]{
+	width: 96.5%;
+	height: 25px;
+	margin: 10px 1.5% 0 1.5%;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	font-size: .9em;
+	font-weight: bold;
+	color: #fff;
+	background-color: #FF9D00;
+}
+.loginBox form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.loginBox p.wrongPass{
+	width: 90%;
+	margin: 10px 5% 0 5%;
+	text-decoration: none;
+	text-align: left;
+	font-size: .9em;
+	color: red;
+}
+
+.loginBox a{
+	position: absolute;
+	right: 5px;
+	bottom: 0;
+	text-decoration: none;
+	font-size: .8em;
+	text-decoration: underline;
+	color: blue;
+	cursor: pointer;
+}
+
+/* REGISTER */
+
+.registerContainer img{
+	display: block;
+	margin: 0 auto;
+	margin-top: 130px;
+	margin-bottom: 50px;
+}
+
+.registerContainer p{
+	margin: 5px 0 5px 10px;
+	text-decoration: none;
+	font-size: 1.2em;
+	line-height: 1.3;
+	color: #eee;
+}
+
+.registerContainer p a{
+	text-decoration: none;
+	text-decoration: underline;
+	color: #eee;
+	cursor: pointer;
+}
+
+.registerContainer form{
+	width: 100%
+}
+
+.registerContainer form legend{
+	width: 100%;
+	margin: 20px 0;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.6em;
+	color: #fff;
+}
+
+.registerContainer form input{
+	width: 90%;
+	height: 20px;
+	margin: 10px 5%;
+	padding-left: 2px;
+	position: relative;
+	float: left;
+	font-size: .7em;
+}
+
+.registerContainer form .registerStreet{
+	width: 90%;
+	margin: 0 5%;
+	height: 170px;
+	position: relative;
+	float: left;
+}
+
+.registerContainer form .registerStreet h3{
+	margin-top: 5px;
+	text-decoration: none;
+	font-size: 1.2em;
+	color: #eee;
+}
+
+.registerContainer form .registerStreet p{
+	margin-top: 8px;
+	margin-right: 5px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .8em;
+	color: #eee;
+}
+
+.registerContainer form .registerStreet input{
+	margin: 0;
+	position: relative;
+	float: left;
+}
+
+.registerContainer form .registerStreet input[name=street]{
+	width: 340px;
+	margin-top: 4px;
+}
+
+.registerContainer form .registerStreet input[name=numAddress]{
+	width: 50px;
+	margin-top: 4px;
+}
+
+.registerContainer form .registerStreet input[name=complement]{
+	width: 130px;
+	margin-top: 4px;
+}
+
+.registerContainer form .registerStreet input[name=province], .registerContainer form .registerStreet input[name=city]{
+	width: 150px;
+	margin-top: 4px;	
+}
+
+.registerContainer form .registerStreet input[name=state]{
+	width: 40px;
+	margin-top: 4px;
+}
+
+.registerContainer form .registerStreet input[name=zipCode]{
+	width: 100px;
+	margin-top: 4px;
+}
+
+.registerContainer form button{
+	width: 91%;
+	height: 35px;
+	margin: 40px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.registerContainer form button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.registerContainer .message{
+	width: 70%;
+	height: 350px;
+	margin: 0 auto;
+	margin-top: 180px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.registerContainer .message i{
+	width: 100%;
+	margin-top: 40px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+}
+.registerContainer .message i.fa-check{
+	color: green;
+}
+.registerContainer .message i.fa-times{
+	color: red;
+}
+
+.registerContainer .message p{
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.2em;
+	color: #E1140B;
+}
+
+/* FORGOT PASS */
+
+.forgotPassContainer img{
+	display: block;
+	margin: 0 auto;
+	margin-top: 200px;
+	margin-bottom: 50px;
+}
+
+.forgotPassContainer h2{
+	width: 100%;
+	margin-top: 8px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.8em;
+	color: #fff;
+}
+
+.forgotPassContainer p{
+	width: 70%;
+	margin: 0 15%;
+	margin-top: 8px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1em;
+	color: #fff;
+}
+
+.forgotPassContainer p a{
+	text-decoration: none;
+	text-decoration: underline;
+	color: #eee;
+	cursor: pointer;
+}
+
+.forgotPassContainer .forgotPassForm{
+	width: 70%;
+	height: 350px;
+	margin: 0 auto;
+	margin-top: 130px;
+}
+
+.forgotPassContainer .forgotPassForm input{
+	width: 96%;
+	height: 25px;
+	margin: 0 1%;
+	margin-top: 150px;
+	padding-left: 5px;
+	position: relative;
+	float: left;
+	font-size: .9em;
+}
+
+.forgotPassContainer .forgotPassForm button{
+	width: 91%;
+	height: 35px;
+	margin: 60px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+.forgotPassContainer .forgotPassForm button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.forgotPassContainer .forgotPassForm.message{
+	margin-top: 180px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.forgotPassContainer .forgotPassForm.message i{
+	width: 100%;
+	margin-top: 40px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+}
+.forgotPassContainer .forgotPassForm.message i.fa-check{
+	margin: 0;
+	color: green;
+}
+.forgotPassContainer .forgotPassForm.message i.fa-times{
+	color: red;
+}
+.forgotPassContainer .forgotPassForm.message i.fa-user-times{
+	color: #0091FF;
+}
+
+.forgotPassContainer .forgotPassForm.message p{	
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.2em;
+	color: #E1140B;
+}
+
+/* CLIENT PANEL */
+
+.cPanelContainer .header{
+	width: 100%;
+	height: 150px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .header img{
+	height: 90px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.cPanelContainer .header h1{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.1em;
+	color: #fff;
+}
+
+/* PERSONAL INFO */
+.cPanelContainer .personalInfo{
+	width: 100%;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .personalInfo .info h2{
+	margin-top: 10px;
+	margin-left: 5px;
+	text-decoration: none;
+	text-align: left;
+	font-size: 1.8em;
+	color: #fff;
+}
+
+.cPanelContainer .personalInfo .info p{
+	margin: 5px 0 5px 20px;
+	text-decoration: none;
+	text-align: left;
+	font-size: 1.2em;
+	line-height: 1.2;
+	color: #fff;
+}
+
+.cPanelContainer .personalInfo .info button#infoButton{
+	width: 91%;
+	height: 35px;
+	margin: 60px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.cPanelContainer .personalInfo .info button#infoButton:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.cPanelContainer .personalInfo .info button#showGuests{
+	width: 60%;
+	height: 35px;
+	margin: 30px 20% 0 20%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.cPanelContainer .personalInfo .info button#showGuests:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.cPanelContainer .personalInfo .registerContainer form button[type=submit]{
+	margin-top: 0;
+}
+
+.cPanelContainer .personalInfo .message{
+	width: 70%;
+	height: 450px;
+	margin: 0 auto;
+	margin-top: 20px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.cPanelContainer .personalInfo .message i{
+	margin-top: 60px;
+}
+.cPanelContainer .personalInfo .message i.fa-check{
+	color: green;
+}
+.cPanelContainer .personalInfo .message i.fa-times{
+	color: red;
+}
+.cPanelContainer .personalInfo .message i.fa-user-times{
+	color: #0091FF;
+}
+
+.cPanelContainer .personalInfo .message p{
+	text-decoration: none;
+	text-align: center;
+	font-size: .16em;
+	color: #E1140B;
+}
+
+/* SEARCH ENGINE */
+
+.cPanelContainer .searchBox{
+	width: 450px;
+	height: 50px;
+	margin-left: 10px;
+	margin-top: 10px;
+	position: fixed;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #E752FF;
+}
+
+.cPanelContainer .searchBox form{
+	width: 70%;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .searchBox form input[type=text]{
+	width: 210px;
+	height: 25px;
+	margin: 12.5px 0 12.5px 10px;
+	text-decoration: none;
+	font-size: .8em;
+}
+
+.cPanelContainer .searchBox form button[type=submit]{
+	width: 80px;
+	height: 28px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.cPanelContainer .searchBox form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.cPanelContainer .searchBox p{
+	width: 30%;
+	margin-top: 5px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	text-decoration: underline;
+	font-size: .8em;
+	color: blue;
+	cursor: pointer;
+}
+
+.cPanelContainer .advancedSearchBox{
+	width: 450px;
+	height: 300px;
+	margin-left: 10px;
+	margin-top: 10px;
+	position: fixed;
+	z-index: 1;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #E752FF;
+}
+
+.cPanelContainer .advancedSearchBox form{
+	width: 100%;
+	height: 250px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .advancedSearchBox form .generalMovieInfo{
+	width: 70%;
+	height: 230px;
+	margin-top: 20px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .advancedSearchBox form .generalMovieInfo input[name=movieName], .cPanelContainer .advancedSearchBox form .generalMovieInfo input[name=movieActor], .cPanelContainer .advancedSearchBox form .generalMovieInfo input[name=movieDirector]{
+	width: 70%;
+	height: 20px;
+	margin: 5px 15%;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .7em;
+}
+.cPanelContainer .advancedSearchBox form .generalMovieInfo input[name=movieYear]{
+	width: 18%;
+	height: 20px;
+	margin: 5px 41%;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .7em;
+}
+
+.cPanelContainer .advancedSearchBox form .generalMovieInfo select{
+	width: 68%;
+	height: 20px;
+	margin: 30px 16%;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .85em;
+}
+
+.cPanelContainer .advancedSearchBox form .movieGenders{
+	width: 30%;
+	height: 230px;
+	margin-top: 20px;
+	overflow: auto;
+	font-size: .8em;
+	color: #fff;
+}
+
+.cPanelContainer .advancedSearchBox form .movieGenders p{
+	text-decoration: none;
+	text-align: center;
+	font-size: 1em;
+	font-weight: bold;
+	color: #eee;
+}
+
+.cPanelContainer .advancedSearchBox form .containerButtons{
+	width: 300px;
+	height: 50px;
+	margin: 0 auto;
+}
+
+.cPanelContainer .advancedSearchBox form .containerButtons button[type=submit]{
+	width: 120px;
+	height: 40px;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.cPanelContainer .advancedSearchBox form .containerButtons button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.cPanelContainer .advancedSearchBox form .containerButtons p{
+	margin-left: 20px;
+	margin-top: 12px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	text-decoration: underline;
+	font-size: .8em;
+	color: blue;
+	cursor: pointer;
+}
+
+/* CHECK IN MOVIES */
+
+.cPanelContainer .checkInMovies{
+	width: 100%;
+	height: 600px;
+	margin-top: 90px;
+	overflow: auto;
+}
+
+.cPanelContainer .checkInMovies .pendencia{
+	width: 90%;
+	height: 140px;
+	margin: 0 auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .checkInMovies .pendencia img.icon{
+	height: 20px;
+	margin: 0 5px;
+	margin-top: 65px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .checkInMovies .pendencia img.movieCover{
+	height: 90px;
+	margin: 30px 5px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .checkInMovies .pendencia .text{
+	width: 240px;
+	height: 90px;
+	margin-top: 25px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .checkInMovies .pendencia p{
+	width: 100%;
+	margin: 3px 0;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	color: #fff;
+}
+
+.cPanelContainer .checkInMovies .pendencia button[type=submit]{
+	width: 80px;
+	height: 50px;
+	margin-top: 40px;
+	margin-left: 25px;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.cPanelContainer .checkInMovies .pendencia button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* SHOW GUESTS */
+
+.guestsContainer .header{
+	width: 100%;
+	height: 150px;
+	position: relative;
+	float: left;
+}
+
+.guestsContainer .header img{
+	height: 90px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.guestsContainer .header h1{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.9em;
+	color: #fff;
+}
+
+/* GUEST SELECT */
+
+.guestsContainer form .guestBox{
+	width: 60%;
+	height: 360px;
+	margin: 40px 20% 0 20%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	box-sizing: border-box;
+	overflow: auto;
+	background-color: #E752FF;
+}
+
+.guestsContainer form .guestBox .row{
+	width: 100%;
+	height: 70px;
+	margin: 0;
+	position: relative;
+	float: left;
+}
+
+.guestsContainer form .guestBox .row input[type=radio]{
+	height: 65px;
+	margin: 0 10px;
+	position: relative;
+	float: left;
+	background-color: black;
+}
+
+.guestsContainer form .guestBox .row p{
+	width: 80%;
+	margin-top: 25px;
+	margin-left: 20px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: left;
+	color: #fff;
+}
+.guestsContainer form .guestBox .row p.blocked{
+	text-decoration: line-through;
+	color: red;
+}
+
+.guestsContainer form button[type=submit]{
+	width: 30%;
+	height: 35px;
+	margin: 18px 1.6% 0 1.6%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+}
+.guestsContainer button#newGuestForm{
+	width: 80%;
+	height: 35px;
+	margin: 18px 10% 0 10%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+
+}
+.guestsContainer form button[type=submit]:hover, .guestsContainer button#newGuestForm:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* GUEST INFO */
+
+.guestsContainer .info{
+	width: 100%;
+	margin-top: 100px;
+}
+
+.guestsContainer .info h2{
+	margin-top: 10px;
+	margin-left: 5px;
+	text-decoration: none;
+	text-align: left;
+	font-size: 1.8em;
+	color: #fff;
+}
+
+.guestsContainer .info p{
+	margin: 5px 0 5px 20px;
+	text-decoration: none;
+	text-align: left;
+	font-size: 1.2em;
+	line-height: 1.2;
+	color: #fff;
+}
+
+.guestsContainer .info button#infoButton{
+	width: 91%;
+	height: 35px;
+	margin: 60px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.guestsContainer .info button#infoButton:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.guestsContainer .registerContainer form button[type=submit]{
+	margin-top: 0;
+}
+
+/* EDIT GUEST */
+
+.editGuestContainer p{
+	margin: 5px 0 5px 10px;
+	text-decoration: none;
+	font-size: 1.3em;
+	line-height: 1.3;
+	color: #eee;
+}
+
+.editGuestContainer form{
+	width: 100%;
+	margin-top: 80px;
+}
+
+.editGuestContainer form input{
+	width: 90%;
+	height: 20px;
+	margin: 10px 5%;
+	padding-left: 2px;
+	position: relative;
+	float: left;
+	font-size: .7em;
+}
+
+.editGuestContainer form .registerStreet{
+	width: 90%;
+	margin: 0 5%;
+	height: 170px;
+	position: relative;
+	float: left;
+}
+
+.editGuestContainer form .registerStreet h3{
+	margin-top: 5px;
+	text-decoration: none;
+	font-size: 1.2em;
+	color: #eee;
+}
+
+.editGuestContainer form .registerStreet p{
+	margin-top: 8px;
+	margin-right: 5px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .8em;
+	color: #eee;
+}
+
+.editGuestContainer form .registerStreet input{
+	margin: 0;
+	position: relative;
+	float: left;
+}
+
+.editGuestContainer form .registerStreet input[name=street]{
+	width: 340px;
+	margin-top: 4px;
+}
+
+.editGuestContainer form .registerStreet input[name=numAddress]{
+	width: 50px;
+	margin-top: 4px;
+}
+
+.editGuestContainer form .registerStreet input[name=complement]{
+	width: 130px;
+	margin-top: 4px;
+}
+
+.editGuestContainer form .registerStreet input[name=province], .editGuestContainer form .registerStreet input[name=city]{
+	width: 150px;
+	margin-top: 4px;	
+}
+
+.editGuestContainer form .registerStreet input[name=state]{
+	width: 40px;
+	margin-top: 4px;
+}
+
+.editGuestContainer form .registerStreet input[name=zipCode]{
+	width: 100px;
+	margin-top: 4px;
+}
+
+.editGuestContainer form button[type=submit]{
+	width: 91%;
+	height: 35px;
+	margin: 60px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.editGuestContainer form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.editGuestContainer .message{
+	width: 70%;
+	height: 450px;
+	margin: 0 auto;
+	margin-top: 130px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.editGuestContainer .message i{
+	width: 100%;
+	margin-top: 100px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+}
+.editGuestContainer .message i.fa-check{
+	color: green;
+}
+.editGuestContainer .message i.fa-times{
+	color: red;
+}
+
+.editGuestContainer .message p{
+	width: 100%;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.2em;
+	color: #E1140B;
+}
+
+/* REGISTER */
+
+.registerGuestContainer img{
+	display: block;
+	margin: 0 auto;
+	margin-top: 130px;
+	margin-bottom: 50px;
+}
+
+.registerGuestContainer p{
+	margin: 5px 0 5px 10px;
+	text-decoration: none;
+	font-size: 1.2em;
+	line-height: 1.3;
+	color: #eee;
+}
+
+.registerGuestContainer p a{
+	text-decoration: none;
+	text-decoration: underline;
+	color: #eee;
+	cursor: pointer;
+}
+
+.registerGuestContainer form{
+	width: 100%
+}
+
+.registerGuestContainer form legend{
+	width: 100%;
+	margin: 20px 0;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.6em;
+	color: #fff;
+}
+
+.registerGuestContainer form input{
+	width: 90%;
+	height: 20px;
+	margin: 10px 5%;
+	padding-left: 2px;
+	position: relative;
+	float: left;
+	font-size: .7em;
+}
+
+.registerGuestContainer form .registerStreet{
+	width: 90%;
+	margin: 0 5%;
+	height: 170px;
+	position: relative;
+	float: left;
+}
+
+.registerGuestContainer form .registerStreet h3{
+	margin-top: 5px;
+	text-decoration: none;
+	font-size: 1.2em;
+	color: #eee;
+}
+
+.registerGuestContainer form .registerStreet p{
+	margin-top: 8px;
+	margin-right: 5px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .8em;
+	color: #eee;
+}
+
+.registerGuestContainer form .registerStreet input{
+	margin: 0;
+	position: relative;
+	float: left;
+}
+
+.registerGuestContainer form .registerStreet input[name=street]{
+	width: 340px;
+	margin-top: 4px;
+}
+
+.registerGuestContainer form .registerStreet input[name=numAddress]{
+	width: 50px;
+	margin-top: 4px;
+}
+
+.registerGuestContainer form .registerStreet input[name=complement]{
+	width: 130px;
+	margin-top: 4px;
+}
+
+.registerGuestContainer form .registerStreet input[name=province], .registerGuestContainer form .registerStreet input[name=city]{
+	width: 150px;
+	margin-top: 4px;	
+}
+
+.registerGuestContainer form .registerStreet input[name=state]{
+	width: 40px;
+	margin-top: 4px;
+}
+
+.registerGuestContainer form .registerStreet input[name=zipCode]{
+	width: 100px;
+	margin-top: 4px;
+}
+
+.registerGuestContainer form button[type=submit]{
+	width: 91%;
+	height: 35px;
+	margin: 20px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.registerGuestContainer form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.guestsContainer .message{
+	width: 70%;
+	height: 350px;
+	margin: 0 auto;
+	margin-top: 180px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.guestsContainer .message i{
+	width: 100%;
+	margin-top: 40px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+}
+.guestsContainer .message i.fa-check{
+	color: green;
+}
+.guestsContainer .message i.fa-times{
+	color: red;
+}
+
+.guestsContainer .message p{
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.2em;
+	color: #E1140B;
+}
+
+/* MOVIE LIST */
+
+.movieListContainer h2{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.9em;
+	color: #fff;
+}
+
+.movieListContainer .movieList{
+	width: 90%;
+	height: 500px;
+	margin: 50px 5% 0 5%;
+	position: relative;
+	float: left;
+	overflow: auto;
+}
+
+.movieListContainer .movieList .row{
+	width: 90%;
+	height: 100px;
+	margin: 0 auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movieList .row img.icon{
+	height: 30px;
+	margin: 0 5px;
+	margin-top: 35px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movieList .row img.movieCover{
+	height: 80px;
+	margin: 10px 5px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movieList .row p{
+	width: 180px;
+	margin-top: 40px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	color: #fff;
+}
+
+.movieListContainer .movieList .row button{
+	width: 70px;
+	height: 45px;
+	margin-top: 40px;
+	margin-left: 25px;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.movieListContainer .movieList .row button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.movieListContainer a button{
+	width: 80%;
+	height: 40px;
+	margin: 30px 10% 0 10%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+.movieListContainer a button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* MOVIE INFO */
+
+.movieListContainer .movie{
+	width: 100%;
+}
+
+.movieListContainer .movie .header{
+	width: 100%;
+	height: 250px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .header img.movieCover{
+	height: 150px;
+	margin: 25px 0 25px 10px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .header h2{
+	width: 230px;
+	margin-top: 70px;
+	margin-left: 10px;
+	position: relative;
+	float: left;
+	font-size: 1.3em;
+}
+
+.movieListContainer .movie .header img.icon{
+	width: 60px;
+	margin-top: 60px;
+	margin-left: 20px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .body{
+	height: 350px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .body p{
+	margin: 5px 0;
+	font-size: 1.2em;
+	line-height: 1.3;
+	color: #eee;
+}
+
+.movieListContainer .movie .body .text{
+	width: 90%;
+	margin: 0 5%;
+	height: 130px;
+	margin-top: 25px;
+	overflow: auto;
+}
+
+.movieListContainer .movie .footer{
+	width: 100%;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .footer p{
+	width: 65%;
+	margin-top: 10px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.5em;
+	color: #eee;
+}
+
+.movieListContainer .movie .footer form button[type=submit]{
+	width: 120px;
+	height: 50px;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.movieListContainer .movie .footer form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* CHOOSE PANEL */
+
+.choosePanelContainer .header{
+	width: 100%;
+	height: 150px;
+	margin-top: 200px;
+	position: relative;
+	float: left;
+}
+
+.choosePanelContainer .header img{
+	height: 90px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.choosePanelContainer .header h1{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.1em;
+	color: #fff;
+}
+
+.choosePanelContainer > p{
+	width: 100%;
+	margin-top: 20px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.5em;
+	color: #fff;
+}
+
+.choosePanelContainer a{
+	width: 300px;
+	height: 300px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 30px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	background-color: #eee;
+}
+.choosePanelContainer a:hover{
+	background-color: #fff;
+	cursor: pointer;
+}
+
+.choosePanelContainer a i, .choosePanelContainer a p{
+	width: 100%;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	color: #0091FF;
+}
+
+.choosePanelContainer a i{
+	margin-top: 60px;
+	font-size: 7em;
+}
+
+.choosePanelContainer a p{
+	margin-top: 5px;
+	font-size: 1.5em;
+}
+
+/* ADM PANEL */
+
+.admPanelContainer .header{
+	width: 100%;
+	height: 150px;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .header img{
+	height: 90px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.admPanelContainer .header h1{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.1em;
+	color: #fff;
+}
+
+/* AUTHORIZE CLIENTS */
+
+.admPanelContainer .newClients{
+	width: 90%;
+	height: 150px;
+	margin: 30px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	background-color: #eee;
+}
+
+.admPanelContainer .newClients h2{
+	width: 100%;
+	height: 30px;
+	position: relative;
+	float: left;
+	text-align: center;
+	color: #0091FF;
+}
+
+.admPanelContainer .newClients form{
+	width: 100%;
+	height: 120px;
+	position: relative;
+	float: left;
+	overflow: auto;
+}
+
+.admPanelContainer .newClients form .row{
+	width: 100%;
+	height: 60px;
+	position: relative;
+	float: left;
+	box-sizing: border-box;
+}
+
+.admPanelContainer .newClients form .row p.id{
+	width: 7%;
+	margin-top: 20px;
+	position: relative;
+	float: left;
+	text-align: center;
+}
+
+.admPanelContainer .newClients form .row p.name{
+	width: 70%;
+	margin-top: 20px;
+	position: relative;
+	float: left;
+	text-align: center;
+}
+
+.admPanelContainer .newClients form .row button{
+	width: 15%;
+	height: 40px;
+	margin: 10px 4%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.admPanelContainer .newClients form .row button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* SEARCH ENGINE */
+
+.admPanelContainer .searchClientBox{
+	width: 475px;
+	height: 320px;
+	margin: 20px 0 0 20px;
+	position: relative;
+	float: left;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #E752FF;
+}
+
+.admPanelContainer .searchClientBox form{
+	width: 70%;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .searchClientBox form legend h2{
+	width: 455px;
+	margin: 5px 0;
+	text-decoration: none;
+	text-align: center;
+	color: #eee;
+}
+
+.admPanelContainer .searchClientBox form input[name=id]{
+	width: 23px;
+	height: 25px;
+	margin: 0 5px;
+	text-decoration: none;
+	font-size: .6em;
+}
+
+.admPanelContainer .searchClientBox form input[name=name]{
+	width: 270px;
+	height: 25px;
+	margin: 0 5px 5px 5px;
+	text-decoration: none;
+	font-size: .6em;
+}
+
+.admPanelContainer .searchClientBox form input[name=cpf], .admPanelContainer .searchClientBox form input[name=email], .admPanelContainer .searchClientBox form input[name=address]{
+	width: 311px;
+	height: 25px;
+	margin: 5px 0 5px 5px;
+	text-decoration: none;
+	font-size: .6em;
+}
+
+.admPanelContainer .searchClientBox form input[type=tel]{
+	width: 150px;
+	height: 25px;
+	margin: 5px 0 5px 5px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .6em;
+}
+
+.admPanelContainer .searchClientBox form input[type=checkbox]{
+	margin: 0 5px;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .searchClientBox form p{
+	width: 93%;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: left;
+	text-decoration: none;
+	font-size: .7em;
+	color: blue;
+}
+
+.admPanelContainer .searchClientBox form button[type=submit]{
+	width: 100px;
+	height: 50px;
+	position: absolute;
+	bottom: 0;
+	right: 15px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .7em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.admPanelContainer .searchClientBox form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.admPanelContainer .searchClientBox .buttonContainer{
+	width: 30%;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .searchClientBox .buttonContainer a{
+	text-decoration: none;
+}
+
+.admPanelContainer .searchClientBox .buttonContainer button{
+	width: 98px;
+	height: 65px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 30px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .7em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.admPanelContainer .searchClientBox .buttonContainer a button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.admPanelContainer .pendenciesContainer{
+	width: 90%;
+	height: 500px;
+	margin: 20px 5% 0 5%;
+}
+
+.admPanelContainer .pendenciesContainer h2{
+	width: 100%;
+	height: 39px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.1em;
+	color: #fff;
+}
+
+.admPanelContainer .pendenciesContainer .pendencies{
+	width: 100%;
+	height: 461px;
+	position: relative;
+	float: left;
+	overflow: auto;
+}
+
+.admPanelContainer .pendenciesContainer .pendencies .pendency{
+	width: 100%;
+	height: 115.25px;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .pendenciesContainer .pendencies .pendency .text{
+	width: 70%;
+	height: 115.25px;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .pendenciesContainer .pendencies .pendency .text p{
+	width: 100%;
+	margin: 4px 0;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	color: #eee;
+}
+
+.admPanelContainer .pendenciesContainer .pendencies .pendency button[type=submit]{
+	width: 60px;
+	height: 35px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .7em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.admPanelContainer .pendenciesContainer .pendencies .pendency button[type=submit].reserved{
+	margin-top: 40px;
+	margin-left: 5px;
+	position: relative;
+	float: left;
+}
+.admPanelContainer .pendenciesContainer .pendencies .pendency button[type=submit].rented{
+	display: block;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+.admPanelContainer .pendenciesContainer .pendencies .pendency button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.admPanelContainer a{
+	text-decoration: none;
+}
+
+.admPanelContainer a button{
+	width: 80%;
+	height: 40px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 30px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .7em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+.admPanelContainer a button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* */
+
+}
+
+/* 1366 x 768 */
+
+@media (min-width: 1170px){
+
+/* LOGIN SCREEN */
+
+section.loginScreen img{
+	display: block;
+	margin: 0 auto;
+	margin-top: 200px;
+}
+
+section.loginScreen p{
+	margin: 50px 0 0 10px;
+	text-decoration: none;
+	font-size: 1.3em;
+	line-height: 1.3;
+	color: #eee;
+}
+
+section.loginScreen p a{
+	text-decoration: underline;
+	color: #eee;
+	cursor: pointer;
+}
+
+.loginBox{
+	width: 70%;
+	height: 450px;
+	margin: 0 auto;
+	margin-top: 130px;
+	position: inherit;
+	box-sizing: border-box;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.loginBox form legend{
+	width: 100%;
+	padding: 20px 0 10px 0;
+	position: relative;
+	float: left;
+}
+
+.loginBox form legend h2{
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.7em;
+	color: #E1140B;
+}
+
+.loginBox form input[type=email], .loginBox form input[type=password]{
+	width: 96%;
+	height: 25px;
+	margin: 0 1%;
+	padding-left: 5px;
+	position: relative;
+	float: left;
+	font-size: .9em;
+}
+.loginBox form input[type=email]{
+	margin-top: 70px;
+	margin-bottom: 10px;
+}
+.loginBox form input[type=password]{
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+.loginBox form button[type=submit]{
+	width: 97.5%;
+	height: 25px;
+	margin: 10px 1% 0 1%;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	font-size: .9em;
+	font-weight: bold;
+	color: #fff;
+	background-color: #FF9D00;
+}
+.loginBox form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.loginBox p.wrongPass{
+	width: 90%;
+	margin: 40px 5% 0 5%;
+	text-decoration: none;
+	text-align: left;
+	font-size: 1.15em;
+	color: red;
+}
+
+.loginBox a{
+	position: absolute;
+	right: 5px;
+	bottom: 0;
+	text-decoration: none;
+	text-decoration: underline;
+	font-size: 1em;
+	color: blue;
+	cursor: pointer;
+}
+
+/* REGISTER */
+
+.registerContainer img{
+	display: block;
+	margin: 0 auto;
+	margin-top: 200px;
+	margin-bottom: 50px;
+}
+
+.registerContainer p{
+	margin: 5px 0 5px 10px;
+	text-decoration: none;
+	font-size: 1.3em;
+	line-height: 1.3;
+	color: #eee;
+}
+
+.registerContainer p a{
+	text-decoration: none;
+	text-decoration: underline;
+	color: #eee;
+	cursor: pointer;
+}
+
+.registerContainer form{
+	width: 100%
+}
+
+.registerContainer form legend{
+	width: 100%;
+	margin: 20px 0;
+	text-decoration: none;
+	text-align: center;
+	font-size: 2em;
+	color: #fff;
+}
+
+.registerContainer form input{
+	width: 90%;
+	height: 25px;
+	margin: 10px 5%;
+	padding-left: 2px;
+	position: relative;
+	float: left;
+	font-size: .8em;
+}
+
+.registerContainer form .registerStreet{
+	width: 90%;
+	margin: 0 5%;
+	height: 170px;
+	position: relative;
+	float: left;
+}
+
+.registerContainer form .registerStreet h3{
+	margin-top: 5px;
+	text-decoration: none;
+	font-size: 1.3em;
+	color: #fff;
+}
+
+.registerContainer form .registerStreet p{
+	margin-top: 8px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: 1em;
+	color: #fff;
+}
+
+.registerContainer form .registerStreet input{
+	margin: 0;
+	position: relative;
+	float: left;
+}
+
+.registerContainer form .registerStreet input[name=street]{
+	width: 70%;
+	margin-top: 4px;
+	margin-left: 5px;
+	margin-right: 100px;
+}
+
+.registerContainer form .registerStreet input[name=numAddress]{
+	width: 50px;
+	margin-top: 4px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.registerContainer form .registerStreet input[name=complement]{
+	width: 222px;
+	margin-top: 4px;
+	margin-left: 5px;
+	margin-right: 100px;
+}
+
+.registerContainer form .registerStreet input[name=province], .registerContainer form .registerStreet input[name=city]{
+	width: 222px;
+	margin-top: 4px;
+	margin-left: 5px;
+}
+
+.registerContainer form .registerStreet input[name=state]{
+	width: 45px;
+	margin-top: 4px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.registerContainer form .registerStreet input[name=zipCode]{
+	width: 100px;
+	margin-top: 4px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.registerContainer form button{
+	width: 91%;
+	height: 35px;
+	margin: 10px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.registerContainer form button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.registerContainer .message{
+	width: 70%;
+	height: 450px;
+	margin: 0 auto;
+	margin-top: 130px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.registerContainer .message i{
+	width: 100%;
+	margin-top: 100px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+}
+.registerContainer .message i.fa-check{
+	color: green;
+}
+.registerContainer .message i.fa-times{
+	color: red;
+}
+
+.registerContainer .message p{
+	width: 100%;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.2em;
+	color: #E1140B;
+}
+
+/* FORGOT PASS */
+
+.forgotPassContainer img{
+	display: block;
+	margin: 0 auto;
+	margin-top: 200px;
+	margin-bottom: 50px;
+}
+
+.forgotPassContainer h2{
+	width: 100%;
+	margin-top: 8px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.8em;
+	color: #fff;
+}
+
+.forgotPassContainer p{
+	width: 70%;
+	margin: 0 15%;
+	margin-top: 8px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1em;
+	color: #fff;
+}
+
+.forgotPassContainer p a{
+	text-decoration: none;
+	text-decoration: underline;
+	color: #eee;
+	cursor: pointer;
+}
+
+.forgotPassContainer .forgotPassForm{
+	width: 70%;
+	height: 450px;
+	margin: 130px 15% 0 15%;
+}
+
+.forgotPassContainer .forgotPassForm input{
+	width: 96%;
+	height: 25px;
+	margin: 0 1%;
+	margin-top: 150px;
+	padding-left: 5px;
+	position: relative;
+	float: left;
+	font-size: .9em;
+}
+
+.forgotPassContainer .forgotPassForm button{
+	width: 91%;
+	height: 35px;
+	margin: 60px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+.forgotPassContainer .forgotPassForm button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.forgotPassContainer .forgotPassForm.message{
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.forgotPassContainer .forgotPassForm.message i{
+	width: 100%;
+	margin-top: 100px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+}
+.forgotPassContainer .forgotPassForm.message i.fa-check{
+	color: green;
+}
+.forgotPassContainer .forgotPassForm.message i.fa-times{
+	color: red;
+}
+.forgotPassContainer .forgotPassForm.message i.fa-user-times{
+	color: #0091FF;
+}
+
+.forgotPassContainer .forgotPassForm.message p{
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.2em;
+	color: #E1140B;
+}
+
+/* CLIENT PANEL */
+
+.cPanelContainer .header{
+	width: 100%;
+	height: 150px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .header img{
+	height: 90px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.cPanelContainer .header h1{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.1em;
+	color: #fff;
+}
+
+/* PERSONAL INFO */
+
+.cPanelContainer .personalInfo{
+	width: 100%;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .personalInfo .info h2{
+	margin-top: 10px;
+	margin-left: 5px;
+	text-decoration: none;
+	text-align: left;
+	font-size: 1.8em;
+	color: #fff;
+}
+
+.cPanelContainer .personalInfo .info p{
+	margin: 5px 0 5px 20px;
+	text-decoration: none;
+	text-align: left;
+	font-size: 1.2em;
+	line-height: 1.2;
+	color: #fff;
+}
+
+.cPanelContainer .personalInfo .info button#infoButton{
+	width: 91%;
+	height: 35px;
+	margin: 60px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.cPanelContainer .personalInfo .info button#infoButton:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.cPanelContainer .personalInfo .info button#showGuests{
+	width: 60%;
+	height: 35px;
+	margin: 30px 20% 0 20%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.cPanelContainer .personalInfo .info button#showGuests:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.cPanelContainer .personalInfo .registerContainer form button[type=submit]{
+	margin-top: 0;
+}
+
+.cPanelContainer .personalInfo .message{
+	width: 70%;
+	height: 450px;
+	margin: 0 auto;
+	margin-top: 20px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.cPanelContainer .personalInfo .message i{
+	margin-top: 60px;
+}
+.cPanelContainer .personalInfo .message i.fa-check{
+	color: green;
+}
+.cPanelContainer .personalInfo .message i.fa-times{
+	color: red;
+}
+.cPanelContainer .personalInfo .message i.fa-user-times{
+	color: #0091FF;
+}
+
+.cPanelContainer .personalInfo .message p{
+	text-decoration: none;
+	text-align: center;
+	font-size: .16em;
+	color: #E1140B;
+}
+
+/* SEARCH ENGINE */
+
+.cPanelContainer .searchBox{
+	width: 650px;
+	height: 50px;
+	margin-left: 10px;
+	margin-top: 10px;
+	position: fixed;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #E752FF;
+}
+
+.cPanelContainer .searchBox form{
+	width: 70%;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .searchBox form input[type=text]{
+	width: 350px;
+	height: 25px;
+	margin: 12.5px 0 12.5px 10px;
+	text-decoration: none;
+	font-size: .8em;
+}
+
+.cPanelContainer .searchBox form button[type=submit]{
+	width: 80px;
+	height: 28px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.cPanelContainer .searchBox form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.cPanelContainer .searchBox p{
+	width: 30%;
+	margin-top: 5px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	text-decoration: underline;
+	font-size: .8em;
+	color: blue;
+	cursor: pointer;
+}
+
+.cPanelContainer .advancedSearchBox{
+	width: 650px;
+	height: 300px;
+	margin-left: 10px;
+	margin-top: 10px;
+	position: fixed;
+	z-index: 1;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #E752FF;
+}
+
+.cPanelContainer .advancedSearchBox form{
+	width: 100%;
+	height: 250px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .advancedSearchBox form .generalMovieInfo{
+	width: 70%;
+	height: 230px;
+	margin-top: 20px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .advancedSearchBox form .generalMovieInfo input[name=movieName], .cPanelContainer .advancedSearchBox form .generalMovieInfo input[name=movieActor], .cPanelContainer .advancedSearchBox form .generalMovieInfo input[name=movieDirector]{
+	width: 70%;
+	height: 20px;
+	margin: 5px 15%;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .7em;
+}
+.cPanelContainer .advancedSearchBox form .generalMovieInfo input[name=movieYear]{
+	width: 18%;
+	height: 20px;
+	margin: 5px 41%;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .7em;
+}
+
+.cPanelContainer .advancedSearchBox form .generalMovieInfo select{
+	width: 68%;
+	height: 20px;
+	margin: 30px 16%;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .85em;
+}
+
+.cPanelContainer .advancedSearchBox form .movieGenders{
+	width: 30%;
+	height: 230px;
+	margin-top: 20px;
+	overflow: auto;
+	color: #fff;
+}
+
+.cPanelContainer .advancedSearchBox form .movieGenders p{
+	text-decoration: none;
+	text-align: center;
+	font-size: 1em;
+	font-weight: bold;
+	color: #eee;
+}
+
+.cPanelContainer .advancedSearchBox form .containerButtons{
+	width: 300px;
+	height: 50px;
+	margin: 0 auto;
+}
+
+.cPanelContainer .advancedSearchBox form .containerButtons button[type=submit]{
+	width: 120px;
+	height: 40px;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.cPanelContainer .advancedSearchBox form .containerButtons button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.cPanelContainer .advancedSearchBox form .containerButtons p{
+	margin-left: 20px;
+	margin-top: 12px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	text-decoration: underline;
+	font-size: .8em;
+	color: blue;
+	cursor: pointer;
+}
+
+/* CHECK IN MOVIES */
+
+.cPanelContainer .checkInMovies{
+	width: 100%;
+	height: 600px;
+	margin-top: 90px;
+	overflow: auto;
+}
+
+.cPanelContainer .checkInMovies .pendencia{
+	width: 90%;
+	height: 140px;
+	margin: 0 auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .checkInMovies .pendencia img.icon{
+	height: 30px;
+	margin: 0 5px;
+	margin-top: 60px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .checkInMovies .pendencia img.movieCover{
+	height: 120px;
+	margin: 15px 5px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .checkInMovies .pendencia .text{
+	width: 340px;
+	height: 90px;
+	margin-top: 25px;
+	position: relative;
+	float: left;
+}
+
+.cPanelContainer .checkInMovies .pendencia p{
+	width: 100%;
+	margin: 3px 0;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	color: #fff;
+}
+
+.cPanelContainer .checkInMovies .pendencia button[type=submit]{
+	width: 80px;
+	height: 50px;
+	margin-top: 40px;
+	margin-left: 25px;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.cPanelContainer .checkInMovies .pendencia button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* SHOW GUESTS */
+
+.guestsContainer .header{
+	width: 100%;
+	height: 150px;
+	position: relative;
+	float: left;
+}
+
+.guestsContainer .header img{
+	height: 90px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.guestsContainer .header h1{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.1em;
+	color: #fff;
+}
+
+/* SHOW GUESTS */
+
+.guestsContainer .header{
+	width: 100%;
+	height: 150px;
+	position: relative;
+	float: left;
+}
+
+.guestsContainer .header img{
+	height: 90px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.guestsContainer .header h1{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.9em;
+	color: #fff;
+}
+
+/* GUEST SELECT */
+
+.guestsContainer form .guestBox{
+	width: 60%;
+	height: 360px;
+	margin: 70px 20% 0 20%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	box-sizing: border-box;
+	overflow: auto;
+	background-color: #E752FF;
+}
+
+.guestsContainer form .guestBox .row{
+	width: 100%;
+	height: 70px;
+	margin: 0;
+	position: relative;
+	float: left;
+}
+
+.guestsContainer form .guestBox .row input[type=radio]{
+	height: 65px;
+	margin: 0 10px;
+	position: relative;
+	float: left;
+	background-color: black;
+}
+
+.guestsContainer form .guestBox .row p{
+	width: 80%;
+	margin-top: 25px;
+	margin-left: 20px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: left;
+	color: #fff;
+}
+.guestsContainer form .guestBox .row p.blocked{
+	text-decoration: line-through;
+	color: red;
+}
+
+.guestsContainer form button[type=submit]{
+	width: 30%;
+	height: 35px;
+	margin: 18px 1.6% 0 1.6%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+}
+.guestsContainer button#newGuestForm{
+	width: 80%;
+	height: 35px;
+	margin: 18px 10% 0 10%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	
+}
+.guestsContainer form button[type=submit]:hover, .guestsContainer button#newGuestForm:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* GUEST INFO */
+
+.guestsContainer .info{
+	width: 100%;
+	margin-top: 100px;
+}
+
+.guestsContainer .info h2{
+	margin-top: 10px;
+	margin-left: 5px;
+	text-decoration: none;
+	text-align: left;
+	font-size: 1.8em;
+	color: #fff;
+}
+
+.guestsContainer .info p{
+	margin: 5px 0 5px 20px;
+	text-decoration: none;
+	text-align: left;
+	font-size: 1.2em;
+	line-height: 1.2;
+	color: #fff;
+}
+
+.guestsContainer .info button#infoButton{
+	width: 91%;
+	height: 35px;
+	margin: 60px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.guestsContainer .info button#infoButton:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.guestsContainer .registerContainer form button[type=submit]{
+	margin-top: 0;
+}
+
+/* EDIT GUEST */
+
+.editGuestContainer p{
+	margin: 5px 0 5px 10px;
+	text-decoration: none;
+	font-size: 1.3em;
+	line-height: 1.3;
+	color: #eee;
+}
+
+.editGuestContainer form{
+	width: 100%;
+	margin-top: 50px;
+}
+
+.editGuestContainer form input{
+	width: 90%;
+	height: 25px;
+	margin: 10px 5%;
+	padding-left: 2px;
+	position: relative;
+	float: left;
+	font-size: .8em;
+}
+
+.editGuestContainer form .registerStreet{
+	width: 90%;
+	margin: 0 5%;
+	height: 170px;
+	position: relative;
+	float: left;
+}
+
+.editGuestContainer form .registerStreet h3{
+	margin-top: 5px;
+	text-decoration: none;
+	font-size: 1.3em;
+	color: #fff;
+}
+
+.editGuestContainer form .registerStreet p{
+	margin-top: 8px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: 1em;
+	color: #fff;
+}
+
+.editGuestContainer form .registerStreet input{
+	margin: 0;
+	position: relative;
+	float: left;
+}
+
+.editGuestContainer form .registerStreet input[name=street]{
+	width: 70%;
+	margin-top: 4px;
+	margin-left: 5px;
+	margin-right: 100px;
+}
+
+.editGuestContainer form .registerStreet input[name=numAddress]{
+	width: 50px;
+	margin-top: 4px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.editGuestContainer form .registerStreet input[name=complement]{
+	width: 222px;
+	margin-top: 4px;
+	margin-left: 5px;
+	margin-right: 100px;
+}
+
+.editGuestContainer form .registerStreet input[name=province], .editGuestContainer form .registerStreet input[name=city]{
+	width: 150px;
+	margin-top: 4px;
+	margin-left: 5px;
+}
+
+.editGuestContainer form .registerStreet input[name=state]{
+	width: 45px;
+	margin-top: 4px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.editGuestContainer form .registerStreet input[name=zipCode]{
+	width: 100px;
+	margin-top: 4px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.editGuestContainer form button[type=submit]{
+	width: 91%;
+	height: 35px;
+	margin: 60px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.editGuestContainer form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.editGuestContainer .message{
+	width: 70%;
+	height: 450px;
+	margin: 0 auto;
+	margin-top: 130px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.editGuestContainer .message i{
+	width: 100%;
+	margin-top: 100px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+}
+.editGuestContainer .message i.fa-check{
+	color: green;
+}
+.editGuestContainer .message i.fa-times{
+	color: red;
+}
+
+.editGuestContainer .message p{
+	width: 100%;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.2em;
+	color: #E1140B;
+}
+
+/* REGISTER */
+
+.registerGuestContainer img{
+	display: block;
+	margin: 0 auto;
+	margin-top: 130px;
+	margin-bottom: 50px;
+}
+
+.registerGuestContainer p{
+	margin: 5px 0 5px 10px;
+	text-decoration: none;
+	font-size: 1.2em;
+	line-height: 1.3;
+	color: #eee;
+}
+
+.registerGuestContainer p a{
+	text-decoration: none;
+	text-decoration: underline;
+	color: #eee;
+	cursor: pointer;
+}
+
+.registerGuestContainer form{
+	width: 100%
+}
+
+.registerGuestContainer form legend{
+	width: 100%;
+	margin: 20px 0;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.6em;
+	color: #fff;
+}
+
+.registerGuestContainer form input{
+	width: 90%;
+	height: 20px;
+	margin: 10px 5%;
+	padding-left: 2px;
+	position: relative;
+	float: left;
+	font-size: .7em;
+}
+
+.registerGuestContainer form .registerStreet{
+	width: 90%;
+	margin: 0 5%;
+	height: 170px;
+	position: relative;
+	float: left;
+}
+
+.registerGuestContainer form .registerStreet h3{
+	margin-top: 5px;
+	text-decoration: none;
+	font-size: 1.2em;
+	color: #eee;
+}
+
+.registerGuestContainer form .registerStreet p{
+	margin-top: 8px;
+	margin-right: 5px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .8em;
+	color: #eee;
+}
+
+.registerGuestContainer form .registerStreet input{
+	margin: 0;
+	position: relative;
+	float: left;
+}
+
+.registerGuestContainer form .registerStreet input[name=street]{
+	width: 340px;
+	margin-top: 4px;
+}
+
+.registerGuestContainer form .registerStreet input[name=numAddress]{
+	width: 50px;
+	margin-top: 4px;
+}
+
+.registerGuestContainer form .registerStreet input[name=complement]{
+	width: 130px;
+	margin-top: 4px;
+}
+
+.registerGuestContainer form .registerStreet input[name=province], .registerGuestContainer form .registerStreet input[name=city]{
+	width: 150px;
+	margin-top: 4px;	
+}
+
+.registerGuestContainer form .registerStreet input[name=state]{
+	width: 40px;
+	margin-top: 4px;
+}
+
+.registerGuestContainer form .registerStreet input[name=zipCode]{
+	width: 100px;
+	margin-top: 4px;
+}
+
+.registerGuestContainer form button[type=submit]{
+	width: 91%;
+	height: 35px;
+	margin: 20px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.registerGuestContainer form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.guestsContainer .message{
+	width: 70%;
+	height: 350px;
+	margin: 0 auto;
+	margin-top: 180px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.guestsContainer .message i{
+	width: 100%;
+	margin-top: 40px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+}
+.guestsContainer .message i.fa-check{
+	color: green;
+}
+.guestsContainer .message i.fa-times{
+	color: red;
+}
+
+.guestsContainer .message p{
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.2em;
+	color: #E1140B;
+}
+
+/* MOVIE LIST */
+
+.movieListContainer h2{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.9em;
+	color: #fff;
+}
+
+.movieListContainer .movieList{
+	width: 90%;
+	height: 500px;
+	margin: 50px 5% 0 5%;
+	position: relative;
+	float: left;
+	overflow: auto;
+}
+
+.movieListContainer .movieList .row{
+	width: 90%;
+	height: 125px;
+	margin: 0 auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movieList .row img.icon{
+	height: 30px;
+	margin: 0 5px;
+	margin-top: 47.5px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movieList .row img.movieCover{
+	height: 100px;
+	margin: 12.5px 5px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movieList .row p{
+	width: 310px;
+	margin-top: 50px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	color: #fff;
+}
+
+.movieListContainer .movieList .row button{
+	width: 80px;
+	height: 50px;
+	margin-top: 40px;
+	margin-left: 25px;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.movieListContainer .movieList .row button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.movieListContainer a button{
+	width: 80%;
+	height: 40px;
+	margin: 30px 10% 0 10%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+.movieListContainer a button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* MOVIE INFO */
+
+.movieListContainer .movie{
+	width: 100%;
+}
+
+.movieListContainer .movie .header{
+	width: 100%;
+	height: 250px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .header img.movieCover{
+	height: 200px;
+	margin: 25px 0 25px 10px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .header h2{
+	width: 390px;
+	margin-top: 80px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .header img.icon{
+	width: 80px;
+	margin-top: 75px;
+	margin-left: 10px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .body{
+	height: 350px;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .body p{
+	margin: 5px 0;
+	font-size: 1.2em;
+	line-height: 1.3;
+	color: #eee;
+}
+
+.movieListContainer .movie .body .text{
+	width: 90%;
+	margin: 0 5%;
+	height: 130px;
+	margin-top: 25px;
+	overflow: auto;
+}
+
+.movieListContainer .movie .footer{
+	width: 100%;
+	position: relative;
+	float: left;
+}
+
+.movieListContainer .movie .footer p{
+	width: 65%;
+	margin-top: 10px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.5em;
+	color: #eee;
+}
+
+.movieListContainer .movie .footer form button[type=submit]{
+	width: 120px;
+	height: 50px;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.movieListContainer .movie .footer form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* CHOOSE PANEL */
+
+.choosePanelContainer .header{
+	width: 100%;
+	height: 150px;
+	margin-top: 200px;
+	position: relative;
+	float: left;
+}
+
+.choosePanelContainer .header img{
+	height: 90px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.choosePanelContainer .header h1{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.1em;
+	color: #fff;
+}
+
+.choosePanelContainer > p{
+	width: 100%;
+	margin-top: 20px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.5em;
+	color: #fff;
+}
+
+.choosePanelContainer a{
+	width: 300px;
+	height: 300px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 30px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	background-color: #eee;
+}
+.choosePanelContainer a:hover{
+	background-color: #fff;
+	cursor: pointer;
+}
+
+.choosePanelContainer a i, .choosePanelContainer a p{
+	width: 100%;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	color: #0091FF;
+}
+
+.choosePanelContainer a i{
+	margin-top: 60px;
+	font-size: 7em;
+}
+
+.choosePanelContainer a p{
+	margin-top: 5px;
+	font-size: 1.5em;
+}
+
+/* ADM PANEL */
+
+.admPanelContainer .header{
+	width: 100%;
+	height: 150px;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .header img{
+	height: 90px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.admPanelContainer .header h1{
+	margin-top: 10px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.1em;
+	color: #fff;
+}
+
+/* AUTHORIZE CLIENTS */
+
+.admPanelContainer .newClients{
+	width: 90%;
+	height: 150px;
+	margin: 30px 5% 0 5%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	background-color: #eee;
+}
+
+.admPanelContainer .newClients h2{
+	width: 100%;
+	height: 30px;
+	position: relative;
+	float: left;
+	text-align: center;
+	color: #0091FF;
+}
+
+.admPanelContainer .newClients form{
+	width: 100%;
+	height: 120px;
+	position: relative;
+	float: left;
+	overflow: auto;
+}
+
+.admPanelContainer .newClients form .row{
+	width: 100%;
+	height: 60px;
+	position: relative;
+	float: left;
+	box-sizing: border-box;
+}
+
+.admPanelContainer .newClients form .row p.id{
+	width: 7%;
+	margin-top: 20px;
+	position: relative;
+	float: left;
+	text-align: center;
+}
+
+.admPanelContainer .newClients form .row p.name{
+	width: 70%;
+	margin-top: 20px;
+	position: relative;
+	float: left;
+	text-align: center;
+}
+
+.admPanelContainer .newClients form .row button{
+	width: 15%;
+	height: 40px;
+	margin: 10px 4%;
+	position: relative;
+	float: left;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.admPanelContainer .newClients form .row button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* SEARCH ENGINE */
+
+.admPanelContainer .searchClientBox{
+	width: 650px;
+	height: 320px;
+	margin: 20px 0 0 20px;
+	position: relative;
+	float: left;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #E752FF;
+}
+
+.admPanelContainer .searchClientBox form{
+	width: 70%;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .searchClientBox form legend h2{
+	width: 455px;
+	margin: 5px 0;
+	text-decoration: none;
+	text-align: center;
+	color: #eee;
+}
+
+.admPanelContainer .searchClientBox form input[name=id]{
+	width: 35px;
+	height: 25px;
+	margin: 0 5px;
+	text-decoration: none;
+	font-size: .8em;
+}
+
+.admPanelContainer .searchClientBox form input[name=name]{
+	width: 381px;
+	height: 25px;
+	margin: 0 5px 5px 5px;
+	text-decoration: none;
+	font-size: .8em;
+}
+
+.admPanelContainer .searchClientBox form input[name=cpf], .admPanelContainer .searchClientBox form input[name=email], .admPanelContainer .searchClientBox form input[name=address]{
+	width: 434px;
+	height: 25px;
+	margin: 5px 0 5px 5px;
+	text-decoration: none;
+	font-size: .8em;
+}
+
+.admPanelContainer .searchClientBox form input[type=tel]{
+	width: 213px;
+	height: 25px;
+	margin: 5px 0 5px 5px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	font-size: .8em;
+}
+
+.admPanelContainer .searchClientBox form input[type=checkbox]{
+	margin: 0 5px;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .searchClientBox form p{
+	width: 94%;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: left;
+	text-decoration: none;
+	font-size: 1em;
+	color: blue;
+}
+
+.admPanelContainer .searchClientBox form button[type=submit]{
+	width: 100px;
+	height: 50px;
+	position: absolute;
+	bottom: 5px;
+	right: 25px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.admPanelContainer .searchClientBox form button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.admPanelContainer .searchClientBox .buttonContainer{
+	width: 30%;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .searchClientBox .buttonContainer a{
+	text-decoration: none;
+}
+
+.admPanelContainer .searchClientBox .buttonContainer button{
+	width: 130px;
+	height: 65px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 30px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.admPanelContainer .searchClientBox .buttonContainer a button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.admPanelContainer .pendenciesContainer{
+	width: 90%;
+	height: 500px;
+	margin: 20px 5% 0 5%;
+}
+
+.admPanelContainer .pendenciesContainer h2{
+	width: 100%;
+	height: 39px;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	font-size: 2.1em;
+	color: #fff;
+}
+
+.admPanelContainer .pendenciesContainer .pendencies{
+	width: 100%;
+	height: 461px;
+	position: relative;
+	float: left;
+	overflow: auto;
+}
+
+.admPanelContainer .pendenciesContainer .pendencies .pendency{
+	width: 100%;
+	height: 115.25px;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .pendenciesContainer .pendencies .pendency .text{
+	width: 70%;
+	height: 115.25px;
+	position: relative;
+	float: left;
+}
+
+.admPanelContainer .pendenciesContainer .pendencies .pendency .text p{
+	width: 100%;
+	margin: 4px 0;
+	position: relative;
+	float: left;
+	text-decoration: none;
+	text-align: center;
+	color: #eee;
+}
+
+.admPanelContainer .pendenciesContainer .pendencies .pendency button[type=submit]{
+	width: 80px;
+	height: 35px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+.admPanelContainer .pendenciesContainer .pendencies .pendency button[type=submit].reserved{
+	margin-top: 40px;
+	margin-left: 7px;
+	position: relative;
+	float: left;
+}
+.admPanelContainer .pendenciesContainer .pendencies .pendency button[type=submit].rented{
+	display: block;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+.admPanelContainer .pendenciesContainer .pendencies .pendency button[type=submit]:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+.admPanelContainer a{
+	text-decoration: none;
+}
+
+.admPanelContainer a button{
+	width: 80%;
+	height: 40px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 30px;
+	border: none;
+	border-radius: 5px;
+	background-color: #FF9D00;
+	text-decoration: none;
+	font-size: .8em;
+	font-weight: bold;
+	color: #fff;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+.admPanelContainer a button:hover{
+	color: #eee;
+	cursor: pointer;
+}
+
+/* */
+
+}

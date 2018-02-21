@@ -1,0 +1,316 @@
+﻿using Microsoft.EntityFrameworkCore;
+using MovieCheck.Clientes.Infra;
+using MovieCheck.Clientes.Infra.Factory;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MovieCheck.Clientes.Models
+{
+    public abstract class Usuario
+    {
+        #region Atributos
+        private int id;
+        private string email;
+        private string senha;
+        private string nome;
+        private Endereco endereco;
+        private IList<UsuarioTelefone> telefones;
+        private int status; //0 = A AUTORIZAR - 1 = DESBLOQUEADO - 2 - BLOQUEADO
+        #endregion
+
+        #region Propriedades
+        public int Id {
+            get { return this.id; }
+            set { this.id = value; }
+        }
+        public string Email
+        {
+            get { return this.email; }
+            set { this.email = value; }
+        }
+        public string Senha
+        {
+            get { return this.senha; }
+            set { this.senha = UsuarioFactory.HashPassword(value); }
+        }
+        public string Nome
+        {
+            get { return this.nome; }
+            set { this.nome = value; }
+        }
+        public Endereco Endereco
+        {
+            get { return this.endereco; }
+            set {this.endereco = value; }
+        }
+        public IList<UsuarioTelefone> Telefones
+        {
+            get { return this.telefones; }
+            set { this.telefones = value; }
+        }
+        public int Status
+        {
+            get { return this.status; }
+            set { this.status = value; }
+        }
+        #endregion
+
+        #region Metodos
+        public override bool Equals(object usuario)
+        {
+            Usuario u = (Usuario)usuario;
+            return u.Email == this.Email && u.Nome == this.Nome;
+        }
+
+        //CHANGE STATUS: THE FIRST IS FOR LOCK/UNLOCK AND THE SECOND IS FOR ALLOW
+        public void ChangeStatus()
+        {
+            if (this.Status == 1)
+            {
+                this.Status = 2;
+            }
+            else
+            {
+                this.Status = 1;
+            }
+        }
+
+        public void ChangeStatus(string operation)
+        {
+            if (this.status == 0)
+            {
+                switch (operation)
+                {
+                    case "allow":
+                        this.status = 1;
+                        break;
+                    default:
+                        this.status = 2;
+                        break;
+                }
+            }
+            else
+            {
+                this.ChangeStatus();
+            }
+        }
+
+        public void CadastrarSenha(string senha)
+        {
+            this.Senha = UsuarioFactory.HashPassword(senha);
+        }
+
+        public string VerificarSenha(string senha)
+        {
+            return UsuarioFactory.HashPassword(senha);
+        }
+
+        public void ApagarSenha()
+        {
+            this.senha = "";
+        }
+
+        public bool VerificaSeTrocouEmail(string email)
+        {
+            if (this.Email != email)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void AdicionarTelefone(Telefone telefone)
+        {
+            if (telefone.Id < 0)
+            {
+                this.Telefones.Add(new UsuarioTelefone() { Telefone = telefone });
+            }
+            else
+            {
+                this.Telefones.Add(new UsuarioTelefone() { TelefoneId = telefone.Id, Telefone = telefone });
+            }
+        }
+
+        public void EditarTelefoneFixo(Telefone fixo)
+        {
+            foreach (var telefone in this.Telefones)
+            {
+                if (telefone.Telefone.Fixo())
+                {
+                    this.Telefones.Remove(telefone);
+                }
+            }
+
+            AdicionarTelefone(fixo);
+        }
+
+        public void EditarTelefoneCelular(Telefone celular)
+        {
+            foreach (var telefone in this.Telefones)
+            {
+                if (telefone.Telefone.Celular())
+                {
+                    this.Telefones.Remove(telefone);
+                }
+            }
+
+            AdicionarTelefone(celular);
+        }
+
+        public void RemoverTelefoneFixo()
+        {
+            foreach (var telefone in this.Telefones)
+            {
+                if (telefone.Telefone.Fixo())
+                {
+                    this.Telefones.Remove(telefone);
+                }
+            }
+        }
+
+        public void RemoverTelefoneCelular()
+        {
+            foreach (var telefone in this.Telefones)
+            {
+                if (telefone.Telefone.Celular())
+                {
+                    this.Telefones.Remove(telefone);
+                }
+            }
+        }
+
+        public Telefone ObterTelefoneFixo()
+        {
+            Telefone fixo = null;
+            
+            foreach (var telefone in this.Telefones)
+            {
+                if (telefone.Telefone.Fixo())
+                {
+                    fixo = telefone.Telefone;
+                }
+            }
+
+            return fixo;
+        }
+
+        public Telefone ObterTelefoneCelular()
+        {
+            Telefone celular = null;
+            
+            foreach (var telefone in this.Telefones)
+            {
+                if (telefone.Telefone.Celular())
+                {
+                    celular = telefone.Telefone;
+                }
+            }
+
+            return celular;
+        }
+
+        public bool ExisteTelefoneFixo()
+        {
+            Telefone fixo = null;
+
+            foreach (var telefone in this.Telefones)
+            {
+                if (telefone.Telefone.Fixo())
+                {
+                    fixo = telefone.Telefone;
+                }
+            }
+
+            if (!(fixo is null))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool ExisteTelefoneCelular()
+        {
+            Telefone celular = null;
+
+            foreach (var telefone in this.Telefones)
+            {
+                if (telefone.Telefone.Celular())
+                {
+                    celular = telefone.Telefone;
+                }
+            }
+
+            if (!(celular is null))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void AdicionarEndereco(Endereco endereco)
+        {
+            this.Endereco = new Endereco()
+            {
+                Logradouro = endereco.Logradouro,
+                Numero = endereco.Numero,
+                Complemento = endereco.Complemento,
+                Bairro = endereco.Bairro,
+                Cidade = endereco.Cidade,
+                Estado = endereco.Estado,
+                Cep = endereco.Cep
+            };
+        }
+
+        public void AlterarEndereco(Endereco endereco)
+        {
+            this.Endereco.Logradouro = endereco.Logradouro;
+            this.Endereco.Numero = endereco.Numero;
+            this.Endereco.Complemento = endereco.Complemento;
+            this.Endereco.Bairro = endereco.Bairro;
+            this.Endereco.Cidade = endereco.Cidade;
+            this.Endereco.Estado = endereco.Estado;
+            this.Endereco.Cep = endereco.Cep;
+        }
+
+        public void RemoverEndereco()
+        {
+            this.Endereco = null;
+        }
+
+        public virtual void AtualizarUsuario(Usuario novo)
+        {
+            if(this.Id == novo.Id)
+            {
+                this.Email = novo.Email;
+                this.Nome = novo.Nome;
+                if (!(novo.Senha is null) && novo.Senha != string.Empty)
+                {
+                    this.Senha = novo.Senha;
+                }
+
+                if (!(novo.Endereco is null))
+                {
+                    this.AlterarEndereco(novo.Endereco);
+                }
+                else
+                {
+                    this.RemoverEndereco();
+                }
+            }
+            else
+            {
+                throw new NewUserFailedException("Usuários diferentes.");
+            }
+        }
+        #endregion
+    }
+}

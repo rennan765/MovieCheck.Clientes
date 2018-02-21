@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Novo Usuário";
+}
+
+<section class="mainContainer registerContainer">
+    <img src="~/images/logo.png" alt="Movie Check">
+    <p>Preencha os campos ao lado e clique em "Enviar cadastro" para prosseguir.</p>
+    <p>O cadastro não poderá ser efetuado caso algum campo obrigatório fique em branco.</p>
+    <p>Por favor, preencha ao menos um telefone para facilitar o contato.</p>
+    <p>O seu cadastro será enviado ao administrador do sistema. Aguarde o contato ou aprovação do mesmo para utilizar o Movie Check.</p>
+    <p><a asp-controller="Home" asp-action="Index">Clique aqui</a> para retornar à página inicial.</p> 
+</section>
+<section class="mainContainer registerContainer">
+
+    <form asp-controller="User" asp-action="Register" method="POST">
+        <legend><h2>Preencha as informações:</h2></legend>
+        <label for="name">
+            <input type="text" name="name" placeholder="Insira o seu nome completo - obrigatório" required>
+        </label>
+        <label for="email">
+            <input type="email" name="email" placeholder="Insira o seu e-mail - obrigatório" required>
+        </label>
+        <label for="cpf">
+            <input type="text" name="cpf" pattern="[0-9]+$" maxlength="11" placeholder="Insira o seu CPF (somente números) - obrigatório" required>
+        </label>
+        <div class="registerStreet">
+            <h3>Endereço - obrigatório:</h3>
+            <label for="street">
+                <p>Rua: </p><input type="text" name="street" placeholder="Ex.: Avenida Rio Branco" required>
+            </label>
+            <br><br>
+            <label for="numAddress">
+                <p>Número: </p><input type="text" name="numAddress" pattern="[0-9]+$" placeholder="Ex.: 156" required>
+            </label>
+            <label for="complement">
+                <p>Complemento: </p><input type="text" name="complement" placeholder="Ex.: Loja 328, estande 8" required>
+            </label>
+            <br><br>
+            <label for="province">
+                <p>Bairro: </p><input type="text" name="province" placeholder="Ex.: Centro" required>
+            </label>
+            <label for="city">
+                <p>Cidade: </p><input type="text" name="city" placeholder="Ex.: Rio de Janeiro" required>
+            </label>
+            <br><br>
+            <label for="state">
+                <p>Sigla do Estado: </p><input type="text" name="state" maxlength="2" placeholder="Ex.: RJ" required>
+            </label>
+            <label for="zipCode">
+                <p>CEP (somente números): </p><input type="text" name="zipCode" pattern="[0-9]+$" maxlength="8" placeholder="Ex.: 20040901" required>
+            </label>
+        </div>
+        <label for="phoneHome">
+            <input type="tel" name="phoneHome" pattern="[0-9]+$" maxlength="10" placeholder="Tel. fixo - 2125555555">
+        </label>
+        <label for="phoneCel">
+            <input type="tel" name="phoneCel" pattern="[0-9]+$" maxlength="11" placeholder="Tel. celular - 21995555555">
+        </label>
+        <label for="pass">
+            <input type="password" name="pass" minlength="8" placeholder="Insira a sua senha (mín. de 8 dígitos) - obrigatório" required>
+        </label>
+        <label for="repass">
+            <input type="password" name="repass" minlength="8" placeholder="Insira novamente a sua senha - obrigatório" required>
+        </label>
+        <button type="submit">Enviar cadastro</button>
+    </form>
+
+    <!--
+    <div class="message">
+        <i class="fa fa-check"></i>
+        <p>Cadastro enviado com sucesso.</p>
+        <p>Aguarde o contato do administrador do sistema.</p>
+    </div>
+
+    <div class="message">
+        <i class="fa fa-times"></i>
+        <p>Falha ao enviar o cadastro.</p>
+    </div>
+    -->
+
+</section>
+
+<aside class="developedBy">Desenvolvido por: <a href="http://www.devloopers.com.br" target="__blank"><img src="~/images/dvl_logo.png" alt="DevLoopers"></a></aside>

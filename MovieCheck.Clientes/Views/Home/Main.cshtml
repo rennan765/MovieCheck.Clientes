@@ -1,0 +1,249 @@
+﻿@{
+    ViewData["Title"] = "Página Principal";
+    bool sucesso = !(ViewBag.Sucesso is null);
+    string erro = ViewBag.Error;
+}
+
+<section class="mainContainer cPanelContainer">
+    <div class="header">
+        <img src="~/images/logo.png" alt="Movie Check">
+        <h1>Seja bem vindo!</h1>
+    </div>
+
+    <div class="personalInfo">
+       <div class="info"> 
+            <h2>Informações pessoais:</h2>
+            <p>Nome: @Model.Nome</p>
+            @{
+                if (Model.Tipo != "Dependente")
+                {
+                <p>CPF: @Model.Cpf.ToString()</p>
+                }
+            }
+            <p>Rua: @Model.Endereco.Logradouro</p>
+            <p>Número: @Model.Endereco.Numero.ToString()</p>
+            <p>Complemento: @Model.Endereco.Complemento</p>
+            <p>Bairro: @Model.Endereco.Bairro</p>
+            <p>Cidade: @Model.Endereco.Cidade</p>
+            <p>Estado: @Model.Endereco.Estado</p>
+            <p>CEP: @Model.Endereco.Cep</p>
+            <p>Tel. Fixo: @Model.TelefoneFixo </p>
+            <p>Tel. Celular: @Model.TelefoneCelular</p>
+            <button id="infoButton">Alterar informações cadastrais</button>@*href="@Url.Action("Guests", "User")"*@
+            <a asp-controller="User" asp-action="Guests"><button id="showGuests">Visualizar dependentes</button></a>
+        </div>
+        <div class="registerContainer hidden">
+            <form asp-controller="Home" asp-action="AtualizarUsuario" method="POST">
+                <label for="id">
+                    <input type="hidden" name="id" value="1">
+                </label>
+                <label for="name">
+                    <input type="text" name="name" placeholder="Insira o seu nome completo - obrigatório" value="@Model.Nome" required>
+                </label>
+                <label for="email">
+                    <input type="email" name="email" placeholder="Insira o seu e-mail - obrigatório" value="@Model.Email" required>
+                </label>
+                <div class="registerStreet">
+                    <h3>Endereço - obrigatório:</h3>
+                    <label for="street">
+                        <p>Rua: </p><input type="text" name="street" placeholder="Ex.: Avenida Rio Branco" value="@Model.Endereco.Logradouro" required>
+                    </label>
+                    <br><br>
+                    <label for="numAddress">
+                        <p>Número: </p><input type="text" name="numAddress" pattern="[0-9]+$" placeholder="Ex.: 156" value="@Model.Endereco.Numero.ToString()" required>
+                    </label>
+                    <label for="complement">
+                        <p>Complemento: </p><input type="text" name="complement" placeholder="Ex.: Loja 328, estande 8" value="@Model.Endereco.Complemento" required>
+                    </label>
+                    <br><br>
+                    <label for="province">
+                        <p>Bairro: </p><input type="text" name="province" placeholder="Ex.: Centro" value="@Model.Endereco.Bairro" required>
+                    </label>
+                    <label for="city">
+                        <p>Cidade: </p><input type="text" name="city" placeholder="Ex.: Rio de Janeiro" value="@Model.Endereco.Cidade" required>
+                    </label>
+                    <br><br>
+                    <label for="state">
+                        <p>Sigla do Estado: </p><input type="text" name="state" maxlength="2" placeholder="Ex.: RJ" value="@Model.Endereco.Estado" required>
+                    </label>
+                    <label for="zipCode">
+                        <p>CEP (somente números): </p><input type="text" name="zipCode" pattern="[0-9]+$" maxlength="8" placeholder="Ex.: 20040901" value="@Model.Endereco.Cep" required>
+                    </label>
+                </div>
+                <label for="phoneHome">
+                    <input type="tel" name="phoneHome" pattern="[0-9]+$" maxlength="10" placeholder="Tel. fixo - 2125555555" value="@Model.TelefoneFixo">
+                </label>
+                <label for="phoneCel">
+                    <input type="tel" name="phoneCel" pattern="[0-9]+$" maxlength="11" placeholder="Tel. celular - 21995555555" value="@Model.TelefoneCelular">
+                </label>
+                <label for="pass">
+                    <input type="password" name="pass" minlength="8" placeholder="Insira a sua senha, caso deseje alterá-la (mín. de 8 dígitos)" value="">
+                </label>
+                <label for="repass">
+                    <input type="password" name="repass" minlength="8" placeholder="Insira novamente a sua senha">
+                </label>
+                <button type="submit">Editar cadastro</button>
+            </form>
+        </div>
+
+        @if (sucesso)
+        {
+            <div class="message">
+                <i class="fa fa-check"></i>
+                <p>Atualização efetuada com sucesso.</p>
+                <p><span class="hideMainMessages">Clique aqui</span> para esconder esta caixa de diálogo.</p>
+            </div>
+        }
+
+        @{
+            if (!(erro is null))
+            {
+                <div class="message">
+                    <i class="fa fa-times"></i>
+                    <p>@erro</p>
+                    <p><span class="hideMainMessages">Clique aqui</span> para esconder esta caixa de diálogo.</p>
+                </div>
+            }
+        }
+
+    </div>
+</section>
+
+<section class="mainContainer cPanelContainer">
+    <div class="searchBox">
+        <form action="" method="GET">
+            <input type="text" name="movieInfo" placeholder="Qual filme deseja procurar?" required>
+            <button type="submit">Pesquisar</button>
+        </form>
+        <p id="pSearchBox">Pesquisa avançada</p>
+        <a href="#"><p>Ver estoque completo</p></a>
+    </div>
+
+    <div class="advancedSearchBox hidden">
+        <form action="" method="GET">
+            <div class="generalMovieInfo">
+                <input type="text" name="movieName" placeholder="Título do filme">
+                <input type="text" name="movieYear" minlength="4" maxlength="4" pattern="[0-9]+$" placeholder="Ano (Ex.: 1998)">
+                <input type="text" name="movieActor" placeholder="Digite o nome de um dos principais atores do filme desejado">
+                <input type="text" name="movieDirector" placeholder="Digite o nome do diretor do filme desejado">
+                <select name="movieClass">
+                    <option value="null">- Selecione uma opção -</option>
+                    <option value="l">Livre</option>
+                    <option value="10">Não recomendado para menores de 10 anos</option>
+                    <option value="12">Não recomendado para menores de 12 anos</option>
+                    <option value="14">Não recomendado para menores de 14 anos</option>
+                    <option value="16">Não recomendado para menores de 16 anos</option>
+                    <option value="18">Não recomendado para menores de 18 anos</option>
+                </select>
+            </div>
+            <div class="movieGenders">
+                <p>Gênero do filme</p>
+                <input type="checkbox" name="movieGender" value="acao"> Ação <br>
+                <input type="checkbox" name="movieGender" value="animacao"> Animação <br>
+                <input type="checkbox" name="movieGender" value="aventura"> Aventura <br>
+                <input type="checkbox" name="movieGender" value="biografia"> Biografias <br>
+                <input type="checkbox" name="movieGender" value="comedia"> Comédia <br>
+                <input type="checkbox" name="movieGender" value="fantasia"> Fantasia <br>
+                <input type="checkbox" name="movieGender" value="faroeste"> Faroeste <br>
+                <input type="checkbox" name="movieGender" value="ficcaoCientifica"> Ficção Científica <br>
+                <input type="checkbox" name="movieGender" value="ficcaoHistorica"> Ficção Histórica <br>
+                <input type="checkbox" name="movieGender" value="guerra"> Guerra <br>
+                <input type="checkbox" name="movieGender" value="infantil"> Infantil <br>
+                <input type="checkbox" name="movieGender" value="misterio"> Mistério <br>
+                <input type="checkbox" name="movieGender" value="musicais"> Musicais <br>
+                <input type="checkbox" name="movieGender" value="policial"> Policial <br>
+                <input type="checkbox" name="movieGender" value="romance"> Romance <br>
+                <input type="checkbox" name="movieGender" value="suspense"> Suspense <br>
+                <input type="checkbox" name="movieGender" value="terror"> Terror <br>
+            </div>
+            <div class="containerButtons">
+                <button type="submit">Pesquisa avançada</button>
+                <p id="pAdvancedSearchBox">Ocultar pesquisa avançada</p>
+            </div>
+        </form>
+    </div>
+
+    <div class="checkInMovies">
+        <form action="" method="POST">
+            <div class="pendencia">
+                <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
+                <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
+                <div class="text">
+                    <p>Batman vs. Superman - A Origem da Justiça</p>
+                    <p>Alugado</p>
+                    <p>26/01/2017</p>
+                </div>
+            </div>
+            <div class="pendencia">
+                <img class="icon" src="~/images/dvd.png" alt="DVD">
+                <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
+                <div class="text">
+                    <p>Interestelar</p>
+                    <p>Reservado</p>
+                    <p>31/01/2017</p>
+                </div>
+                <button type="submit" formaction="">Cancelar reserva</button>
+            </div>
+            <div class="pendencia">
+                <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
+                <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
+                <div class="text">
+                    <p>Batman vs. Superman - A Origem da Justiça</p>
+                    <p>Alugado</p>
+                    <p>26/01/2017</p>
+                </div>
+            </div>
+            <div class="pendencia">
+                <img class="icon" src="~/images/dvd.png" alt="DVD">
+                <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
+                <div class="text">
+                    <p>Interestelar</p>
+                    <p>Reservado</p>
+                    <p>31/01/2017</p>
+                </div>
+                <button type="submit" formaction="">Cancelar reserva</button>
+            </div>
+            <div class="pendencia">
+                <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
+                <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
+                <div class="text">
+                    <p>Batman vs. Superman - A Origem da Justiça</p>
+                    <p>Alugado</p>
+                    <p>26/01/2017</p>
+                </div>
+            </div>
+            <div class="pendencia">
+                <img class="icon" src="~/images/dvd.png" alt="DVD">
+                <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
+                <div class="text">
+                    <p>Interestelar</p>
+                    <p>Reservado</p>
+                    <p>31/01/2017</p>
+                </div>
+                <button type="submit" formaction="">Cancelar reserva</button>
+            </div>
+            <div class="pendencia">
+                <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
+                <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
+                <div class="text">
+                    <p>Batman vs. Superman - A Origem da Justiça</p>
+                    <p>Alugado</p>
+                    <p>26/01/2017</p>
+                </div>
+            </div>
+            <div class="pendencia">
+                <img class="icon" src="~/images/dvd.png" alt="DVD">
+                <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
+                <div class="text">
+                    <p>Interestelar</p>
+                    <p>Reservado</p>
+                    <p>31/01/2017</p>
+                </div>
+                <button type="submit" formaction="">Cancelar reserva</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="~/js/jquery-1.7.2.min.js"></script>
+<script src="~/js/script.js"></script>
