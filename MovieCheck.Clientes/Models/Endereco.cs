@@ -52,5 +52,25 @@ namespace MovieCheck.Clientes.Models
             set { this.cep = value; }
         }
         #endregion
+
+        #region Construtores
+        public Endereco()
+        {
+
+        }
+        public Endereco(string parametro)
+        {
+            if (parametro == "semEndereco")
+            {
+                this.logradouro = "";
+                this.numero = 0;
+                this.complemento = "";
+                this.bairro = "";
+                this.cidade = "";
+                this.estado = "";
+                this.cep = "";
+            }
+        }
+        #endregion
     }
 }

@@ -33,18 +33,24 @@ namespace MovieCheck.Clientes.Infra.Factory
             int tipoTelefone;
             string ddd;
             string numero;
-
-            if (tipo == "celular")
+            try
             {
-                tipoTelefone = 1;
-                ddd = numeroCompleto.Substring(0, 2);
-                numero = numeroCompleto.Substring(2, 9);
+                if (tipo == "celular")
+                {
+                    tipoTelefone = 1;
+                    ddd = numeroCompleto.Substring(0, 2);
+                    numero = numeroCompleto.Substring(2, 9);
+                }
+                else
+                {
+                    tipoTelefone = 0;
+                    ddd = numeroCompleto.Substring(0, 2);
+                    numero = numeroCompleto.Substring(2, 8);
+                }
             }
-            else
+            catch (Exception e)
             {
-                tipoTelefone = 0;
-                ddd = numeroCompleto.Substring(0, 2);
-                numero = numeroCompleto.Substring(2, 8);
+                throw new NewUserFailedException("Formato de telefone inválido. Favor cadastrat telefone no formato 2125555555 para fixo e 21999999999 para celular.");
             }
 
             return ValidaTelefone(tipoTelefone, ddd, numero);

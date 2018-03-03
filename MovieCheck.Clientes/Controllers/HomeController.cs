@@ -106,14 +106,14 @@ namespace MovieCheck.Clientes.Controllers
                 var pass = formCollection["pass"];
                 var repass = formCollection["repass"];
 
-                if (pass != string.Empty || repass != string.Empty)
+                if (pass != string.Empty && repass != string.Empty)
                 {
                     UsuarioFactory.CompararSenha(pass, repass);
-                    novo.CadastrarSenha(pass);
+                    novo.Senha = pass;
                 }
                 else
                 {
-                    novo.ApagarSenha();
+                    novo.Senha = "";
                 }
 
                 //ENDERECO
@@ -127,7 +127,7 @@ namespace MovieCheck.Clientes.Controllers
                         Numero = Convert.ToInt32(formCollection["numAddress"]),
                         Complemento = formCollection["complement"],
                         Bairro = formCollection["province"],
-                        Cidade = formCollection["zipCode"],
+                        Cidade = formCollection["city"],
                         Estado = formCollection["state"],
                         Cep = formCollection["zipCode"]
                     };
@@ -138,7 +138,23 @@ namespace MovieCheck.Clientes.Controllers
                 if (formCollection["phoneHome"] != string.Empty)
                 {
                     var fixo = TelefoneFactory.ValidaTelefone("fixo", formCollection["phoneHome"]);
-                    usuario.EditarTelefoneFixo(fixo);
+
+                    if (_dataService.ExisteTelefone(fixo))
+                    {
+                        fixo = _dataService.ObterTelefone(fixo);
+                    }
+
+                    if (usuario.ObterTelefoneFixo() is null)
+                    {
+                        usuario.AdicionarTelefone(fixo);
+                    }
+                    else
+                    {
+                        if (!usuario.ObterTelefoneFixo().Equals(fixo))
+                        {
+                            usuario.EditarTelefoneFixo(fixo);
+                        }
+                    }
                 }
                 else
                 {
@@ -148,7 +164,23 @@ namespace MovieCheck.Clientes.Controllers
                 if (formCollection["phoneCel"] != string.Empty)
                 {
                     var celular = TelefoneFactory.ValidaTelefone("celular", formCollection["phoneCel"]);
-                    usuario.EditarTelefoneCelular(celular);
+
+                    if (_dataService.ExisteTelefone(celular))
+                    {
+                        celular = _dataService.ObterTelefone(celular);
+                    }
+
+                    if (usuario.ObterTelefoneCelular() is null)
+                    {
+                        usuario.AdicionarTelefone(celular);
+                    }
+                    else
+                    {
+                        if (!usuario.ObterTelefoneCelular().Equals(celular))
+                        {
+                            usuario.EditarTelefoneCelular(celular);
+                        }
+                    }
                 }
                 else
                 {

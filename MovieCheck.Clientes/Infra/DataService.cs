@@ -199,7 +199,7 @@ namespace MovieCheck.Clientes.Infra
         #region Telefone
         public bool ExisteTelefone(Telefone telefone)
         {
-            if (_contexto.Telefone.Any(t => t.Equals(telefone)))
+            if (_contexto.Telefone.Any(t => t.Tipo == telefone.Tipo && t.Ddd == telefone.Ddd && t.Numero == telefone.Numero))
             {
                 return true;
             }
@@ -224,7 +224,7 @@ namespace MovieCheck.Clientes.Infra
 
         public Telefone ObterTelefone(Telefone telefone)
         {
-            return _contexto.Telefone.Where(t => t.Equals(telefone)).FirstOrDefault();
+            return _contexto.Telefone.Where(t => t.Tipo == telefone.Tipo && t.Ddd == telefone.Ddd && t.Numero == telefone.Numero ).FirstOrDefault();
         }
         #endregion
     }

@@ -23,8 +23,13 @@ namespace MovieCheck.Clientes.Infra.Factory
             {
                 hashValue.AppendFormat(CultureInfo.InvariantCulture, "{0:X2}", b);
             }
-
+            
             return hashValue.ToString();
+        }
+
+        public static string SenhaBranco()
+        {
+            return HashPassword(string.Empty);
         }
 
         private static bool IsEmail(string email)

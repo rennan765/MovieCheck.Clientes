@@ -5,12 +5,15 @@ namespace MovieCheck.Clientes.Models
 {
     public class Telefone
     {
+        #region Atributos
         private int id;
         private int tipo;   //0 = FIXO - 1 = CELULAR
         private int ddd;
         private string numero;
         private IList<UsuarioTelefone> usuarios;
+        #endregion
 
+        #region Propriedades
         public int Id
         {
             get { return this.id; }
@@ -36,15 +39,9 @@ namespace MovieCheck.Clientes.Models
             get { return this.usuarios; }
             set { this.usuarios = value; }
         }
+        #endregion
 
-        /********** FUNCTIONS **********/
-
-        public override bool Equals(object telefone)
-        {
-            Telefone tel = (Telefone)telefone;
-            return this.Tipo == tel.Tipo && this.Ddd == tel.Ddd && this.Numero == tel.Numero;
-        }
-
+        #region Metodos
         public bool Fixo()
         {
             return this.Tipo == 0;
@@ -54,5 +51,6 @@ namespace MovieCheck.Clientes.Models
         {
             return this.Tipo == 1;
         }
+        #endregion
     }
 }

@@ -26,12 +26,26 @@ namespace MovieCheck.Clientes.Models
         public string Email
         {
             get { return this.email; }
-            set { this.email = value; }
+            set
+            {
+                UsuarioFactory.ValidaEmail(value);
+                this.email = value; 
+            }
         }
         public string Senha
         {
             get { return this.senha; }
-            set { this.senha = UsuarioFactory.HashPassword(value); }
+            set
+            {
+                if (value != string.Empty)
+                {
+                    this.senha = UsuarioFactory.HashPassword(value);
+                }
+                else
+                {
+                    this.senha = UsuarioFactory.SenhaBranco();
+                }
+            }
         }
         public string Nome
         {
@@ -41,7 +55,26 @@ namespace MovieCheck.Clientes.Models
         public Endereco Endereco
         {
             get { return this.endereco; }
-            set {this.endereco = value; }
+            set
+            {
+                if (!(value is null))
+                {
+                    this.endereco = value;
+                }
+                else
+                {
+                    this.endereco = new Endereco()
+                    {
+                        Logradouro = "",
+                        Numero = 0,
+                        Complemento = "",
+                        Bairro = "",
+                        Cidade = "",
+                        Estado = "",
+                        Cep = ""
+                    };
+                }
+            }
         }
         public IList<UsuarioTelefone> Telefones
         {
@@ -95,19 +128,9 @@ namespace MovieCheck.Clientes.Models
             }
         }
 
-        public void CadastrarSenha(string senha)
-        {
-            this.Senha = UsuarioFactory.HashPassword(senha);
-        }
-
         public string VerificarSenha(string senha)
         {
             return UsuarioFactory.HashPassword(senha);
-        }
-
-        public void ApagarSenha()
-        {
-            this.senha = "";
         }
 
         public bool VerificaSeTrocouEmail(string email)
@@ -136,35 +159,30 @@ namespace MovieCheck.Clientes.Models
 
         public void EditarTelefoneFixo(Telefone fixo)
         {
-            foreach (var telefone in this.Telefones)
-            {
-                if (telefone.Telefone.Fixo())
-                {
-                    this.Telefones.Remove(telefone);
-                }
-            }
-
+            RemoverTelefoneFixo();
             AdicionarTelefone(fixo);
         }
 
         public void EditarTelefoneCelular(Telefone celular)
         {
-            foreach (var telefone in this.Telefones)
-            {
-                if (telefone.Telefone.Celular())
-                {
-                    this.Telefones.Remove(telefone);
-                }
-            }
-
+            RemoverTelefoneCelular();
             AdicionarTelefone(celular);
         }
 
         public void RemoverTelefoneFixo()
         {
+            var listaRemover = new List<UsuarioTelefone>();
             foreach (var telefone in this.Telefones)
             {
                 if (telefone.Telefone.Fixo())
+                {
+                    listaRemover.Add(telefone);
+                }
+            }
+
+            if (listaRemover.Count > 0)
+            {
+                foreach (var telefone in listaRemover)
                 {
                     this.Telefones.Remove(telefone);
                 }
@@ -173,9 +191,18 @@ namespace MovieCheck.Clientes.Models
 
         public void RemoverTelefoneCelular()
         {
+            var listaRemover = new List<UsuarioTelefone>();
             foreach (var telefone in this.Telefones)
             {
                 if (telefone.Telefone.Celular())
+                {
+                    listaRemover.Add(telefone);
+                }
+            }
+
+            if (listaRemover.Count > 0)
+            {
+                foreach (var telefone in listaRemover)
                 {
                     this.Telefones.Remove(telefone);
                 }
@@ -272,6 +299,10 @@ namespace MovieCheck.Clientes.Models
 
         public void AlterarEndereco(Endereco endereco)
         {
+            if (this.Endereco is null)
+            {
+                this.Endereco = new Endereco();
+            }
             this.Endereco.Logradouro = endereco.Logradouro;
             this.Endereco.Numero = endereco.Numero;
             this.Endereco.Complemento = endereco.Complemento;
@@ -292,7 +323,7 @@ namespace MovieCheck.Clientes.Models
             {
                 this.Email = novo.Email;
                 this.Nome = novo.Nome;
-                if (!(novo.Senha is null) && novo.Senha != string.Empty)
+                if (!(novo.Senha is null) && novo.Senha != UsuarioFactory.SenhaBranco())
                 {
                     this.Senha = novo.Senha;
                 }

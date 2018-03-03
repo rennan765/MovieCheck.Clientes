@@ -31,8 +31,28 @@
         }
         public Endereco Endereco
         {
-            get { return this.endereco; }
-            set { this.endereco = value; }
+            get
+            {
+                if (!(this.endereco is null))
+                {
+                    return this.endereco;
+                }
+                else
+                {
+                    return new Endereco("semEndereco");
+                }
+            }
+            set
+            {
+                if (!(value is null))
+                {
+                    this.endereco = value;
+                }
+                else
+                {
+                    this.endereco = new Endereco("semEndereco");
+                }
+            }
         }
         public string TelefoneFixo
         {
