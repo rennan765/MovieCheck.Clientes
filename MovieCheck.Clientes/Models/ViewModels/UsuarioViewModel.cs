@@ -6,7 +6,13 @@
         private int id;
         private string email;
         private string nome;
-        private Endereco endereco;
+        private string enderecoLogradouro;
+        private string enderecoNumero;
+        private string enderecoComplemento;
+        private string enderecoBairro;
+        private string enderecoCidade;
+        private string enderecoEstado;
+        private string enderecoCep;
         private string telefoneFixo;
         private string telefoneCelular;
         private bool status;
@@ -29,30 +35,40 @@
             get { return this.nome; }
             set { this.nome = value; }
         }
-        public Endereco Endereco
+        public string EnderecoLogradouro
         {
-            get
-            {
-                if (!(this.endereco is null))
-                {
-                    return this.endereco;
-                }
-                else
-                {
-                    return new Endereco("semEndereco");
-                }
-            }
-            set
-            {
-                if (!(value is null))
-                {
-                    this.endereco = value;
-                }
-                else
-                {
-                    this.endereco = new Endereco("semEndereco");
-                }
-            }
+            get { return this.enderecoLogradouro; }
+            set { this.enderecoLogradouro = value; }
+        }
+        public string EnderecoNumero
+        {
+            get { return this.enderecoNumero; }
+            set { this.enderecoNumero = value; }
+        }
+        public string EnderecoComplemento
+        {
+            get { return this.enderecoComplemento; }
+            set { this.enderecoComplemento = value; }
+        }
+        public string EnderecoBairro
+        {
+            get { return this.enderecoBairro; }
+            set { this.enderecoBairro = value; }
+        }
+        public string EnderecoCidade
+        {
+            get { return this.enderecoCidade; }
+            set { this.enderecoCidade = value; }
+        }
+        public string EnderecoEstado
+        {
+            get { return this.enderecoEstado; }
+            set { this.enderecoEstado = value; }
+        }
+        public string EnderecoCep
+        {
+            get { return this.enderecoCep; }
+            set { this.enderecoCep = value; }
         }
         public string TelefoneFixo
         {
@@ -73,6 +89,35 @@
         {
             get { return this.tipo; }
             set { this.tipo = value; }
+        }
+        #endregion
+
+        #region Métodos
+        public void EnderecoEmBranco()
+        {
+            this.EnderecoLogradouro = "";
+            this.EnderecoNumero = "";
+            this.EnderecoComplemento = "";
+            this.EnderecoBairro = "";
+            this.EnderecoCidade = "";
+            this.EnderecoEstado = "";
+            this.EnderecoCep = "";
+        }
+
+        public void RemoverEndereco()
+        {
+            EnderecoEmBranco();
+        }
+
+        public void AdicionarEndereco(Endereco endereco)
+        {
+            this.EnderecoLogradouro = endereco.Logradouro;
+            this.EnderecoNumero = endereco.Numero.ToString();
+            this.EnderecoComplemento = endereco.Complemento;
+            this.EnderecoBairro = endereco.Bairro;
+            this.EnderecoCidade = endereco.Cidade;
+            this.EnderecoEstado = endereco.Estado;
+            this.EnderecoCep = endereco.Cep;
         }
         #endregion
     }

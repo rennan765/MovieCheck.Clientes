@@ -1,7 +1,11 @@
-﻿namespace MovieCheck.Clientes.Infra.Factory
+﻿using MovieCheck.Clientes.Models.ViewModels;
+
+namespace MovieCheck.Clientes.Infra.Factory
 {
     public static class DefaultFactory
     {
+        public static MensagemViewModel _mensagemViewModel;
+
         public static bool IsNumeric(string value)
         {
             bool isNumeric = true;

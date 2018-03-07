@@ -40,7 +40,14 @@ namespace MovieCheck.Clientes.Models.ViewModels
             this.Email = cliente.Email;
             this.Nome = cliente.Nome;
             this.Cpf = cliente.Cpf;
-            this.Endereco = cliente.Endereco;
+            if (!(cliente.Endereco is null))
+            {
+                this.AdicionarEndereco(cliente.Endereco);
+            }
+            else
+            {
+                this.EnderecoEmBranco();
+            }
             if (!(telefoneFixo is null))
             {
                 this.TelefoneFixo = $"{telefoneFixo.Ddd.ToString()}{telefoneFixo.Numero}";

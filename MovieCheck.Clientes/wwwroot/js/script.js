@@ -10,7 +10,12 @@ $(document).ready(function(){
 	$('#infoButton').click(function(){
 		$('.info').addClass('hidden');
 		$('.registerContainer').removeClass('hidden');
-	});
+    });
+    //HIDE SUCESS AND FAILURE MESSAGE BOX
+    $('.hideMainMessages').click(function () {
+        $('.message').addClass('hidden');
+        $('.info').removeClass('hidden');
+    });
 	//SEARCH ENGINE - SHOW ADVANCED SEARCH
 	$('#pSearchBox').click(function(){
 		$('.searchBox').addClass('hidden');

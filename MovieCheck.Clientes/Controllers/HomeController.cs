@@ -12,6 +12,7 @@ namespace MovieCheck.Clientes.Controllers
     {
         #region Atributos
         private readonly IDataService _dataService;
+        private string mensagem;
         #endregion
 
         #region Construtores
@@ -25,7 +26,14 @@ namespace MovieCheck.Clientes.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            if (!_dataService.VerificarSecao())
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Main");
+            }
         }
 
         [HttpPost]
@@ -61,6 +69,13 @@ namespace MovieCheck.Clientes.Controllers
                     usuarioViewModel = new DependenteViewModel((Dependente)usuario);
                 }
 
+                if (!DefaultFactory._mensagemViewModel.SemMensagem())
+                {
+                    ViewBag.TipoMensagem = DefaultFactory._mensagemViewModel.Tipo;
+                    ViewBag.Mensagem = DefaultFactory._mensagemViewModel.Mensagem;
+                    DefaultFactory._mensagemViewModel.Dispose();
+                }
+
                 return View(usuarioViewModel);
             }
             else
@@ -72,6 +87,7 @@ namespace MovieCheck.Clientes.Controllers
         [HttpPost]
         public IActionResult AtualizarUsuario(IFormCollection formCollection)
         {
+            ViewData["Mensagem"] = "";
             try
             {
                 //PEGA USUARIO DO BANCO
@@ -106,7 +122,7 @@ namespace MovieCheck.Clientes.Controllers
                 var pass = formCollection["pass"];
                 var repass = formCollection["repass"];
 
-                if (pass != string.Empty && repass != string.Empty)
+                if (!string.IsNullOrEmpty(pass) && !string.IsNullOrEmpty(repass))
                 {
                     UsuarioFactory.CompararSenha(pass, repass);
                     novo.Senha = pass;
@@ -189,11 +205,11 @@ namespace MovieCheck.Clientes.Controllers
 
                 _dataService.EditarUsuarioLogado(usuario);
 
-                ViewBag.Sucesso = "sucesso";
+                DefaultFactory._mensagemViewModel.AtribuirMensagemSucesso("Usuário atualizado com sucesso.");
                 return RedirectToAction("Main");
             } catch (NewUserFailedException e)
             {
-                ViewBag.Error = e.Desricao;
+                DefaultFactory._mensagemViewModel.AtribuirMensagemErro(e.Desricao);
                 return RedirectToAction("Main");
             }
         }

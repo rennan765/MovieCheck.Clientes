@@ -1,7 +1,24 @@
 ﻿@{
     ViewData["Title"] = "Página Principal";
-    bool sucesso = !(ViewBag.Sucesso is null);
-    string erro = ViewBag.Error;
+
+    string tipoMensagem = (string.IsNullOrEmpty(ViewBag.TipoMensagem) ? "" : ViewBag.TipoMensagem);
+    string mensagem = (string.IsNullOrEmpty(ViewBag.Mensagem) ? "" : ViewBag.Mensagem);
+
+    string infoClass;
+    string messageClass;
+    string iconClass = "";
+
+    if (string.IsNullOrEmpty(mensagem))
+    {
+        infoClass = "info";
+        messageClass = "message hidden";
+    }
+    else
+    {
+        infoClass = "info hidden";
+        messageClass = "message";
+        iconClass = (tipoMensagem == "Sucesso" ? "fa fa-check" : "fa fa-hidden");
+    }
 }
 
 <section class="mainContainer cPanelContainer">
@@ -11,7 +28,7 @@
     </div>
 
     <div class="personalInfo">
-       <div class="info"> 
+        <div class="@infoClass"> 
             <h2>Informações pessoais:</h2>
             <p>Nome: @Model.Nome</p>
             @{
@@ -20,13 +37,13 @@
                 <p>CPF: @Model.Cpf.ToString()</p>
                 }
             }
-            <p>Rua: @Model.Endereco.Logradouro</p>
-            <p>Número: @Model.Endereco.Numero.ToString()</p>
-            <p>Complemento: @Model.Endereco.Complemento</p>
-            <p>Bairro: @Model.Endereco.Bairro</p>
-            <p>Cidade: @Model.Endereco.Cidade</p>
-            <p>Estado: @Model.Endereco.Estado</p>
-            <p>CEP: @Model.Endereco.Cep</p>
+            <p>Rua: @Model.EnderecoLogradouro</p>
+            <p>Número: @Model.EnderecoNumero</p>
+            <p>Complemento: @Model.EnderecoComplemento</p>
+            <p>Bairro: @Model.EnderecoBairro</p>
+            <p>Cidade: @Model.EnderecoCidade</p>
+            <p>Estado: @Model.EnderecoEstado</p>
+            <p>CEP: @Model.EnderecoCep</p>
             <p>Tel. Fixo: @Model.TelefoneFixo </p>
             <p>Tel. Celular: @Model.TelefoneCelular</p>
             <button id="infoButton">Alterar informações cadastrais</button>@*href="@Url.Action("Guests", "User")"*@
@@ -46,28 +63,28 @@
                 <div class="registerStreet">
                     <h3>Endereço - obrigatório:</h3>
                     <label for="street">
-                        <p>Rua: </p><input type="text" name="street" placeholder="Ex.: Avenida Rio Branco" value="@Model.Endereco.Logradouro" required>
+                        <p>Rua: </p><input type="text" name="street" placeholder="Ex.: Avenida Rio Branco" value="@Model.EnderecoLogradouro" required>
                     </label>
                     <br><br>
                     <label for="numAddress">
-                        <p>Número: </p><input type="text" name="numAddress" pattern="[0-9]+$" placeholder="Ex.: 156" value="@Model.Endereco.Numero.ToString()" required>
+                        <p>Número: </p><input type="text" name="numAddress" pattern="[0-9]+$" placeholder="Ex.: 156" value="@Model.EnderecoNumero" required>
                     </label>
                     <label for="complement">
-                        <p>Complemento: </p><input type="text" name="complement" placeholder="Ex.: Loja 328, estande 8" value="@Model.Endereco.Complemento" required>
+                        <p>Complemento: </p><input type="text" name="complement" placeholder="Ex.: Loja 328, estande 8" value="@Model.EnderecoComplemento" required>
                     </label>
                     <br><br>
                     <label for="province">
-                        <p>Bairro: </p><input type="text" name="province" placeholder="Ex.: Centro" value="@Model.Endereco.Bairro" required>
+                        <p>Bairro: </p><input type="text" name="province" placeholder="Ex.: Centro" value="@Model.EnderecoBairro" required>
                     </label>
                     <label for="city">
-                        <p>Cidade: </p><input type="text" name="city" placeholder="Ex.: Rio de Janeiro" value="@Model.Endereco.Cidade" required>
+                        <p>Cidade: </p><input type="text" name="city" placeholder="Ex.: Rio de Janeiro" value="@Model.EnderecoCidade" required>
                     </label>
                     <br><br>
                     <label for="state">
-                        <p>Sigla do Estado: </p><input type="text" name="state" maxlength="2" placeholder="Ex.: RJ" value="@Model.Endereco.Estado" required>
+                        <p>Sigla do Estado: </p><input type="text" name="state" maxlength="2" placeholder="Ex.: RJ" value="@Model.EnderecoEstado" required>
                     </label>
                     <label for="zipCode">
-                        <p>CEP (somente números): </p><input type="text" name="zipCode" pattern="[0-9]+$" maxlength="8" placeholder="Ex.: 20040901" value="@Model.Endereco.Cep" required>
+                        <p>CEP (somente números): </p><input type="text" name="zipCode" pattern="[0-9]+$" maxlength="8" placeholder="Ex.: 20040901" value="@Model.EnderecoCep" required>
                     </label>
                 </div>
                 <label for="phoneHome">
@@ -86,25 +103,11 @@
             </form>
         </div>
 
-        @if (sucesso)
-        {
-            <div class="message">
-                <i class="fa fa-check"></i>
-                <p>Atualização efetuada com sucesso.</p>
-                <p><span class="hideMainMessages">Clique aqui</span> para esconder esta caixa de diálogo.</p>
-            </div>
-        }
-
-        @{
-            if (!(erro is null))
-            {
-                <div class="message">
-                    <i class="fa fa-times"></i>
-                    <p>@erro</p>
-                    <p><span class="hideMainMessages">Clique aqui</span> para esconder esta caixa de diálogo.</p>
-                </div>
-            }
-        }
+        <div class="@messageClass">
+            <i class="@iconClass"></i>
+            <p>@mensagem</p>
+            <p><span class="hideMainMessages" onclick="hideMessageBox()">Clique aqui</span> para esconder esta caixa de diálogo.</p>
+        </div>
 
     </div>
 </section>
@@ -127,7 +130,7 @@
                 <input type="text" name="movieActor" placeholder="Digite o nome de um dos principais atores do filme desejado">
                 <input type="text" name="movieDirector" placeholder="Digite o nome do diretor do filme desejado">
                 <select name="movieClass">
-                    <option value="null">- Selecione uma opção -</option>
+                    <option value="null">- Selecione uma classificação -</option>
                     <option value="l">Livre</option>
                     <option value="10">Não recomendado para menores de 10 anos</option>
                     <option value="12">Não recomendado para menores de 12 anos</option>
@@ -244,6 +247,3 @@
         </form>
     </div>
 </section>
-
-<script src="~/js/jquery-1.7.2.min.js"></script>
-<script src="~/js/script.js"></script>

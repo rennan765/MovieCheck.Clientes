@@ -34,7 +34,14 @@
             this.Id = dependente.Id;
             this.Email = dependente.Email;
             this.Nome = dependente.Nome;
-            this.Endereco = dependente.Endereco;
+            if (!(dependente.Endereco is null))
+            {
+                this.AdicionarEndereco(dependente.Endereco);
+            }
+            else
+            {
+                this.EnderecoEmBranco();
+            }
             if (dependente.ExisteTelefoneFixo())
             {
                 this.TelefoneFixo = $"{telefoneFixo.Ddd.ToString()}{telefoneFixo.Numero}";

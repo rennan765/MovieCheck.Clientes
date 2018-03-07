@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MovieCheck.Clientes.Infra;
+using MovieCheck.Clientes.Infra.Factory;
 
 namespace MovieCheck.Clientes
 {
@@ -33,6 +34,8 @@ namespace MovieCheck.Clientes
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            DefaultFactory._mensagemViewModel = new Models.ViewModels.MensagemViewModel();
+
             string connectionString = Configuration["ConnectionStrings:Default"];
 
             services.AddMvc();

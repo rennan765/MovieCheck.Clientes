@@ -37,7 +37,7 @@ namespace MovieCheck.Clientes.Models
             get { return this.senha; }
             set
             {
-                if (value != string.Empty)
+                if (!string.IsNullOrEmpty(value))
                 {
                     this.senha = UsuarioFactory.HashPassword(value);
                 }
@@ -323,9 +323,9 @@ namespace MovieCheck.Clientes.Models
             {
                 this.Email = novo.Email;
                 this.Nome = novo.Nome;
-                if (!(novo.Senha is null) && novo.Senha != UsuarioFactory.SenhaBranco())
+                if (novo.Senha != UsuarioFactory.SenhaBranco())
                 {
-                    this.Senha = novo.Senha;
+                    this.senha = novo.Senha;
                 }
 
                 if (!(novo.Endereco is null))
