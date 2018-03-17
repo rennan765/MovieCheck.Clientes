@@ -59,7 +59,10 @@
         </environment>
 
         @RenderSection("Scripts", required: false)*@
-
+    @if (MovieCheck.Clientes.Infra.Factory.DefaultFactory.ValidaBotaoLogOff((string)ViewData["Title"]))
+    {
+        <a class="logOffLink" asp-controller="Home" asp-action="LogOff" title="Clique aqui para efetuar o log off.">Log off</a><a class="logOffLink" asp-controller="Home" asp-action="LogOff" title="Clique aqui para efetuar o log off.">Log off</a>
+    }
     @RenderBody()
 </body>
 </html>

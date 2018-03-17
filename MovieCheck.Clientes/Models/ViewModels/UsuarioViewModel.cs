@@ -1,4 +1,6 @@
-﻿namespace MovieCheck.Clientes.Models.ViewModels
+﻿using System;
+
+namespace MovieCheck.Clientes.Models.ViewModels
 {
     public abstract class UsuarioViewModel
     {

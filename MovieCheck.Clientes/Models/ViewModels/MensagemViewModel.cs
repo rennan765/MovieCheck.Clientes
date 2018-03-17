@@ -4,9 +4,10 @@ namespace MovieCheck.Clientes.Models.ViewModels
 {
     public class MensagemViewModel : IDisposable
     {
-        #region Atrinutos
+        #region Atributos
         private string tipo;
         private string mensagem;
+        private string operacao;
         #endregion
 
         #region Propriedades
@@ -20,18 +21,26 @@ namespace MovieCheck.Clientes.Models.ViewModels
             get { return this.mensagem; }
             set { this.mensagem = value; }
         }
+        public string Operacao
+        {
+            get { return this.operacao; }
+            set { this.operacao = value; }
+        }
         #endregion
 
         #region Construtores
         public MensagemViewModel()
         {
-
+            this.tipo = "";
+            this.mensagem = "";
+            this.operacao = "";
         }
 
-        public MensagemViewModel(string tipo, string mensagem)
+        public MensagemViewModel(string tipo, string mensagem, string operacao)
         {
             this.tipo = tipo;
             this.mensagem = mensagem;
+            this.operacao = operacao;
         }
         #endregion
 
@@ -68,8 +77,9 @@ namespace MovieCheck.Clientes.Models.ViewModels
 
         public void Dispose()
         {
-            this.tipo = null;
-            this.mensagem = null;
+            this.tipo = "";
+            this.mensagem = "";
+            this.operacao = "";
         }
         #endregion
     }

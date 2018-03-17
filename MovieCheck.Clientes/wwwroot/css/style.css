@@ -46,14 +46,28 @@ html, body{
 	background-color: none;
 }
 
-.hideMainMessages{
-	color: #fff;
+.hideMainMessages {
+    text-decoration: underline;
 }
 
 .hideMainMessages:hover{
-	color: #eee;
-	text-decoration: underline;
 	cursor: pointer;
+}
+
+.logOffLink{
+    z-index: 3;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    text-decoration: none;
+    font-size: .8em;
+    color: #fff;
+}
+
+.logOffLink:hover{
+    color: #eee;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 /* 1024 x 768 */

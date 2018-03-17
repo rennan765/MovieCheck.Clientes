@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieCheck.Clientes.Infra;
 using MovieCheck.Clientes.Infra.Factory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MovieCheck.Clientes.Models
 {
-    public abstract class Usuario
+    public abstract class Usuario : IDisposable
     {
         #region Atributos
         private int id;
@@ -341,6 +342,16 @@ namespace MovieCheck.Clientes.Models
             {
                 throw new NewUserFailedException("Usuários diferentes.");
             }
+        }
+
+        public void Dispose()
+        {
+            this.id = 0;
+            this.email = null;
+            this.nome = null;
+            this.RemoverTelefoneCelular();
+            this.RemoverTelefoneFixo();
+            this.RemoverEndereco();
         }
         #endregion
     }

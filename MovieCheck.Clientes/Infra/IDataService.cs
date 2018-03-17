@@ -12,14 +12,17 @@ namespace MovieCheck.Clientes.Infra
         #region Secao
         void IniciarSessao(Usuario usuario);
         bool VerificarSecao();
+        void FinalizarSessao();
+        Usuario ObterUsuarioSessao();
         #endregion
 
         #region Usuario
+        Usuario ObterUsuarioPorId(int id);
         Usuario ObterUsuarioPorEmail(string email);
-        Usuario ObterUsuarioSessao();
         string ObterTipoUsuario(Usuario usuario);
         bool VerificarUsuarioPorEmail(string email);
         void EditarUsuario(Usuario usuario);
+        void ExcluirUsuario(Usuario usuario);
         #endregion
 
         #region Cliente

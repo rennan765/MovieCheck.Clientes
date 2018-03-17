@@ -31,6 +31,11 @@ namespace MovieCheck.Clientes.Models.ViewModels
         #endregion
 
         #region Construtores
+        public ClienteViewModel()
+        {
+
+        }
+
         public ClienteViewModel(Cliente cliente)
         {
             var telefoneFixo = cliente.ObterTelefoneFixo();
@@ -72,6 +77,7 @@ namespace MovieCheck.Clientes.Models.ViewModels
             {
                 this.tipo = "Administrador";
             }
+            this.Status = cliente.Status == 1;
 
             this.Dependentes = new List<DependenteViewModel>();
             this.NomeDependentes = new List<string>();

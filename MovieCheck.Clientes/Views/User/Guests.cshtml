@@ -1,5 +1,37 @@
 ﻿@{
     ViewData["Title"] = "Dependentes";
+
+    string register = "";
+    string info = "";
+    string edit = "";
+    string messageClass = "";
+    string mensagem = "";
+    string iconClass = "";
+
+    if (!(ViewBag.DependenteSelecionado is null))
+    {
+        register = "registerGuestContainer hidden";
+        info = "info";
+        edit = "editGuestContainer hidden";
+        messageClass = "message hidden";
+    }
+    else
+    {
+        register = "registerGuestContainer hidden";
+        info = "info hidden";
+        edit = "editGuestContainer hidden";
+        messageClass = "message hidden";
+    }
+
+    if (!string.IsNullOrEmpty(ViewBag.Mensagem))
+    {
+        register = "registerGuestContainer hidden";
+        info = "info hidden";
+        edit = "editGuestContainer hidden";
+        messageClass = "message";
+        iconClass = (ViewBag.TipoErro == "Sucesso" ? "fa fa-check" : "fa fa-times");
+        mensagem = ViewBag.Mensagem;
+    }
 }
 
 <section class="mainContainer guestsContainer">
@@ -8,13 +40,13 @@
         <h1>Por favor, selecione o dependente:</h1>
     </div>
 
-    <form asp-controller="User" asp-action="Guest" method="GET">
+    <form asp-controller="User" method="GET">
         <div class="guestBox">
             @foreach (var dependente in Model)
             {
                 <div class="row">
-                    <input type="radio" name="id" value="@dependente.Id">
-                    @if (@dependente.Status)
+                    <input type="radio" name="id" value="@dependente.Id" required>
+                    @if (dependente.Status)
                     {
                         <p>@dependente.Nome</p>
                     }
@@ -25,17 +57,17 @@
                 </div>
             }
         </div>
-        <button type="submit">Visualizar</button>
-        <button type="submit" formaction="">Bloquear/Desbloquear</button>
-        <button type="submit" formaction="">Excluir</button>
+        <button type="submit" asp-action="InformacaoDependente">Visualizar</button>
+        <button type="submit" asp-action="BloquearDependente">Bloquear/Desbloquear</button>
+        <button type="submit" asp-action="ExcluirDependente">Excluir</button>
     </form>
     <button id="newGuestForm">Novo Dependente</button>
 </section>
 
 <section class="mainContainer guestsContainer">
     <!-- NEW GUEST -->
-    <div class="registerGuestContainer hidden">
-        <form action="" method="POST">
+    <div class="@register">
+        <form action="AdicionarDependente" method="POST">
             <legend><h2>Preencha as informações do dependente:</h2></legend>
             <label for="name">
                 <input type="text" name="name" placeholder="Insira o nome completo - obrigatório" required>
@@ -43,11 +75,8 @@
             <label for="email">
                 <input type="email" name="email" placeholder="Insira seu e-mail - obrigatório" required>
             </label>
-            <label for="cpf">
-                <input type="text" name="cpf" pattern="[0-9]+$" maxlength="11" placeholder="Insira o CPF (somente números)">
-            </label>
             <div class="registerStreet">
-                <h3>Endereço - obrigatório:</h3>
+                <h3>Endereço:</h3>
                 <label for="street">
                     <p>Rua: </p><input type="text" name="street" placeholder="Ex.: Avenida Rio Branco">
                 </label>
@@ -74,10 +103,10 @@
                 </label>
             </div>
             <label for="phoneHome">
-                <input type="tel" name="phoneHome" pattern="[0-9]+$" maxlength="11" placeholder="Tel. fixo - 02125555555">
+                <input type="tel" name="phoneHome" pattern="[0-9]+$" maxlength="10" placeholder="Tel. fixo - 2125555555">
             </label>
             <label for="phoneCel">
-                <input type="tel" name="phoneCel" pattern="[0-9]+$" maxlength="12" placeholder="Tel. celular - 021995555555">
+                <input type="tel" name="phoneCel" pattern="[0-9]+$" maxlength="11" placeholder="Tel. celular - 21995555555">
             </label>
             <label for="pass">
                 <input type="password" name="pass" minlength="8" placeholder="Insira a senha (mín. de 8 dígitos) - obrigatório" required>
@@ -102,78 +131,82 @@
     -->
     <!-- SHOW / EDIT GUEST-->
 
-    <div class="info">
-        <h2>Informações pessoais:</h2>
-        <p>Nome: Rennan Silveira Rezende</p>
-        <p>CPF: 11919338730</p>
-        <p>Rua: Travessa Sao Jose</p>
-        <p>Número: 39</p>
-        <p>Complemento: Sobrado</p>
-        <p>Bairro: Venda da Cruz</p>
-        <p>Cidade: Niterói</p>
-        <p>Estado: RJ</p>
-        <p>CEP: 24110678</p>
-        <p>Tel. Fixo: 02127202123</p>
-        <p>Tel. Celular: 021991726315</p>
-        <button id="infoButton">Alterar informações cadastrais</button>
-    </div>
-    <div class="editGuestContainer hidden">
-        <form action="" method="POST">
-            <label for="id">
-                <input type="hidden" name="id" value="1">
-            </label>
-            <label for="name">
-                <input type="text" name="name" placeholder="Insira o nome completo - obrigatório" value="Rennan Silveira Rezende" required>
-            </label>
-            <label for="email">
-                <input type="email" name="email" placeholder="Insira o e-mail - obrigatório" value="rennan765@gmail.com" required>
-            </label>
-            <label for="cpf">
-                <input type="text" name="cpf" pattern="[0-9]+$" maxlength="11" placeholder="Insira o seu CPF (somente números) - obrigatório" value="11919338730" required>
-            </label>
-            <div class="registerStreet">
-                <h3>Endereço - obrigatório:</h3>
-                <label for="street">
-                    <p>Rua: </p><input type="text" name="street" placeholder="Ex.: Avenida Rio Branco" value="Travessa Sao Jose" required>
+    @if (!(@ViewBag.DependenteSelecionado is null))
+    {
+        <div class="@info">
+            <h2>Informações pessoais:</h2>
+            <p>Nome: @ViewBag.DependenteSelecionado.Nome</p>
+            <p>Rua: @ViewBag.DependenteSelecionado.EnderecoLogradouro</p>
+            <p>Número: @ViewBag.DependenteSelecionado.EnderecoNumero</p>
+            <p>Complemento: @ViewBag.DependenteSelecionado.EnderecoComplemento</p>
+            <p>Bairro: @ViewBag.DependenteSelecionado.EnderecoBairro</p>
+            <p>Cidade: @ViewBag.DependenteSelecionado.EnderecoCidade</p>
+            <p>Estado: @ViewBag.DependenteSelecionado.EnderecoEstado</p>
+            <p>CEP: @ViewBag.DependenteSelecionado.EnderecoCep</p>
+            <p>Tel. Fixo: @ViewBag.DependenteSelecionado.TelefoneFixo</p>
+            <p>Tel. Celular: @ViewBag.DependenteSelecionado.TelefoneCelular</p>
+            <button id="infoButton">Alterar informações cadastrais</button>
+        </div>
+        <div class="@edit">
+            <form asp-controller="User" asp-action="AtualizarDependente" method="POST">
+                <label for="id">
+                    <input type="hidden" name="id" value="@ViewBag.DependenteSelecionado.Id">
                 </label>
-                <br><br>
-                <label for="numAddress">
-                    <p>Número: </p><input type="text" name="numAddress" pattern="[0-9]+$" placeholder="Ex.: 156" value="39" required>
+                <label for="name">
+                    <input type="text" name="name" placeholder="Insira o nome completo - obrigatório" value="@ViewBag.DependenteSelecionado.Nome" required>
                 </label>
-                <label for="complement">
-                    <p>Complemento: </p><input type="text" name="complement" placeholder="Ex.: Loja 328, estande 8" value="Sobrado" required>
+                <label for="email">
+                    <input type="email" name="email" placeholder="Insira o e-mail - obrigatório" value="@ViewBag.DependenteSelecionado.Email" required>
                 </label>
-                <br><br>
-                <label for="province">
-                    <p>Bairro: </p><input type="text" name="province" placeholder="Ex.: Centro" value="Venda da Cruz" required>
+                <div class="registerStreet">
+                    <h3>Endereço:</h3>
+                    <label for="street">
+                        <p>Rua: </p><input type="text" name="street" placeholder="Ex.: Avenida Rio Branco" value="@ViewBag.DependenteSelecionado.EnderecoLogradouro">
+                    </label>
+                    <br><br>
+                    <label for="numAddress">
+                        <p>Número: </p><input type="text" name="numAddress" pattern="[0-9]+$" placeholder="Ex.: 156" value="@ViewBag.DependenteSelecionado.EnderecoNumero">
+                    </label>
+                    <label for="complement">
+                        <p>Complemento: </p><input type="text" name="complement" placeholder="Ex.: Loja 328, estande 8" value="@ViewBag.DependenteSelecionado.EnderecoComplemento">
+                    </label>
+                    <br><br>
+                    <label for="province">
+                        <p>Bairro: </p><input type="text" name="province" placeholder="Ex.: Centro" value="@ViewBag.DependenteSelecionado.EnderecoBairro">
+                    </label>
+                    <label for="city">
+                        <p>Cidade: </p><input type="text" name="city" placeholder="Ex.: Rio de Janeiro" value="@ViewBag.DependenteSelecionado.EnderecoCidade">
+                    </label>
+                    <br><br>
+                    <label for="state">
+                        <p>Sigla do Estado: </p><input type="text" name="state" maxlength="2" placeholder="Ex.: RJ" value="@ViewBag.DependenteSelecionado.EnderecoEstado">
+                    </label>
+                    <label for="zipCode">
+                        <p>CEP (somente números): </p><input type="text" name="zipCode" pattern="[0-9]+$" maxlength="8" placeholder="Ex.: 20040901" value="@ViewBag.DependenteSelecionado.EnderecoCep">
+                    </label>
+                </div>
+                <label for="phoneHome">
+                    <input type="tel" name="phoneHome" pattern="[0-9]+$" maxlength="11" placeholder="Tel. fixo - 2125555555" value="@ViewBag.DependenteSelecionado.TelefoneFixo">
                 </label>
-                <label for="city">
-                    <p>Cidade: </p><input type="text" name="city" placeholder="Ex.: Rio de Janeiro" value="Niterói" required>
+                <label for="phoneCel">
+                    <input type="tel" name="phoneCel" pattern="[0-9]+$" maxlength="12" placeholder="Tel. celular - 21995555555" value="@ViewBag.DependenteSelecionado.TelefoneCelular">
                 </label>
-                <br><br>
-                <label for="state">
-                    <p>Sigla do Estado: </p><input type="text" name="state" maxlength="2" placeholder="Ex.: RJ" value="RJ" required>
+                <label for="pass">
+                    <input type="password" name="pass" minlength="8" placeholder="Insira a sua senha (mín. de 8 dígitos) - obrigatório" value="">
                 </label>
-                <label for="zipCode">
-                    <p>CEP (somente números): </p><input type="text" name="zipCode" pattern="[0-9]+$" maxlength="8" placeholder="Ex.: 20040901" value="24110678" required>
+                <label for="repass">
+                    <input type="password" name="repass" minlength="8" placeholder="Insira novamente a sua senha - obrigatório" value="">
                 </label>
-            </div>
-            <label for="phoneHome">
-                <input type="tel" name="phoneHome" pattern="[0-9]+$" maxlength="11" placeholder="Tel. fixo - 02125555555" value="02127202123">
-            </label>
-            <label for="phoneCel">
-                <input type="tel" name="phoneCel" pattern="[0-9]+$" maxlength="12" placeholder="Tel. celular - 021995555555" value="021991726315">
-            </label>
-            <label for="pass">
-                <input type="password" name="pass" minlength="8" placeholder="Insira a sua senha (mín. de 8 dígitos) - obrigatório" value="00000000" required>
-            </label>
-            <label for="repass">
-                <input type="password" name="repass" minlength="8" placeholder="Insira novamente a sua senha - obrigatório" value="00000000" required>
-            </label>
-            <button type="submit">Editar cadastro</button>
-        </form>
-    </div>
+                <button type="submit">Editar cadastro</button>
+            </form>
+        </div>
+    }
 
+    <div class="@messageClass">
+        <i class="@iconClass"></i>
+        <p>@mensagem</p>
+        <p><span class="hideMainMessages" onclick="hideMessageBox()">Clique aqui</span> para esconder esta caixa de diálogo.</p>
+    </div>
 
     <!--
     <div class="message">
@@ -199,23 +232,19 @@
     </div>
     -->
     <!-- BLOCK GUEST -->
-
     @*<div class="message">
-        <i class="fa fa-check"></i>
-        <p>Dependente bloqueado com sucesso.</p>
-    </div>
+            <i class="fa fa-check"></i>
+            <p>Dependente bloqueado com sucesso.</p>
+        </div>
 
-    <div class="message">
-        <i class="fa fa-check"></i>
-        <p>Dependente desbloqueado com sucesso.</p>
-    </div>
+        <div class="message">
+            <i class="fa fa-check"></i>
+            <p>Dependente desbloqueado com sucesso.</p>
+        </div>
 
-    <div class="message">
-        <i class="fa fa-times"></i>
-        <p>Falha ao bloquear/desbloquear o dependente.</p>
-    </div>*@
+        <div class="message">
+            <i class="fa fa-times"></i>
+            <p>Falha ao bloquear/desbloquear o dependente.</p>
+        </div>*@
 
 </section>
-
-<script src="~/js/jquery-1.7.2.min.js"></script>
-<script src="~/js/script.js"></script>

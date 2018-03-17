@@ -17,7 +17,7 @@
     {
         infoClass = "info hidden";
         messageClass = "message";
-        iconClass = (tipoMensagem == "Sucesso" ? "fa fa-check" : "fa fa-hidden");
+        iconClass = (tipoMensagem == "Sucesso" ? "fa fa-check" : "fa fa-times");
     }
 }
 
@@ -31,11 +31,9 @@
         <div class="@infoClass"> 
             <h2>Informações pessoais:</h2>
             <p>Nome: @Model.Nome</p>
-            @{
-                if (Model.Tipo != "Dependente")
-                {
+            @if (Model.Tipo != "Dependente")
+            {
                 <p>CPF: @Model.Cpf.ToString()</p>
-                }
             }
             <p>Rua: @Model.EnderecoLogradouro</p>
             <p>Número: @Model.EnderecoNumero</p>
@@ -46,8 +44,11 @@
             <p>CEP: @Model.EnderecoCep</p>
             <p>Tel. Fixo: @Model.TelefoneFixo </p>
             <p>Tel. Celular: @Model.TelefoneCelular</p>
-            <button id="infoButton">Alterar informações cadastrais</button>@*href="@Url.Action("Guests", "User")"*@
-            <a asp-controller="User" asp-action="Guests"><button id="showGuests">Visualizar dependentes</button></a>
+            <button id="infoButton">Alterar informações cadastrais</button>
+            @if (Model.Tipo != "Dependente")
+            {
+                <a asp-controller="User" asp-action="Guests"><button id="showGuests">Visualizar dependentes</button></a>
+            }
         </div>
         <div class="registerContainer hidden">
             <form asp-controller="Home" asp-action="AtualizarUsuario" method="POST">

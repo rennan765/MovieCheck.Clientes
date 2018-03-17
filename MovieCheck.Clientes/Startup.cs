@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MovieCheck.Clientes.Infra;
 using MovieCheck.Clientes.Infra.Factory;
+using MovieCheck.Clientes.Models.ViewModels;
 
 namespace MovieCheck.Clientes
 {

@@ -36,10 +36,22 @@ namespace MovieCheck.Clientes.Infra
             _contextAccessor.HttpContext.Session.SetInt32("Id", usuario.Id);
         }
 
+        public void FinalizarSessao()
+        {
+            _contextAccessor.HttpContext.Session.Clear();
+        }
+
         public Usuario ObterUsuarioSessao()
         {
-            var usuario = this._contexto.Usuario.Find(this._contextAccessor.HttpContext.Session.GetInt32("Id"));
-                
+            return this.ObterUsuarioPorId((int)this._contextAccessor.HttpContext.Session.GetInt32("Id"));
+        }
+        #endregion
+
+        #region Usuario
+        public Usuario ObterUsuarioPorId(int id)
+        {
+            var usuario = this._contexto.Usuario.Find(id);
+
             if (this.ObterTipoUsuario(usuario) == "Cliente")
             {
                 Cliente cliente = _contexto.Cliente
@@ -62,13 +74,6 @@ namespace MovieCheck.Clientes.Infra
 
                 return dependente;
             }
-        }
-        #endregion
-
-        #region Usuario
-        public Usuario ObterUsuarioPorId(int id)
-        {
-            return _contexto.Usuario.Find(id);
         }
 
         public Usuario ObterUsuarioPorEmail(string email)
@@ -143,6 +148,23 @@ namespace MovieCheck.Clientes.Infra
             _contexto.Usuario.Update(usuarioBanco);
             _contexto.SaveChanges();
         }
+
+        public void ExcluirUsuario(Usuario usuario)
+        {
+            if (this.ObterTipoUsuario(usuario) != "Dependente")
+            {
+                var cliente = (Cliente)usuario;
+                if (cliente.Dependentes.Count > 0)
+                {
+                    foreach (var dependente in cliente.Dependentes)
+                    {
+                        _contexto.Dependente.Remove(dependente);
+                    }
+                }
+            }
+            _contexto.Usuario.Remove(usuario);
+            _contexto.SaveChanges();
+        }
         #endregion
 
         #region Cliente
@@ -160,7 +182,12 @@ namespace MovieCheck.Clientes.Infra
 
         public Dependente ObterDependente(int id)
         {
-            return _contexto.Dependente.Find(id);
+            return _contexto.Dependente
+                .Include(t => t.Telefones)
+                .ThenInclude(ut => ut.Telefone)
+                .Include(e => e.Endereco)
+                .Include(c => c.Cliente)
+                .Where(d => d.Id == id).FirstOrDefault();
         }
 
         public void AdicionarDependente(Cliente responsavel, Dependente dependente)

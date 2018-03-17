@@ -18,6 +18,8 @@
             get { return this.clienteNome; }
             set { this.clienteNome = value; }
         }
+
+        public Endereco Endereco { get; internal set; }
         #endregion
 
         #region Construtores
@@ -61,6 +63,7 @@
             this.clienteId = dependente.ClienteId;
             this.clienteNome = dependente.Cliente.Nome;
             this.tipo = "Dependente";
+            this.Status = dependente.Status == 1;
         }
         #endregion
     }

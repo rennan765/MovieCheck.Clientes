@@ -1,6 +1,9 @@
 ﻿using MovieCheck.Clientes.Models;
+using MovieCheck.Clientes.Models.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,6 +12,39 @@ namespace MovieCheck.Clientes.Infra.Factory
 {
     public static class UsuarioFactory
     {
+        public static Usuario _usuarioViewModel;
+
+        public static bool ExisteUsuarioViewModel()
+        {
+            if (!(_usuarioViewModel is null))
+            {
+                if (!string.IsNullOrEmpty(_usuarioViewModel.Email))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static void AdicionarUsuarioViewModel(this IDataService dataService, Usuario usuario)
+        {
+            if (dataService.TipoCliente(usuario) != "Dependente")
+            {
+                _usuarioViewModel = (Cliente)usuario;
+            }
+            else
+            {
+                _usuarioViewModel = (Dependente)usuario;
+            }
+        }
+
         public static string HashPassword(string senha)
         {
             UnicodeEncoding encoding = new UnicodeEncoding();
@@ -117,6 +153,11 @@ namespace MovieCheck.Clientes.Infra.Factory
             }
         }
 
+        public static void EfetuarLogOff(this IDataService dataService)
+        {
+            dataService.FinalizarSessao();
+        }
+
         public static void EditarUsuarioLogado(this IDataService dataService, Usuario usuario)
         {
             try
@@ -128,28 +169,214 @@ namespace MovieCheck.Clientes.Infra.Factory
             }
         }
 
-        public static void AdicionarDependente(this IDataService dataService, Dependente dependente)
+        public static void AtualizarUsuario(this IDataService dataService, Usuario antigo, string email, string senha, Endereco endereco, string telefoneFixo, string telefoneCelular)
         {
-            var usuario = dataService.ObterUsuarioSessao();
-
-            if (dataService.ObterTipoUsuario(usuario) == "Cliente")
+            try
             {
-                if (UsuarioFactory.IsEmail(dependente.Email))
-                {
-                    dataService.ExisteEmail(dependente.Email);
+                Usuario novo = null;
 
-                    dataService.AdicionarDependente((Cliente)usuario, dependente);
+                string tipoCliente = dataService.TipoCliente(antigo);
+                if (tipoCliente == "Cliente" || tipoCliente == "Administrador")
+                {
+                    novo = new Cliente(tipoCliente);
                 }
                 else
                 {
-                    throw new NewUserFailedException("E-mail inválido.");
+                    novo = new Dependente();
+                }
+
+                novo.Id = antigo.Id;
+                novo.Nome = antigo.Nome;
+
+                //EMAIL
+                if (antigo.VerificaSeTrocouEmail(email))
+                {
+                    UsuarioFactory.ValidaEmail(email);
+                    novo.Email = email;
+                }
+                else
+                {
+                    novo.Email = antigo.Email;
+                }
+
+                //SENHA
+                if (!string.IsNullOrEmpty(senha))
+                {
+                    novo.Senha = senha;
+                }
+                else
+                {
+                    novo.Senha = "";
+                }
+
+                //ENDERECO
+                if (!(endereco is null))
+                {
+                    novo.AdicionarEndereco(endereco);
+                }
+
+                antigo.AtualizarUsuario(novo);
+
+                if (telefoneFixo != string.Empty)
+                {
+                    var fixo = TelefoneFactory.ValidaTelefone("fixo", telefoneFixo);
+
+                    if (dataService.ExisteTelefone(fixo))
+                    {
+                        fixo = dataService.ObterTelefone(fixo);
+                    }
+
+                    if (antigo.ObterTelefoneFixo() is null)
+                    {
+                        antigo.AdicionarTelefone(fixo);
+                    }
+                    else
+                    {
+                        if (!antigo.ObterTelefoneFixo().Equals(fixo))
+                        {
+                            antigo.EditarTelefoneFixo(fixo);
+                        }
+                    }
+                }
+                else
+                {
+                    antigo.RemoverTelefoneFixo();
+                }
+
+                if (telefoneCelular != string.Empty)
+                {
+                    var celular = TelefoneFactory.ValidaTelefone("celular", telefoneCelular);
+
+                    if (dataService.ExisteTelefone(celular))
+                    {
+                        celular = dataService.ObterTelefone(celular);
+                    }
+
+                    if (antigo.ObterTelefoneCelular() is null)
+                    {
+                        antigo.AdicionarTelefone(celular);
+                    }
+                    else
+                    {
+                        if (!antigo.ObterTelefoneCelular().Equals(celular))
+                        {
+                            antigo.EditarTelefoneCelular(celular);
+                        }
+                    }
+                }
+                else
+                {
+                    antigo.RemoverTelefoneCelular();
+                }
+
+                dataService.EditarUsuario(antigo);
+            }
+            catch (NewUserFailedException e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw new NewUserFailedException($"Falha ao atualizar o usuário: {e.ToString()}");
+            }
+        }
+
+        public static void AlterarStatusUsuario(this IDataService dataService, Usuario usuario)
+        {
+            usuario.ChangeStatus();
+            try
+            {
+                dataService.EditarUsuario(usuario);
+            }
+            catch (NewUserFailedException e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw new NewUserFailedException($"Falha ao atualizar o usuário: {e.ToString()}");
+            }
+        }
+
+        public static IList<DependenteViewModel> ObterListaDependenteViewModelPorCliente(this IDataService dataService, Cliente cliente)
+        {
+            IList<DependenteViewModel> listaDependenteViewModel = new List<DependenteViewModel>();
+            
+            foreach (Dependente dependente in dataService.ObterListaDependente(cliente))
+            {
+                listaDependenteViewModel.Add(new DependenteViewModel(dependente));
+            }
+
+            return listaDependenteViewModel;
+        }
+
+        public static Dependente ObterDependentePorUsuarioId(this IDataService dataService, Cliente cliente, int id)
+        {
+            try
+            {
+                Dependente dependente = (Dependente)dataService.ObterUsuarioPorId(id);
+                VerificarResponsavelDependente(cliente, dependente);
+                return dependente;
+            }
+            catch (NewUserFailedException e)
+            {
+                throw e;
+            }
+        }
+
+        public static void VerificarResponsavelDependente(Cliente cliente, Dependente dependente)
+        {
+            if (!cliente.Dependentes.Any(d => d.Email == dependente.Email))
+            {
+                throw new NewUserFailedException($"O dependente {dependente.Email} não pertence ao cliente {cliente.Email}.");
+            }
+        }
+
+        public static void AdicionarDependente(this IDataService dataService, Dependente dependente, string telefoneFixo, string telefoneCelular)
+        {
+            dataService.ExisteEmail(dependente.Email);
+
+            if (telefoneFixo != string.Empty)
+            {
+                var fixo = TelefoneFactory.ValidaTelefone("fixo", telefoneFixo);
+
+                if (dataService.ExisteTelefone(fixo))
+                {
+                    dependente.AdicionarTelefone(dataService.ObterTelefone(fixo));
+                }
+                else
+                {
+                    dependente.AdicionarTelefone(fixo);
                 }
             }
-            else
+
+            if (telefoneCelular != string.Empty)
             {
-                throw new NewUserFailedException("Este usuário é um dependente. Dependentes não podem possuir dependentes.");
+                var celular = TelefoneFactory.ValidaTelefone("celular", telefoneCelular);
+
+                if (dataService.ExisteTelefone(celular))
+                {
+                    dependente.AdicionarTelefone(dataService.ObterTelefone(celular));
+                }
+                else
+                {
+                    dependente.AdicionarTelefone(celular);
+                }
             }
-            
+
+            dataService.AdicionarDependente(dependente.Cliente, dependente);
+        }
+
+        public static void ExcluirDependente(this IDataService dataService, Dependente dependente)
+        {
+            try
+            {
+                dataService.ExcluirUsuario(dependente);
+            }
+            catch (Exception e)
+            {
+                throw new NewUserFailedException($"Falha ao atualizar o usuário: {e.ToString()}");
+            }
         }
     }
 }

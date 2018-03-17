@@ -50,7 +50,7 @@ namespace MovieCheck.Clientes.Infra.Factory
             }
             catch (Exception e)
             {
-                throw new NewUserFailedException("Formato de telefone inválido. Favor cadastrat telefone no formato 2125555555 para fixo e 21999999999 para celular.");
+                throw new NewUserFailedException("Formato de telefone inválido. Favor cadastrar telefone no formato 2125555555 para fixo e 21999999999 para celular.");
             }
 
             return ValidaTelefone(tipoTelefone, ddd, numero);

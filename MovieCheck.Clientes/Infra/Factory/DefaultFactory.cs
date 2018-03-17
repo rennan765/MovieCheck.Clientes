@@ -22,5 +22,10 @@ namespace MovieCheck.Clientes.Infra.Factory
 
             return isNumeric;
         }
+
+        public static bool ValidaBotaoLogOff(string titulo)
+        {
+            return titulo != "Seja Bem Vindo" && titulo != "Novo Usuário" && titulo != "Esqueceu a sua senha?";
+        }
     }
 }

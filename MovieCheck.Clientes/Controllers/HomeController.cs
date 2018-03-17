@@ -12,7 +12,6 @@ namespace MovieCheck.Clientes.Controllers
     {
         #region Atributos
         private readonly IDataService _dataService;
-        private string mensagem;
         #endregion
 
         #region Construtores
@@ -90,54 +89,27 @@ namespace MovieCheck.Clientes.Controllers
             ViewData["Mensagem"] = "";
             try
             {
-                //PEGA USUARIO DO BANCO
-                var usuario = _dataService.ObterUsuarioSessao();
-                Usuario novo = null;
+                var antigo = _dataService.ObterUsuarioSessao();
 
-                string tipoCliente = _dataService.TipoCliente(usuario);
-                if (tipoCliente == "Cliente" || tipoCliente == "Administrador")
-                {
-                    novo = new Cliente(tipoCliente);
-                }
-                else
-                {
-                    novo = new Dependente();
-                }
-
-                novo.Id = usuario.Id;
-                novo.Nome = usuario.Nome;
-
-                //EMAIL
-                if (usuario.VerificaSeTrocouEmail(formCollection["email"]))
-                {
-                    UsuarioFactory.ValidaEmail(formCollection["email"]);
-                    novo.Email = formCollection["email"];
-                }
-                else
-                {
-                    novo.Email = usuario.Email;
-                }
+                UsuarioFactory.ValidaEmail(formCollection["email"]);
 
                 //SENHA
-                var pass = formCollection["pass"];
-                var repass = formCollection["repass"];
+                var senha = "";
 
-                if (!string.IsNullOrEmpty(pass) && !string.IsNullOrEmpty(repass))
+                if (!string.IsNullOrEmpty(formCollection["pass"]) && !string.IsNullOrEmpty(formCollection["repass"]))
                 {
-                    UsuarioFactory.CompararSenha(pass, repass);
-                    novo.Senha = pass;
-                }
-                else
-                {
-                    novo.Senha = "";
+                    UsuarioFactory.CompararSenha(formCollection["pass"], formCollection["repass"]);
+                    senha = formCollection["pass"];
                 }
 
                 //ENDERECO
+                Endereco endereco = null;
+
                 if (formCollection["zipCode"] != string.Empty)
                 {
                     EnderecoFactory.ValidaEstado(formCollection["state"]);
                     EnderecoFactory.ValidaNumero(formCollection["numAddress"]);
-                    novo.Endereco = new Endereco()
+                    endereco = new Endereco()
                     {
                         Logradouro = formCollection["street"],
                         Numero = Convert.ToInt32(formCollection["numAddress"]),
@@ -149,61 +121,7 @@ namespace MovieCheck.Clientes.Controllers
                     };
                 }
 
-                usuario.AtualizarUsuario(novo);
-
-                if (formCollection["phoneHome"] != string.Empty)
-                {
-                    var fixo = TelefoneFactory.ValidaTelefone("fixo", formCollection["phoneHome"]);
-
-                    if (_dataService.ExisteTelefone(fixo))
-                    {
-                        fixo = _dataService.ObterTelefone(fixo);
-                    }
-
-                    if (usuario.ObterTelefoneFixo() is null)
-                    {
-                        usuario.AdicionarTelefone(fixo);
-                    }
-                    else
-                    {
-                        if (!usuario.ObterTelefoneFixo().Equals(fixo))
-                        {
-                            usuario.EditarTelefoneFixo(fixo);
-                        }
-                    }
-                }
-                else
-                {
-                    usuario.RemoverTelefoneFixo();
-                }
-
-                if (formCollection["phoneCel"] != string.Empty)
-                {
-                    var celular = TelefoneFactory.ValidaTelefone("celular", formCollection["phoneCel"]);
-
-                    if (_dataService.ExisteTelefone(celular))
-                    {
-                        celular = _dataService.ObterTelefone(celular);
-                    }
-
-                    if (usuario.ObterTelefoneCelular() is null)
-                    {
-                        usuario.AdicionarTelefone(celular);
-                    }
-                    else
-                    {
-                        if (!usuario.ObterTelefoneCelular().Equals(celular))
-                        {
-                            usuario.EditarTelefoneCelular(celular);
-                        }
-                    }
-                }
-                else
-                {
-                    usuario.RemoverTelefoneCelular();
-                }
-
-                _dataService.EditarUsuarioLogado(usuario);
+                _dataService.AtualizarUsuario(antigo, formCollection["email"], senha, endereco, formCollection["phoneHome"], formCollection["phoneCel"]);
 
                 DefaultFactory._mensagemViewModel.AtribuirMensagemSucesso("Usuário atualizado com sucesso.");
                 return RedirectToAction("Main");
@@ -214,5 +132,15 @@ namespace MovieCheck.Clientes.Controllers
             }
         }
         #endregion
+
+        public IActionResult LogOff()
+        {
+            if (_dataService.VerificarSecao())
+            {
+                _dataService.EfetuarLogOff();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
