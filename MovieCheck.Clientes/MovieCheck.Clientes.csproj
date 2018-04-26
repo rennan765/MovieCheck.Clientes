@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180424032343_Filme.cs" />
+    <Compile Remove="Migrations\20180424032343_Filme.Designer.cs" />
+    <Compile Remove="Migrations\20180425030351_Filme.cs" />
+    <Compile Remove="Migrations\20180425030351_Filme.Designer.cs" />
+    <Compile Remove="Migrations\20180426014841_Filme.cs" />
+    <Compile Remove="Migrations\20180426014841_Filme.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
