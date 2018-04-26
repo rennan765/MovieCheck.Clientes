@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MovieCheck.Clientes.Infra;
+﻿using MovieCheck.Clientes.Infra;
 using MovieCheck.Clientes.Infra.Factory;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MovieCheck.Clientes.Models
 {
@@ -17,10 +15,12 @@ namespace MovieCheck.Clientes.Models
         private Endereco endereco;
         private IList<UsuarioTelefone> telefones;
         private int status; //0 = A AUTORIZAR - 1 = DESBLOQUEADO - 2 - BLOQUEADO
+        private IList<Pendencia> pendencias;
         #endregion
 
         #region Propriedades
-        public int Id {
+        public int Id
+        {
             get { return this.id; }
             set { this.id = value; }
         }
@@ -86,6 +86,11 @@ namespace MovieCheck.Clientes.Models
         {
             get { return this.status; }
             set { this.status = value; }
+        }
+        public IList<Pendencia> Pendencias
+        {
+            get { return this.pendencias; }
+            set { this.pendencias = value; }
         }
         #endregion
 

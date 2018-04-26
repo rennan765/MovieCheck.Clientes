@@ -9,12 +9,13 @@ using Microsoft.EntityFrameworkCore.ValueGeneration;
 using MovieCheck.Clientes.Infra;
 using System;
 
-namespace MovieCheck.Administradores.Migrations
+namespace MovieCheck.Clientes.Migrations
 {
     [DbContext(typeof(MovieCheckContext))]
-    partial class MovieCheckContextModelSnapshot : ModelSnapshot
+    [Migration("20180426021920_Filme")]
+    partial class Filme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

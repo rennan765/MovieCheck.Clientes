@@ -40,5 +40,35 @@ namespace MovieCheck.Clientes.Infra
         bool ExisteOutroUsuarioTelefone(Usuario usuario, Telefone telefone);
         Telefone ObterTelefone(Telefone telefone);
         #endregion
+
+        #region Filme
+        void AdicionarFilme(Filme filme, IList<Ator> atores, IList<Diretor> diretores, IList<Genero> generos, Classificacao classificacao);
+        void ExcluirTitulo(string titulo);
+        bool TituloJaExiste(string titulo);
+        void AdicionarExemplar(Filme filme, string midia);
+        void ExcluirExemplar(Filme filme);
+        #endregion
+
+        #region Ator
+        Ator ObterAtorPorNome(string nome);
+        void AdicionarAtor(Ator ator);
+        #endregion
+
+        #region Diretor
+        Diretor ObterDiretorPorNome(string nome);
+        void AdicionarDiretor(Diretor diretor);
+        #endregion
+
+        #region Genero 
+        Genero ObterGeneroPorDescricao(string descricao);
+        void AdicionarGenero(Genero genero);
+        #endregion
+
+        #region Classificacao
+        Classificacao ObterClassificacaoPorSigla(string sigla);
+        Classificacao ObterClassificacaoPorDescricao(string descricao);
+        void AdicionarClassificacao(Classificacao classificacao);
+        bool ExisteClassificacao(Classificacao classificacao);
+        #endregion
     }
 }
