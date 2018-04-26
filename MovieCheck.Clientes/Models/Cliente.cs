@@ -49,14 +49,12 @@ namespace MovieCheck.Clientes.Models
         {
             this.Telefones = new List<UsuarioTelefone>();
             this.Dependentes = new List<Dependente>();
-            this.Pendencias = new List<Pendencia>();
         }
 
         public Cliente(string tipo)
         {
             this.Telefones = new List<UsuarioTelefone>();
             this.Dependentes = new List<Dependente>();
-            this.Pendencias = new List<Pendencia>();
 
             switch (tipo)
             {

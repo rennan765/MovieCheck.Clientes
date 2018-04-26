@@ -1,5 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieCheck.Clientes.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace MovieCheck.Clientes.Infra
 {
     public class MovieCheckContext : DbContext
@@ -8,12 +13,6 @@ namespace MovieCheck.Clientes.Infra
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Dependente> Dependente { get; set; }
         public DbSet<Telefone> Telefone { get; set; }
-        public DbSet<Filme> Filme { get; set; }
-        public DbSet<Ator> Ator { get; set; }
-        public DbSet<Diretor> Diretor { get; set; }
-        public DbSet<Genero> Genero { get; set; }
-        public DbSet<Classificacao> Classificacao { get; set; }
-        public DbSet<Pendencia> Pendencia { get; set; }
 
         public MovieCheckContext()
         {
@@ -41,38 +40,11 @@ namespace MovieCheck.Clientes.Infra
             modelBuilder.Entity<Endereco>().ToTable("TB_Endereco");
             modelBuilder.Entity<Endereco>().Property<int>("UsuarioId");
             modelBuilder.Entity<Endereco>().HasKey("UsuarioId");
-
-            //FILME
-            modelBuilder.Entity<Filme>().ToTable("TB_Filme");
-            modelBuilder.Entity<Filme>().HasKey(f => f.Id);
-
-            //ATOR
-            modelBuilder.Entity<Ator>().ToTable("TB_Ator");
-            modelBuilder.Entity<AtorFilme>().ToTable("TB_Ator_Filme");
-            modelBuilder.Entity<AtorFilme>().HasKey(af => new { af.AtorId, af.FilmeId });
-
-            //DIRETOR
-            modelBuilder.Entity<Diretor>().ToTable("TB_Diretor");
-            modelBuilder.Entity<DiretorFilme>().ToTable("TB_Diretor_Filme");
-            modelBuilder.Entity<DiretorFilme>().HasKey(df => new { df.DiretorId, df.FilmeId });
-
-            //GENERO
-            modelBuilder.Entity<Genero>().ToTable("TB_Genero");
-            modelBuilder.Entity<GeneroFilme>().ToTable("TB_Genero_Filme");
-            modelBuilder.Entity<GeneroFilme>().HasKey(gf => new { gf.GeneroId, gf.FilmeId });
-
-            //CLASSIFICACAO
-            modelBuilder.Entity<Classificacao>().ToTable("Tb_Classificacao");
-            modelBuilder.Entity<Classificacao>().HasKey(c => c.Id);
-
-            //PENDENCIA
-            modelBuilder.Entity<Pendencia>().ToTable("TB_Pendencia");
-            modelBuilder.Entity<Pendencia>().HasKey(pen => new { pen.Id });
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=MOVIE_CHECK;Integrated Security=True");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=MOVIE_CHECK;Integrated Security=True");
+        //}
     }
 }

@@ -26,7 +26,6 @@ namespace MovieCheck.Clientes.Models
         public Dependente()
         {
             this.Telefones = new List<UsuarioTelefone>();
-            this.Pendencias = new List<Pendencia>();
         }
         #endregion
 
