@@ -5,7 +5,6 @@ using MovieCheck.Clientes.Infra.Factory;
 using MovieCheck.Clientes.Models;
 using MovieCheck.Clientes.Models.ViewModels;
 using System;
-using System.Collections.Generic;
 
 namespace MovieCheck.Clientes.Controllers
 {
@@ -27,15 +26,107 @@ namespace MovieCheck.Clientes.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult Register()
         {
+            if (!DefaultFactory._mensagemViewModel.SemMensagem())
+            {
+                ViewBag.TipoErro = DefaultFactory._mensagemViewModel.Tipo;
+                ViewBag.Mensagem = DefaultFactory._mensagemViewModel.Mensagem;
+                ViewBag.Operacao = DefaultFactory._mensagemViewModel.Operacao;
+                DefaultFactory._mensagemViewModel.Dispose();
+            }
+
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Register(IFormCollection formCollection)
+        {
+            try
+            {
+                UsuarioFactory.CompararSenha(formCollection["pass"], formCollection["repass"]);
+                var cliente = new Cliente()
+                {
+                    Email = formCollection["email"],
+                    Cpf = formCollection["cpf"],
+                    Nome = formCollection["name"],
+                    Senha = formCollection["pass"]
+                };
+
+                EnderecoFactory.ValidaEstado(formCollection["state"]);
+                EnderecoFactory.ValidaNumero(formCollection["numAddress"]);
+                var endereco = new Endereco()
+                {
+                    Logradouro = formCollection["street"],
+                    Numero = Convert.ToInt32(formCollection["numAddress"]),
+                    Complemento = formCollection["complement"],
+                    Bairro = formCollection["province"],
+                    Cidade = formCollection["city"],
+                    Estado = formCollection["state"],
+                    Cep = formCollection["zipCode"]
+                };
+                cliente.AdicionarEndereco(endereco);
+
+                _dataService.AdicionarCliente(cliente, formCollection["phoneHome"], formCollection["phoneCel"]);
+
+                _dataService.EnviarEmail("0", cliente);
+
+                DefaultFactory._mensagemViewModel.AtribuirMensagemSucesso($"Usuário {cliente.Email} cadastrado com sucesso. Aguarde o contato do administrador do sistema.");
+                DefaultFactory._mensagemViewModel.Operacao = "Criar usuario";
+                return RedirectToAction("Register");
+            }
+            catch(EmailFailedException e)
+            {
+                DefaultFactory._mensagemViewModel.AtribuirMensagemSucesso($"O usuário foi cadastrado com sucesso, porém o e-mail não foi enviado para o administrador do sistema. Favor entrar em contato solicitando a liberação do usuário.");
+                DefaultFactory._mensagemViewModel.Operacao = "Criar usuario";
+                return RedirectToAction("Register");
+            }
+            catch (NewUserFailedException e)
+            {
+                DefaultFactory._mensagemViewModel.AtribuirMensagemErro(e.Desricao);
+                DefaultFactory._mensagemViewModel.Operacao = "Criar Usuário";
+                return RedirectToAction("Register");
+            }
+        }
+
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
+            if (!DefaultFactory._mensagemViewModel.SemMensagem())
+            {
+                ViewBag.TipoErro = DefaultFactory._mensagemViewModel.Tipo;
+                ViewBag.Mensagem = DefaultFactory._mensagemViewModel.Mensagem;
+                ViewBag.Operacao = DefaultFactory._mensagemViewModel.Operacao;
+                DefaultFactory._mensagemViewModel.Dispose();
+            }
+
             return View();
+        }
+        
+        [HttpPost]
+        public IActionResult ForgotPassword(IFormCollection formCollection)
+        {
+            try
+            {
+                _dataService.RedefinirSenha(formCollection["email"]);
+
+                _dataService.EnviarEmail("1", _dataService.ObterUsuarioPorEmail(formCollection["email"]));
+
+                DefaultFactory._mensagemViewModel.AtribuirMensagemSucesso($"Solicitação de restauração de senha enviada para {formCollection["email"]}.");
+                return RedirectToAction("ForgotPassword");
+            }
+            catch (EmailFailedException e)
+            {
+                DefaultFactory._mensagemViewModel.AtribuirMensagemSucesso($"A senha deste usuário foi alterada para '0000' (sem aspas). Favor efetuar o login e alterar para a senha desejada.");
+                return RedirectToAction("ForgotPassword");
+            }
+            catch (NewUserFailedException e)
+            {
+                DefaultFactory._mensagemViewModel.AtribuirMensagemErro(e.Desricao);
+                DefaultFactory._mensagemViewModel.Operacao = "Redefinir Senha";
+                return RedirectToAction("ForgotPassword");
+            }
         }
         #endregion
 
@@ -178,6 +269,7 @@ namespace MovieCheck.Clientes.Controllers
                 }
 
                 _dataService.AdicionarDependente(dependente, formCollection["phoneHome"], formCollection["phoneCel"]);
+                _dataService.EnviarEmail("2", dependente);
 
                 DefaultFactory._mensagemViewModel.AtribuirMensagemSucesso($"Dependente adicionado para o usuário {dependente.Cliente.Email} com sucesso.");
                 DefaultFactory._mensagemViewModel.Operacao = "Adicionar Dependente";
@@ -186,6 +278,12 @@ namespace MovieCheck.Clientes.Controllers
             catch (NewUserFailedException e)
             {
                 DefaultFactory._mensagemViewModel.AtribuirMensagemErro(e.Desricao);
+                DefaultFactory._mensagemViewModel.Operacao = "Adicionar Dependente";
+                return RedirectToAction("Guests");
+            }
+            catch (EmailFailedException e)
+            {
+                DefaultFactory._mensagemViewModel.AtribuirMensagemSucesso($"Dependente adicionado com sucesso.");
                 DefaultFactory._mensagemViewModel.Operacao = "Adicionar Dependente";
                 return RedirectToAction("Guests");
             }

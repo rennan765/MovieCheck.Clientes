@@ -23,10 +23,13 @@ namespace MovieCheck.Clientes.Infra
         bool VerificarUsuarioPorEmail(string email);
         void EditarUsuario(Usuario usuario);
         void ExcluirUsuario(Usuario usuario);
+        void AlterarSenha(Usuario usuario, string novaSenha);
         #endregion
 
         #region Cliente
+        void AdicionarCliente(Cliente cliente);
         bool VerificarClientePorCpf(string cpf);
+        IList<string> ObterEmailAdministradores();
         #endregion
 
         #region Dependente

@@ -1,5 +1,23 @@
 ﻿@{
     ViewData["Title"] = "Novo Usuário";
+
+    string messageClass = "";
+    string iconClass = "";
+    string formClass = "";
+    string mensagem = "";
+
+    if (string.IsNullOrEmpty(ViewBag.Mensagem))
+    {
+        formClass = "registerForm";
+        messageClass = "message hidden";
+    }
+    else
+    {
+        formClass = "registerForm hidden";
+        messageClass = "message";
+        iconClass = (ViewBag.TipoErro == "Sucesso" ? "fa fa-check" : "fa fa-times");
+        mensagem = ViewBag.Mensagem;
+    }
 }
 
 <section class="mainContainer registerContainer">
@@ -12,7 +30,7 @@
 </section>
 <section class="mainContainer registerContainer">
 
-    <form asp-controller="User" asp-action="Register" method="POST">
+    <form asp-controller="User" asp-action="Register" method="POST" class="@formClass">
         <legend><h2>Preencha as informações:</h2></legend>
         <label for="name">
             <input type="text" name="name" placeholder="Insira o seu nome completo - obrigatório" required>
@@ -65,18 +83,11 @@
         <button type="submit">Enviar cadastro</button>
     </form>
 
-    <!--
-    <div class="message">
-        <i class="fa fa-check"></i>
-        <p>Cadastro enviado com sucesso.</p>
-        <p>Aguarde o contato do administrador do sistema.</p>
+    <div class="@messageClass">
+        <i class="@iconClass"></i>
+        <p>@mensagem</p>
+        <p><span class="hideMainMessages">Clique aqui</span> para esconder esta caixa de diálogo.</p>
     </div>
-
-    <div class="message">
-        <i class="fa fa-times"></i>
-        <p>Falha ao enviar o cadastro.</p>
-    </div>
-    -->
 
 </section>
 

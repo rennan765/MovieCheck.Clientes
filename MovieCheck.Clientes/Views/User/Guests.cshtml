@@ -117,20 +117,8 @@
             <button type="submit">Enviar cadastro</button>
         </form>
     </div>
-    <!--
-    <div class="message">
-        <i class="fa fa-check"></i>
-        <p>Novo dependente cadastrado com sucesso.</p>
-        <p>Aguarde o contato do administrador do sistema.</p>
-    </div>
-
-    <div class="message">
-        <i class="fa fa-times"></i>
-        <p>Falha ao enviar o cadastro.</p>
-    </div>
-    -->
+    
     <!-- SHOW / EDIT GUEST-->
-
     @if (!(@ViewBag.DependenteSelecionado is null))
     {
         <div class="@info">
@@ -205,46 +193,7 @@
     <div class="@messageClass">
         <i class="@iconClass"></i>
         <p>@mensagem</p>
-        <p><span class="hideMainMessages" onclick="hideMessageBox()">Clique aqui</span> para esconder esta caixa de diálogo.</p>
+        <p><span class="hideMainMessages">Clique aqui</span> para esconder esta caixa de diálogo.</p>
     </div>
-
-    <!--
-    <div class="message">
-        <i class="fa fa-check"></i>
-        <p>Informações do dependente atualizadas com sucesso.</p>
-    </div>
-
-    <div class="message">
-        <i class="fa fa-times"></i>
-        <p>Falha ao atualizar o dependente.</p>
-    </div>
-    -->
-    <!-- DELETE GUEST -->
-    <!--
-    <div class="message">
-        <i class="fa fa-check"></i>
-        <p>Dependente excluído com sucesso.</p>
-    </div>
-
-    <div class="message">
-        <i class="fa fa-times"></i>
-        <p>Falha ao excluído o dependente.</p>
-    </div>
-    -->
-    <!-- BLOCK GUEST -->
-    @*<div class="message">
-            <i class="fa fa-check"></i>
-            <p>Dependente bloqueado com sucesso.</p>
-        </div>
-
-        <div class="message">
-            <i class="fa fa-check"></i>
-            <p>Dependente desbloqueado com sucesso.</p>
-        </div>
-
-        <div class="message">
-            <i class="fa fa-times"></i>
-            <p>Falha ao bloquear/desbloquear o dependente.</p>
-        </div>*@
 
 </section>

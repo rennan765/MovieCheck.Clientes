@@ -184,12 +184,60 @@ namespace MovieCheck.Clientes.Infra
             _contexto.Usuario.Remove(usuario);
             _contexto.SaveChanges();
         }
+
+        public void AlterarSenha(Usuario usuario, string novaSenha)
+        {
+            usuario.Senha = novaSenha;
+            _contexto.Usuario.Update(usuario);
+            _contexto.SaveChanges();
+        }
         #endregion
 
         #region Cliente
         public bool VerificarClientePorCpf(string cpf)
         {
             return _contexto.Cliente.Any(c => c.Cpf == cpf);
+        }
+
+        public void AdicionarCliente(Cliente cliente)
+        {
+            //VERIFICA TELEFONE
+            //FIXO
+            if (cliente.ExisteTelefoneFixo())
+            {
+                if (this.ExisteTelefone(cliente.ObterTelefoneFixo()))
+                {
+                    var fixo = ObterTelefone(cliente.ObterTelefoneFixo());
+                    cliente.EditarTelefoneFixo(fixo);
+                }
+            }
+
+            //CELULAR
+            if (cliente.ExisteTelefoneCelular())
+            {
+                if (this.ExisteTelefone(cliente.ObterTelefoneCelular()))
+                {
+                    var celular = ObterTelefone(cliente.ObterTelefoneCelular());
+                    cliente.EditarTelefoneFixo(celular);
+                }
+            }
+
+            //ATUALIZA CONTEXTO
+            _contexto.Cliente.Add(cliente);
+            _contexto.SaveChanges();
+        }
+
+        public IList<string> ObterEmailAdministradores()
+        {
+            IList<string> listaEmail = new List<string>();
+            var listaAdministradores = _contexto.Cliente.Where(c => c.Tipo == 1).ToList();
+
+            foreach (Cliente administrador in listaAdministradores)
+            {
+                listaEmail.Add(administrador.Email);
+            }
+
+            return listaEmail;
         }
         #endregion
 

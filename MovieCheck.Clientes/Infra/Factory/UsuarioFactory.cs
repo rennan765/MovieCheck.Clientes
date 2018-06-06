@@ -378,5 +378,87 @@ namespace MovieCheck.Clientes.Infra.Factory
                 throw new NewUserFailedException($"Falha ao atualizar o usuário: {e.ToString()}");
             }
         }
+
+        public static void AdicionarCliente(this IDataService dataService, Cliente cliente, string telefoneFixo, string telefoneCelular)
+        {
+            dataService.ExisteEmail(cliente.Email);
+
+            if (telefoneFixo != string.Empty)
+            {
+                var fixo = TelefoneFactory.ValidaTelefone("fixo", telefoneFixo);
+
+                if (dataService.ExisteTelefone(fixo))
+                {
+                    cliente.AdicionarTelefone(dataService.ObterTelefone(fixo));
+                }
+                else
+                {
+                    cliente.AdicionarTelefone(fixo);
+                }
+            }
+
+            if (telefoneCelular != string.Empty)
+            {
+                var celular = TelefoneFactory.ValidaTelefone("celular", telefoneCelular);
+
+                if (dataService.ExisteTelefone(celular))
+                {
+                    cliente.AdicionarTelefone(dataService.ObterTelefone(celular));
+                }
+                else
+                {
+                    cliente.AdicionarTelefone(celular);
+                }
+            }
+
+            dataService.AdicionarCliente(cliente);
+        }
+        
+        public static void RedefinirSenha(this IDataService dataService, string email)
+        {
+            try
+            {
+                if (!dataService.VerificarUsuarioPorEmail(email))
+                {
+                    dataService.AlterarSenha(dataService.ObterUsuarioPorEmail(email), "0000");
+                }
+                else
+                {
+                    throw new NewUserFailedException("Este e-mail não está cadastrado");
+                }
+            }
+            catch (NewUserFailedException e)
+            {
+                throw e;
+            }
+            catch (Exception e)
+            {
+                throw new NewUserFailedException($"Erro ao  redefinir a senha: {e.Message}");
+            }
+        }
+
+        public static void EnviarEmail(this IDataService dataService, string tipoEmail, Usuario usuario)
+        {
+            /*
+                Este método foi criado para enviar todos os e-mails do sistema que tenham relação com usuário.
+                Os tipos de e-mail podem ser:
+                    0: Novo Cliente Cadastrado.
+                    1: Redefinição de Senha.
+                    2: Novo Dependente Cadastrado.
+                Todos estes tipos estão cadastrados na propriedade TipoEmail, na classe Email. 
+            */
+
+            try
+            {
+                using (Email email = new Email(dataService))
+                {
+                    email.EnviarEmail(tipoEmail, usuario);
+                }
+            }
+            catch (EmailFailedException e)
+            {
+                throw e;
+            }
+        }
     }
 }
