@@ -41,6 +41,18 @@ namespace MovieCheck.Clientes.Infra
 
             return resultado;
         }
+
+        private void HigienizaDadosUsuario()
+        {
+            _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_telefone");
+            _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_endereco");
+        }
+
+        private void HigienizaDadosFilme()
+        {
+            _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_ator");
+            _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_diretor");
+        }
         #endregion
 
         #region Secao
@@ -166,6 +178,8 @@ namespace MovieCheck.Clientes.Infra
             //ATUALIZAR CONTEXTO
             _contexto.Usuario.Update(usuarioBanco);
             _contexto.SaveChanges();
+
+            HigienizaDadosUsuario();
         }
 
         public void ExcluirUsuario(Usuario usuario)
@@ -183,6 +197,8 @@ namespace MovieCheck.Clientes.Infra
             }
             _contexto.Usuario.Remove(usuario);
             _contexto.SaveChanges();
+
+            HigienizaDadosUsuario();
         }
 
         public void AlterarSenha(Usuario usuario, string novaSenha)
@@ -554,9 +570,7 @@ namespace MovieCheck.Clientes.Infra
 
             _contexto.SaveChanges();
 
-            _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_ator");
-            _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_diretor");
-            
+            HigienizaDadosFilme();
         }
 
         public bool TituloJaExiste(string titulo)
@@ -618,8 +632,7 @@ namespace MovieCheck.Clientes.Infra
             _contexto.Remove(filme);
             _contexto.SaveChanges();
 
-            _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_ator");
-            _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_diretor");
+            HigienizaDadosFilme();
         }
 
         public Filme ObterFilmePorId(int id)

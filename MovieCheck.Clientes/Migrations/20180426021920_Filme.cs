@@ -300,6 +300,45 @@ namespace MovieCheck.Clientes.Migrations
 	                END
                 END");
 
+            //Higieniza Endereço
+            migrationBuilder.Sql(@"
+                CREATE PROCEDURE sp_higieniza_endereco
+                AS
+                BEGIN
+	                /*
+		                Esta SP é utilizada para excluir os endereços os quais não possuem mais usuários vinculados.
+	                */
+
+	                CREATE TABLE #temp_enderecos (id INT, feito BIT DEFAULT 0)
+	                CREATE CLUSTERED INDEX ix_temp_enderecos ON #temp_enderecos (feito)
+
+	                INSERT INTO #temp_enderecos
+	                SELECT TB_Endereco.UsuarioId AS id, 0 AS feito
+	                FROM TB_Endereco (NOLOCK)
+	                WHERE NOT EXISTS (SELECT *
+					                  FROM TB_Usuario (NOLOCK)
+					                  WHERE TB_Usuario.EnderecoUsuarioId = TB_Endereco.UsuarioId)
+
+	                WHILE EXISTS (SELECT * FROM #temp_enderecos WHERE FEITO = 0)
+	                BEGIN
+		                DELETE 
+		                FROM TB_Endereco 
+		                WHERE TB_Endereco.UsuarioId IN (SELECT TOP 500 id
+										                FROM #temp_enderecos 
+										                WHERE feito = 0
+										                ORDER BY id) 
+
+		                UPDATE temp1
+		                SET FEITO = 1
+		                FROM #temp_enderecos temp1
+		                CROSS APPLY (SELECT TOP 500 *
+					                 FROM #temp_enderecos 
+					                 WHERE feito = 0
+					                 ORDER BY id) temp2
+		                WHERE temp1.id = temp2.id
+	                END
+                END");
+            
             //Higieniza Ator
             migrationBuilder.Sql(
                 @"
@@ -524,6 +563,9 @@ namespace MovieCheck.Clientes.Migrations
 
             //Higieniza Telefone
             migrationBuilder.Sql(@"DROP PROCEDURE sp_higieniza_telefone");
+
+            //Higieniza Endereço
+            migrationBuilder.Sql(@"DROP PROCEDURE sp_higieniza_endereco");
 
             //Higieniza Ator
             migrationBuilder.Sql(@"DROP PROCEDURE sp_higieniza_ator");
