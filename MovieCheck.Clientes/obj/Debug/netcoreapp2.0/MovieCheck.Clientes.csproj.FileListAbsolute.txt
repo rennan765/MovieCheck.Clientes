@@ -9,3 +9,14 @@ C:\Users\rreze\documents\visual studio 2017\Projects\MovieCheck.Clientes\MovieCh
 C:\Users\rreze\documents\visual studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\obj\Debug\netcoreapp2.0\MovieCheck.Clientes.dll
 C:\Users\rreze\documents\visual studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\obj\Debug\netcoreapp2.0\MovieCheck.Clientes.pdb
 C:\Users\rreze\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\obj\Debug\netcoreapp2.0\MovieCheck.Clientes.csprojAssemblyReference.cache
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\bin\Debug\netcoreapp2.0\MovieCheck.Clientes.deps.json
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\bin\Debug\netcoreapp2.0\MovieCheck.Clientes.runtimeconfig.json
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\bin\Debug\netcoreapp2.0\MovieCheck.Clientes.runtimeconfig.dev.json
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\bin\Debug\netcoreapp2.0\MovieCheck.Clientes.dll
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\bin\Debug\netcoreapp2.0\MovieCheck.Clientes.pdb
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\obj\Debug\netcoreapp2.0\MovieCheck.Clientes.csprojAssemblyReference.cache
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\obj\Debug\netcoreapp2.0\MovieCheck.Clientes.csproj.CoreCompileInputs.cache
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\obj\Debug\netcoreapp2.0\MovieCheck.Clientes.AssemblyInfoInputs.cache
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\obj\Debug\netcoreapp2.0\MovieCheck.Clientes.AssemblyInfo.cs
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\obj\Debug\netcoreapp2.0\MovieCheck.Clientes.dll
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Clientes\obj\Debug\netcoreapp2.0\MovieCheck.Clientes.pdb

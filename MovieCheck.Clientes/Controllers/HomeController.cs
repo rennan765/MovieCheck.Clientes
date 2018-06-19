@@ -65,7 +65,7 @@ namespace MovieCheck.Clientes.Controllers
                 }
                 else
                 {
-                    usuarioViewModel = new DependenteViewModel((Dependente)usuario);
+                    usuarioViewModel = new DependenteViewModel(_dataService.ObterDependente(usuario.Id));
                 }
 
                 if (!DefaultFactory._mensagemViewModel.SemMensagem())
@@ -74,6 +74,10 @@ namespace MovieCheck.Clientes.Controllers
                     ViewBag.Mensagem = DefaultFactory._mensagemViewModel.Mensagem;
                     DefaultFactory._mensagemViewModel.Dispose();
                 }
+
+                ViewBag.ListaPendenciaViewModel = _dataService.ListarPendenciasUsuarioLogado();
+                ViewBag.DicionarioClassificacao = _dataService.PrepararClassificacaoViewModel();
+                ViewBag.ListaGenero = _dataService.PrepararGeneroViewModel();
 
                 return View(usuarioViewModel);
             }
@@ -124,12 +128,35 @@ namespace MovieCheck.Clientes.Controllers
                 _dataService.AtualizarUsuario(antigo, formCollection["email"], senha, endereco, formCollection["phoneHome"], formCollection["phoneCel"]);
 
                 DefaultFactory._mensagemViewModel.AtribuirMensagemSucesso("Usuário atualizado com sucesso.");
-                return RedirectToAction("Main");
             } catch (NewUserFailedException e)
             {
                 DefaultFactory._mensagemViewModel.AtribuirMensagemErro(e.Desricao);
-                return RedirectToAction("Main");
             }
+
+            return RedirectToAction("Main");
+        }
+
+        public IActionResult CancelarReserva(IFormCollection formCollection)
+        {
+            try
+            {
+                if (!(formCollection is null))
+                {
+                    _dataService.CancelarReserva(Convert.ToInt32(formCollection["id"]));
+
+                    DefaultFactory._mensagemViewModel.AtribuirMensagemSucesso("Reserva cancelada com sucesso.");
+                }
+                else
+                {
+                    throw new NewPendenciaFailedException("Erro ao localizar pendência para cancelamento.");
+                }
+            }
+            catch (NewPendenciaFailedException e)
+            {
+                DefaultFactory._mensagemViewModel.AtribuirMensagemErro(e.Descricao);
+            }
+
+            return RedirectToAction("Main");
         }
         #endregion
 

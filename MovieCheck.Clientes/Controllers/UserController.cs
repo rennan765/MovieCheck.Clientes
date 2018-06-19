@@ -148,7 +148,7 @@ namespace MovieCheck.Clientes.Controllers
 
                     if (UsuarioFactory.ExisteUsuarioViewModel())
                     {
-                        ViewBag.DependenteSelecionado = new DependenteViewModel((Dependente)UsuarioFactory._usuarioViewModel);
+                        ViewBag.DependenteSelecionado = new DependenteViewModel(_dataService.ObterDependente(UsuarioFactory._usuarioViewModel.Id));
                         UsuarioFactory._usuarioViewModel.Dispose();
                     }
 

@@ -112,7 +112,7 @@ namespace MovieCheck.Clientes.Infra.Factory
 
         public static Usuario EfetuarLogin(this IDataService dataService, string email, string senha)
         {
-            if (UsuarioFactory.IsEmail(email))
+            if (IsEmail(email))
             {
                 if (senha != string.Empty)
                 {

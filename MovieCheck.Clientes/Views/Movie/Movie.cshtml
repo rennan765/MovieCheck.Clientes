@@ -1,146 +1,90 @@
-﻿@{
+﻿@using MovieCheck.Clientes.Models.ViewModels;
+
+@{
     ViewData["Title"] = "Filmes";
+    string tipoMensagem = (string.IsNullOrEmpty(ViewBag.TipoMensagem) ? "" : ViewBag.TipoMensagem);
+    string mensagem = (string.IsNullOrEmpty(ViewBag.Mensagem) ? "" : ViewBag.Mensagem);
+    string movieListClass = "";
+    string messageClass = "";
+    string iconClass = "";
+    IList<FilmeViewModel> listaFilmeViewModel = ViewBag.ListaFilmeViewModel;
+
+    if (string.IsNullOrEmpty(mensagem))
+    {
+        movieListClass = "movieList";
+        messageClass = "message hidden";
+    }
+    else
+    {
+        movieListClass = "movieList hidden";
+        messageClass = "message";
+        iconClass = $"fa fa-{(tipoMensagem == "Sucesso" ? "check" : "times")}";
+    }
+
 }
 
 <section class="mainContainer movieListContainer">
     <h2>Selecione o filme</h2>
-    <div class="movieList">
-        <div class="row">
-            <img class="icon" src="~/images/dvd.png" alt="DVD">
-            <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
-            <p>Interestelar</p>
-            <button onclick="showInfo(1)">Info</button>
-        </div>
-        <div class="row">
-            <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
-            <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
-            <p>Batman vs. Superman - A Origem da Justiça</p>
-            <button onclick="showInfo(2)">Info</button>
-        </div>
-        <div class="row">
-            <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
-            <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
-            <p>Interestelar</p>
-            <button onclick="showInfo(3)">Info</button>
-        </div>
-        <div class="row">
-            <img class="icon" src="~/images/dvd.png" alt="DVD">
-            <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
-            <p>Batman vs. Superman - A Origem da Justiça</p>
-            <button onclick="showInfo(4)">Info</button>
-        </div>
+    <div class="@movieListClass">
+        @if (!(Model is null) && Model.Count > 0)
+        {
+            @foreach (FilmeViewModel viewModel in @Model)
+            {
+                <div class="row">
+                    <img class="icon" src="@viewModel.IconeMidia" alt="@viewModel.TipoMidia">
+                    <img class="movieCover" src="@viewModel.Poster" alt="@viewModel.Titulo">
+                    <p>@viewModel.Titulo</p>
+                    <button onclick="showInfo(@viewModel.Id)">Info</button>
+                </div>
+            }
+        }
+
+        <a asp-controller="Home" asp-action="Index"><button>Voltar ao painel do cliente</button></a>
     </div>
-    <a href="client_panel.php"><button>Voltar ao painel do cliente</button></a>
+
+    <div class="@messageClass">
+        <i class="@iconClass"></i>
+        <p>@mensagem</p>
+        <p><a asp-controller="Home" asp-action="Main">Clique aqui</a> para voltar à página inicial. </p>
+    </div>
 </section>
 
 <section class="mainContainer movieListContainer">
-    <div class="movie hidden" id="movieId1">
-        <div class="header">
-            <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
-            <h2>Interestelar</h2>
-            <img class="icon" src="~/images/dvd.png" alt="DVD">
-        </div>
-        <div class="body">
-            <p>Ano de lançamento: 2014</p>
-            <p>Classificação: 10</p>
-            <p>Gênero: ficção científica</p>
-            <p>Elenco: -----</p>
-            <p>Diretor: Christopher Nolan</p>
-            <div class="text">
-                <p>Sinopse</p>
-                <p>As reservas naturais da Terra estão chegando ao fim e um grupo de astronautas recebe a missão de verificar possíveis planetas para receberem a população mundial, possibilitando a continuação da espécie. Cooper é chamado para liderar o grupo e aceita a missão sabendo que pode nunca mais ver os filhos. Ao lado de Brand, Jenkins e Doyle, ele seguirá em busca de um novo lar.</p>
+    @if (!(Model is null) && Model.Count > 0)
+    {
+        @foreach (FilmeViewModel viewModel in @Model)
+        {
+            <div class="movie hidden" id="@viewModel.Id.ToString()">
+                <div class="header">
+                    <img class="movieCover" src="@viewModel.Poster" alt="@viewModel.Titulo">
+                    <h2>@viewModel.Titulo</h2>
+                    <img class="icon" src="@viewModel.IconeMidia" alt="@viewModel.TipoMidia">
+                </div>
+                <div class="body">
+                    <p>Ano de lançamento: @viewModel.Ano.ToString()</p>
+                    <p>Classificação: @viewModel.ClassificacaoIndicativa</p>
+                    <p> Gênero(s): @viewModel.Generos </p>
+                    <p>Elenco: @viewModel.Atores </p>
+                    <p>Diretor(es): @viewModel.Diretores</p>
+                    <div class="text">
+                        <p>Sinopse</p>
+                        <p>@viewModel.Sinopse</p>
+                    </div>
+                </div>
+                <div class="footer">
+                    <p>Situação: @viewModel.Situacao</p>
+                    @if (viewModel.Disponivel())
+                    {
+                        <form asp-controller="Movie" asp-action="ReservarFilme" method="POST">
+                            <input type="hidden" name="idMovie" value="@viewModel.Id">
+                            <button type="submit">Reservar filme</button>
+                        </form>
+                    }
+                </div>
             </div>
-        </div>
-        <div class="footer">
-            <p>Situação: disponível</p>
-            <form action="" method="POST">
-                <input type="hidden" name="idUser" value="1">
-                <input type="hidden" name="idMovie" value="1">
-                <button type="submit">Reservar filme</button>
-            </form>
-        </div>
-    </div>
+        }
+    }
 
-    <div class="movie hidden" id="movieId2">
-        <div class="header">
-            <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
-            <h2>Batman vs. Superman - A Origem da Justiça</h2>
-            <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
-        </div>
-        <div class="body">
-            <p>Ano de lançamento: 2016</p>
-            <p>Classificação: 14</p>
-            <p>Gênero: Fantasia</p>
-            <p>Elenco: -----</p>
-            <p>Diretor: Zack Snyder</p>
-            <div class="text">
-                <p>Sinopse</p>
-                <p>O confronto entre Superman e Zod em Metrópolis fez com que a população mundial se dividisse acerca da existência de extraterrestres na Terra. Enquanto muitos consideram o Superman como um novo deus, há aqueles que consideram extremamente perigoso que haja um ser tão poderoso sem qualquer tipo de controle. Bruce Wayne é um dos que acreditam nesta segunda hipótese. Com isso, sob o manto de um Batman violento e obcecado, eles se enfrentam enquanto o mundo se pergunta que tipo de herói precisa.</p>
-            </div>
-        </div>
-        <div class="footer">
-            <p>Situação: disponível</p>
-            <form action="" method="POST">
-                <input type="hidden" name="idUser" value="1">
-                <input type="hidden" name="idMovie" value="1">
-                <button type="submit">Reservar filme</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="movie hidden" id="movieId3">
-        <div class="header">
-            <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
-            <h2>Interestelar</h2>
-            <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
-        </div>
-        <div class="body">
-            <p>Ano de lançamento: 2014</p>
-            <p>Classificação: 10</p>
-            <p>Gênero: Ficção Científica</p>
-            <p>Elenco: -----</p>
-            <p>Diretor: Christopher Nolan</p>
-            <div class="text">
-                <p>Sinopse</p>
-                <p>As reservas naturais da Terra estão chegando ao fim e um grupo de astronautas recebe a missão de verificar possíveis planetas para receberem a população mundial, possibilitando a continuação da espécie. Cooper é chamado para liderar o grupo e aceita a missão sabendo que pode nunca mais ver os filhos. Ao lado de Brand, Jenkins e Doyle, ele seguirá em busca de um novo lar.</p>
-            </div>
-        </div>
-        <div class="footer">
-            <p>Situação: disponível</p>
-            <form action="" method="POST">
-                <input type="hidden" name="idUser" value="1">
-                <input type="hidden" name="idMovie" value="1">
-                <button type="submit">Reservar filme</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="movie hidden" id="movieId4">
-        <div class="header">
-            <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
-            <h2>Batman vs. Superman - A Origem da Justiça</h2>
-            <img class="icon" src="~/images/dvd.png" alt="DVD">
-        </div>
-        <div class="body">
-            <p>Ano de lançamento: 2016</p>
-            <p>Classificação: 14</p>
-            <p>Gênero: Fantasia</p>
-            <p>Elenco: -----</p>
-            <p>Diretor: Zack Snyder</p>
-            <div class="text">
-                <p>Sinopse</p>
-                <p>O confronto entre Superman e Zod em Metrópolis fez com que a população mundial se dividisse acerca da existência de extraterrestres na Terra. Enquanto muitos consideram o Superman como um novo deus, há aqueles que consideram extremamente perigoso que haja um ser tão poderoso sem qualquer tipo de controle. Bruce Wayne é um dos que acreditam nesta segunda hipótese. Com isso, sob o manto de um Batman violento e obcecado, eles se enfrentam enquanto o mundo se pergunta que tipo de herói precisa.</p>
-            </div>
-        </div>
-        <div class="footer">
-            <p>Situação: disponível</p>
-            <form action="" method="POST">
-                <input type="hidden" name="idUser" value="1">
-                <input type="hidden" name="idMovie" value="1">
-                <button type="submit">Reservar filme</button>
-            </form>
-        </div>
-    </div>
 </section>
 
 <script src="~/js/jquery-1.7.2.min.js"></script>

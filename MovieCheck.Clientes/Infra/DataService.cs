@@ -21,7 +21,6 @@ namespace MovieCheck.Clientes.Infra
         #region Banco
         public void IniciarDb()
         {
-            this._contexto.Database.EnsureCreated();
             this._contexto.Database.Migrate();
             IniciarBancoGenero();
             IniciarBancoClassificacao();
@@ -100,6 +99,7 @@ namespace MovieCheck.Clientes.Infra
             return this._contexto.Usuario
                 .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
                 .Include(e => e.Endereco)
+                .Include(p => p.Pendencias).ThenInclude(f => f.Filme)
                 .Where(u => u.Email == email)
                 .FirstOrDefault();
         }
@@ -621,6 +621,156 @@ namespace MovieCheck.Clientes.Infra
             _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_ator");
             _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_diretor");
         }
+
+        public Filme ObterFilmePorId(int id)
+        {
+            return _contexto.Filme
+                .Include(a => a.Atores).ThenInclude(af => af.Ator)
+                .Include(d => d.Diretores).ThenInclude(df => df.Diretor)
+                .Include(c => c.ClassificacaoIndicativa)
+                .Include(g => g.Generos).ThenInclude(gf => gf.Genero)
+                .Include(p => p.Pendencias)
+                .Where(f => f.Id == id)
+                .FirstOrDefault();
+        }
+
+        public IList<Filme> ObterCatalogoCompleto()
+        {
+            return _contexto.Filme.Distinct()
+                .Include(a => a.Atores).ThenInclude(af => af.Ator)
+                .Include(d => d.Diretores).ThenInclude(df => df.Diretor)
+                .Include(c => c.ClassificacaoIndicativa)
+                .Include(g => g.Generos).ThenInclude(g => g.Genero)
+                .Include(p => p.Pendencias)
+                .ToList();
+        }
+
+        public IList<Filme> ObterListaDvds()
+        {
+            return _contexto.Filme.Distinct()
+                .Include(a => a.Atores).ThenInclude(af => af.Ator)
+                .Include(d => d.Diretores).ThenInclude(df => df.Diretor)
+                .Include(c => c.ClassificacaoIndicativa)
+                .Include(g => g.Generos).ThenInclude(g => g.Genero)
+                .Include(p => p.Pendencias)
+                .Where(f => f.Midia == "0").ToList();
+        }
+
+        public IList<Filme> ObterListaBluRays()
+        {
+            return _contexto.Filme.Distinct()
+                .Include(a => a.Atores).ThenInclude(af => af.Ator)
+                .Include(d => d.Diretores).ThenInclude(df => df.Diretor)
+                .Include(c => c.ClassificacaoIndicativa)
+                .Include(g => g.Generos).ThenInclude(g => g.Genero)
+                .Include(p => p.Pendencias)
+                .Where(f => f.Midia == "1").ToList();
+        }
+
+        public IList<Filme> ObterListaFilmePorTitulo(string titulo)
+        {
+            return _contexto.Filme.Distinct()
+                .Include(a => a.Atores).ThenInclude(af => af.Ator)
+                .Include(d => d.Diretores).ThenInclude(df => df.Diretor)
+                .Include(c => c.ClassificacaoIndicativa)
+                .Include(g => g.Generos).ThenInclude(g => g.Genero)
+                .Include(p => p.Pendencias)
+                .Where(f => f.Titulo.Contains(titulo)).ToList();
+        }
+
+        public IList<Filme> PesquisaAvancada (string titulo, int ano, string ator, string diretor, string classificacao, IList<string> listaGenero)
+        {
+            //Será estudado futuramente a transformação deste método em uma SP ou UF.
+
+            //Preparar IDs para parâmetros da pesquisa.
+            Ator a = _contexto.Ator.Where(at => at.Nome.Contains(ator)).FirstOrDefault();
+
+            Diretor d = _contexto.Diretor.Where(di => di.Nome.Contains(diretor)).FirstOrDefault();
+
+            Classificacao cla = _contexto.Classificacao.Where(clas => clas.ClassificacaoIndicativa == classificacao).FirstOrDefault();
+
+            IList<Genero> listaGen = new List<Genero>();
+            foreach (string genero in listaGenero)
+            {
+                listaGen.Add(_contexto.Genero.Where(g => g.Descricao == genero).FirstOrDefault());
+            }
+
+            //Pegar todos os filmes do banco
+            IList<Filme> listaFilme = ObterCatalogoCompleto();
+
+            //Filtro por título
+            if (!string.IsNullOrEmpty(titulo))
+            {
+                foreach (Filme filme in listaFilme)
+                {
+                    if (!filme.Titulo.Contains(titulo))
+                    {
+                        listaFilme.Remove(filme);
+                    }
+                }
+            }
+
+            //Filtro por ator
+            if (!(a is null))
+            {
+                foreach (Filme filme in listaFilme)
+                {
+                    if (!filme.ObterAtores().Contains(a))
+                    {
+                        listaFilme.Remove(filme);
+                    }
+                }
+            }
+
+            //Filtro por diretor
+            if (!(d is null))
+            {
+                foreach (Filme filme in listaFilme)
+                {
+                    if (!filme.ObterDiretores().Contains(d))
+                    {
+                        listaFilme.Remove(filme);
+                    }
+                }
+            }
+
+            //Filtro por classificação
+            if (!(cla is null))
+            {
+                foreach (Filme filme in listaFilme)
+                {
+                    if (filme.ClassificacaoId != cla.Id)
+                    {
+                        listaFilme.Remove(filme);
+                    }
+                }
+            }
+
+            //Filtro por gênero
+            bool validacao = false;
+            if (listaGen.Count > 0)
+            {
+                foreach (Filme filme in listaFilme)
+                {
+                    foreach (Genero gen in listaGen)
+                    {
+                        if (filme.ObterGeneros().Contains(gen))
+                        {
+                            validacao = true;
+                            break;
+                        }
+                    }
+
+                    if (!validacao)
+                    {
+                        listaFilme.Remove(filme);
+                    }
+                }
+            }
+
+            //Após todos os filtros, retorna os filmes que sobraram.
+            return listaFilme;
+        }
         #endregion
 
         #region Ator
@@ -650,6 +800,11 @@ namespace MovieCheck.Clientes.Infra
         #endregion
 
         #region Genero
+        public IList<Genero> ObterListaGenero()
+        {
+            return _contexto.Genero.ToList();
+        }
+
         public Genero ObterGeneroPorDescricao(string descricao)
         {
             return _contexto.Genero.Where(g => g.Descricao == descricao).FirstOrDefault();
@@ -700,6 +855,11 @@ namespace MovieCheck.Clientes.Infra
         #endregion
 
         #region Classificacao
+        public IList<Classificacao> ObterListaClassificacao()
+        {
+            return _contexto.Classificacao.ToList();
+        }
+
         public Classificacao ObterClassificacaoPorSigla(string sigla)
         {
             return _contexto.Classificacao.Where(c => c.ClassificacaoIndicativa == sigla).FirstOrDefault();
@@ -752,6 +912,47 @@ namespace MovieCheck.Clientes.Infra
             {
                 _contexto.SaveChanges();
             }
+        }
+        #endregion
+
+        #region Pendencia
+        public bool ExistePendencia(Filme filme)
+        {
+            //O filme possui disponibilidade quando existe um filme 
+            //com o mesmo título e mídia com situação que não seja 
+            //reservado ou alugado.
+            return _contexto.Pendencia.Any(p => p.Filme.Titulo == filme.Titulo && 
+                                                p.Filme.Midia == filme.Midia && 
+                                                (p.Status == "0" || p.Status == "2"));
+        }
+
+        public IList<Pendencia> ObterPendenciaPorUsuario(Usuario usuario)
+        {
+            return _contexto.Pendencia
+                .Include(f => f.Filme)
+                .Where(p => p.UsuarioId == usuario.Id)
+                .ToList();
+        }
+
+        public Pendencia ObterPendenciaPorId(int id)
+        {
+            return _contexto.Pendencia
+                .Include(f => f.Filme)
+                .Include(u => u.Usuario)
+                .Where(p => p.Id == id)
+                .FirstOrDefault();
+        }
+
+        public void AdicionarPendencia(Pendencia pendencia)
+        {
+            _contexto.Pendencia.Add(pendencia);
+            _contexto.SaveChanges();
+        }
+
+        public void EditarPendencia(Pendencia pendencia)
+        {
+            _contexto.Pendencia.Update(pendencia);
+            _contexto.SaveChanges();
         }
         #endregion
     }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using MovieCheck.Clientes.Models.ViewModels;
+
+@{
     ViewData["Title"] = "Página Principal";
 
     string tipoMensagem = (string.IsNullOrEmpty(ViewBag.TipoMensagem) ? "" : ViewBag.TipoMensagem);
@@ -19,6 +21,10 @@
         messageClass = "message";
         iconClass = (tipoMensagem == "Sucesso" ? "fa fa-check" : "fa fa-times");
     }
+
+    IList<PendenciaViewModel> listaPendenciaViewModel = ViewBag.ListaPendenciaViewModel;
+    IList<string> listaGeneroViewModel = ViewBag.ListaGenero;
+    IDictionary<string, string> dicionarioClassificacaoViewModel = ViewBag.DicionarioClassificacao;
 }
 
 <section class="mainContainer cPanelContainer">
@@ -115,16 +121,16 @@
 
 <section class="mainContainer cPanelContainer">
     <div class="searchBox">
-        <form action="" method="GET">
+        <form asp-controller="Movie" asp-action="PesquisaSimples" method="GET">
             <input type="text" name="movieInfo" placeholder="Qual filme deseja procurar?" required>
             <button type="submit">Pesquisar</button>
         </form>
         <p id="pSearchBox">Pesquisa avançada</p>
-        <a href="#"><p>Ver estoque completo</p></a>
+        <a asp-controller="Movie" asp-action="VerEstoqueCompleto"><p>Ver estoque completo</p></a>
     </div>
 
     <div class="advancedSearchBox hidden">
-        <form action="" method="GET">
+        <form asp-controller="Movie" asp-action="PesquisaAvancada" method="POST">
             <div class="generalMovieInfo">
                 <input type="text" name="movieName" placeholder="Título do filme">
                 <input type="text" name="movieYear" minlength="4" maxlength="4" pattern="[0-9]+$" placeholder="Ano (Ex.: 1998)">
@@ -132,33 +138,18 @@
                 <input type="text" name="movieDirector" placeholder="Digite o nome do diretor do filme desejado">
                 <select name="movieClass">
                     <option value="null">- Selecione uma classificação -</option>
-                    <option value="l">Livre</option>
-                    <option value="10">Não recomendado para menores de 10 anos</option>
-                    <option value="12">Não recomendado para menores de 12 anos</option>
-                    <option value="14">Não recomendado para menores de 14 anos</option>
-                    <option value="16">Não recomendado para menores de 16 anos</option>
-                    <option value="18">Não recomendado para menores de 18 anos</option>
+                    @foreach (var classificacao in dicionarioClassificacaoViewModel)
+                    {
+                        <option value="@classificacao.Key">@classificacao.Value</option>
+                    }
                 </select>
             </div>
             <div class="movieGenders">
                 <p>Gênero do filme</p>
-                <input type="checkbox" name="movieGender" value="acao"> Ação <br>
-                <input type="checkbox" name="movieGender" value="animacao"> Animação <br>
-                <input type="checkbox" name="movieGender" value="aventura"> Aventura <br>
-                <input type="checkbox" name="movieGender" value="biografia"> Biografias <br>
-                <input type="checkbox" name="movieGender" value="comedia"> Comédia <br>
-                <input type="checkbox" name="movieGender" value="fantasia"> Fantasia <br>
-                <input type="checkbox" name="movieGender" value="faroeste"> Faroeste <br>
-                <input type="checkbox" name="movieGender" value="ficcaoCientifica"> Ficção Científica <br>
-                <input type="checkbox" name="movieGender" value="ficcaoHistorica"> Ficção Histórica <br>
-                <input type="checkbox" name="movieGender" value="guerra"> Guerra <br>
-                <input type="checkbox" name="movieGender" value="infantil"> Infantil <br>
-                <input type="checkbox" name="movieGender" value="misterio"> Mistério <br>
-                <input type="checkbox" name="movieGender" value="musicais"> Musicais <br>
-                <input type="checkbox" name="movieGender" value="policial"> Policial <br>
-                <input type="checkbox" name="movieGender" value="romance"> Romance <br>
-                <input type="checkbox" name="movieGender" value="suspense"> Suspense <br>
-                <input type="checkbox" name="movieGender" value="terror"> Terror <br>
+                @foreach (var genero in listaGeneroViewModel)
+                {
+                    <input type="checkbox" name="movieGender" value="@genero">@genero<br>
+                }
             </div>
             <div class="containerButtons">
                 <button type="submit">Pesquisa avançada</button>
@@ -167,84 +158,28 @@
         </form>
     </div>
 
+    @if (listaPendenciaViewModel.Count > 0)
+    {
     <div class="checkInMovies">
-        <form action="" method="POST">
-            <div class="pendencia">
-                <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
-                <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
-                <div class="text">
-                    <p>Batman vs. Superman - A Origem da Justiça</p>
-                    <p>Alugado</p>
-                    <p>26/01/2017</p>
+        @foreach (PendenciaViewModel pendenciaViewModel in listaPendenciaViewModel)
+        {
+            <form asp-controller="Home" asp-action="CancelarReserva" method="POST">
+                <div class="pendencia">
+                    <input type="hidden" name="id" value="@pendenciaViewModel.Id">
+                    <img class="icon" src="@pendenciaViewModel.IconeMidia" alt="@pendenciaViewModel.TipoMidia">
+                    <img class="movieCover" src="@pendenciaViewModel.PosterFilme" alt="@pendenciaViewModel.TituloFilme">
+                    <div class="text">
+                        <p>@pendenciaViewModel.TituloFilme</p>
+                        <p>@pendenciaViewModel.DescricaoSituacao</p>
+                        <p>@pendenciaViewModel.DataFormatada</p>
+                    </div>
+                    @if (pendenciaViewModel.CaractereSituacao == "0")
+                    {
+                        <button type="submit">Cancelar reserva</button>
+                    }
                 </div>
-            </div>
-            <div class="pendencia">
-                <img class="icon" src="~/images/dvd.png" alt="DVD">
-                <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
-                <div class="text">
-                    <p>Interestelar</p>
-                    <p>Reservado</p>
-                    <p>31/01/2017</p>
-                </div>
-                <button type="submit" formaction="">Cancelar reserva</button>
-            </div>
-            <div class="pendencia">
-                <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
-                <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
-                <div class="text">
-                    <p>Batman vs. Superman - A Origem da Justiça</p>
-                    <p>Alugado</p>
-                    <p>26/01/2017</p>
-                </div>
-            </div>
-            <div class="pendencia">
-                <img class="icon" src="~/images/dvd.png" alt="DVD">
-                <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
-                <div class="text">
-                    <p>Interestelar</p>
-                    <p>Reservado</p>
-                    <p>31/01/2017</p>
-                </div>
-                <button type="submit" formaction="">Cancelar reserva</button>
-            </div>
-            <div class="pendencia">
-                <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
-                <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
-                <div class="text">
-                    <p>Batman vs. Superman - A Origem da Justiça</p>
-                    <p>Alugado</p>
-                    <p>26/01/2017</p>
-                </div>
-            </div>
-            <div class="pendencia">
-                <img class="icon" src="~/images/dvd.png" alt="DVD">
-                <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
-                <div class="text">
-                    <p>Interestelar</p>
-                    <p>Reservado</p>
-                    <p>31/01/2017</p>
-                </div>
-                <button type="submit" formaction="">Cancelar reserva</button>
-            </div>
-            <div class="pendencia">
-                <img class="icon" src="~/images/bluray.png" alt="Blu-Ray">
-                <img class="movieCover" src="http://br.web.img2.acsta.net/pictures/18/01/04/18/43/2155615.jpg" alt="Batman vs. Superman - A Origem da Justiça">
-                <div class="text">
-                    <p>Batman vs. Superman - A Origem da Justiça</p>
-                    <p>Alugado</p>
-                    <p>26/01/2017</p>
-                </div>
-            </div>
-            <div class="pendencia">
-                <img class="icon" src="~/images/dvd.png" alt="DVD">
-                <img class="movieCover" src="http://allcalidad.com/wp-content/uploads/2016/04/1-191.jpg" alt="Interestelar">
-                <div class="text">
-                    <p>Interestelar</p>
-                    <p>Reservado</p>
-                    <p>31/01/2017</p>
-                </div>
-                <button type="submit" formaction="">Cancelar reserva</button>
-            </div>
-        </form>
-    </div>
+            </form>
+        }
+        </div>
+    }
 </section>

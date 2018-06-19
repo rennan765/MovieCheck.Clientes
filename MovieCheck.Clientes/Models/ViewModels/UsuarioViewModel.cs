@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace MovieCheck.Clientes.Models.ViewModels
 {
@@ -19,6 +19,7 @@ namespace MovieCheck.Clientes.Models.ViewModels
         private string telefoneCelular;
         private bool status;
         public string tipo;
+        public IList<PendenciaViewModel> pendencias;
         #endregion
 
         #region Propriedades
@@ -92,6 +93,11 @@ namespace MovieCheck.Clientes.Models.ViewModels
             get { return this.tipo; }
             set { this.tipo = value; }
         }
+        public IList<PendenciaViewModel> Pendencias
+        {
+            get { return this.pendencias; }
+            set { this.pendencias = value; }
+        }
         #endregion
 
         #region Métodos
@@ -120,6 +126,14 @@ namespace MovieCheck.Clientes.Models.ViewModels
             this.EnderecoCidade = endereco.Cidade;
             this.EnderecoEstado = endereco.Estado;
             this.EnderecoCep = endereco.Cep;
+        }
+
+        public void PreencherListaPendencias(IList<Pendencia> pendencias)
+        {
+            foreach (var pendencia in pendencias)
+            {
+                this.pendencias.Add(new PendenciaViewModel(pendencia));
+            }
         }
         #endregion
     }

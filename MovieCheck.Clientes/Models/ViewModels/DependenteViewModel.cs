@@ -1,4 +1,6 @@
-﻿namespace MovieCheck.Clientes.Models.ViewModels
+﻿using System.Collections.Generic;
+
+namespace MovieCheck.Clientes.Models.ViewModels
 {
     public class DependenteViewModel : UsuarioViewModel
     {
@@ -25,11 +27,13 @@
         #region Construtores
         public DependenteViewModel()
         {
-
+            this.pendencias = new List<PendenciaViewModel>();
         }
 
         public DependenteViewModel(Dependente dependente)
         {
+            this.pendencias = new List<PendenciaViewModel>();
+
             var telefoneFixo = dependente.ObterTelefoneFixo();
             var telefoneCelular = dependente.ObterTelefoneCelular();
 
@@ -64,6 +68,8 @@
             this.clienteNome = dependente.Cliente.Nome;
             this.tipo = "Dependente";
             this.Status = dependente.Status == 1;
+
+            this.PreencherListaPendencias(dependente.Pendencias);
         }
         #endregion
     }

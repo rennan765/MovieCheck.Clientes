@@ -1,7 +1,7 @@
 //JAVASCRIPT + JQUERY
 function showInfo(number){
 	$('.movie').addClass('hidden');
-	$('#movieId'.concat(number)).removeClass('hidden');
+	$('#'.concat(number)).removeClass('hidden');
 }
 
 //JQUERY

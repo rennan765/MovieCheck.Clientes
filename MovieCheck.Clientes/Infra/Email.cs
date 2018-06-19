@@ -43,7 +43,7 @@ namespace MovieCheck.Clientes.Infra
 
         private void ConfigurarMensagem()
         {
-            mailMessage = new MailMessage();
+            this.mailMessage = new MailMessage();
             AdicionarRemetente("r.rezende@devloopers.com.br", "Rennan Rezende - DevLoopers");
             mailMessage.IsBodyHtml = true;
             mailMessage.Priority = MailPriority.High;
@@ -51,7 +51,7 @@ namespace MovieCheck.Clientes.Infra
 
         private void ConfigurarSmtp()
         {
-            SmtpClient smtpClient = new SmtpClient("smtp.devloopers.com.br");
+            this.smtpClient = new SmtpClient("smtp.devloopers.com.br");
             smtpClient.EnableSsl = false;
             smtpClient.Credentials = new NetworkCredential("movie-check@devloopers.com.br", "asd,123");
         }

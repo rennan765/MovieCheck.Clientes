@@ -33,11 +33,13 @@ namespace MovieCheck.Clientes.Models.ViewModels
         #region Construtores
         public ClienteViewModel()
         {
-
+            this.pendencias = new List<PendenciaViewModel>();
         }
 
         public ClienteViewModel(Cliente cliente)
         {
+            this.pendencias = new List<PendenciaViewModel>();
+
             var telefoneFixo = cliente.ObterTelefoneFixo();
             var telefoneCelular = cliente.ObterTelefoneCelular();
 
@@ -83,6 +85,7 @@ namespace MovieCheck.Clientes.Models.ViewModels
             this.NomeDependentes = new List<string>();
 
             this.PreencherListaDependentes(cliente);
+            this.PreencherListaPendencias(cliente.Pendencias);
         }
         #endregion
 

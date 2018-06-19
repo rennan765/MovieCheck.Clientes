@@ -1360,6 +1360,38 @@ section.loginScreen p a{
 	cursor: pointer;
 }
 
+.movieListContainer .message{
+	margin-top: 180px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.movieListContainer .message i{
+	width: 100%;
+	margin-top: 40px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+}
+.movieListContainer .message i.fa-check{
+	margin: 0;
+	color: green;
+}
+.movieListContainer .message i.fa-times{
+	color: red;
+}
+.movieListContainer .message i.fa-user-times{
+	color: #0091FF;
+}
+
+.movieListContainer .message p{	
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.2em;
+	color: #E1140B;
+}
+
 /* MOVIE INFO */
 
 .movieListContainer .movie{
@@ -3194,6 +3226,37 @@ section.loginScreen p a{
 .movieListContainer a button:hover{
 	color: #eee;
 	cursor: pointer;
+}
+
+.movieListContainer .message{
+	width: 70%;
+	height: 350px;
+	margin: 0 auto;
+	margin-top: 180px;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+	border-radius: 5px;
+	background-color: #eee;
+}
+
+.movieListContainer .message i{
+	width: 100%;
+	margin-top: 40px;
+	text-decoration: none;
+	text-align: center;
+	font-size: 10em;
+}
+.movieListContainer .message i.fa-check{
+	color: green;
+}
+.movieListContainer .message i.fa-times{
+	color: red;
+}
+
+.movieListContainer .message p{
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.2em;
+	color: #E1140B;
 }
 
 /* MOVIE INFO */

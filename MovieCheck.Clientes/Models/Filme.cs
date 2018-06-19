@@ -1,6 +1,8 @@
 ﻿using MovieCheck.Clientes.Infra;
 using MovieCheck.Clientes.Infra.Factory;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MovieCheck.Clientes.Models
 {
@@ -12,13 +14,15 @@ namespace MovieCheck.Clientes.Models
         private int ano;
         private string poster;
         private string sinopse;
-        private string midia;     //0: DVD / 1: Blu-Ray
+        private string midia;
         private IList<AtorFilme> atores;
         private IList<DiretorFilme> diretores;
         private int classificacaoId;
         private Classificacao classificacaoIndicativa;
         private IList<GeneroFilme> generos;
         private IList<Pendencia> pendencias;
+        private IDictionary<string, string> dicionarioMidia;
+        private IDictionary<string, string> dicionarioIconeMidia;
         #endregion
 
         #region Propriedades
@@ -72,16 +76,10 @@ namespace MovieCheck.Clientes.Models
             get { return this.midia; }
             set
             {
-                if (value == "0" || value == "1")
-                {
-                    this.midia = value;
-                }
-                else
-                {
-                    throw new NewMovieFailedException("Mídia inválida");
-                }
+                ValidarMidia(value);
+                this.midia = value;
             }
-        }   //0: DVD / 1: Blu-Ray
+        }
         public IList<AtorFilme> Atores
         {
             get { return this.atores; }
@@ -100,25 +98,7 @@ namespace MovieCheck.Clientes.Models
         public Classificacao ClassificacaoIndicativa
         {
             get { return this.classificacaoIndicativa; }
-            set
-            {
-                try
-                {
-                    if (!(value is null))
-                    {
-                        MovieFactory.ExisteClassificacao(value);
-                        this.classificacaoIndicativa = value;
-                    }
-                    else
-                    {
-                        throw new NewMovieFailedException("Filme cadastrado sem classificação indicativa. Necessário haver uma classificação indicativa.");
-                    }
-                }
-                catch (NewMovieFailedException e)
-                {
-                    throw e;
-                }
-            }
+            set { this.classificacaoIndicativa = value; }
         }
         public IList<GeneroFilme> Generos
         {
@@ -135,6 +115,8 @@ namespace MovieCheck.Clientes.Models
         #region Construtores
         public Filme()
         {
+            IniciarDicionarioMidia();
+            IniciarDicionarioIconeMidia();
             this.Atores = new List<AtorFilme>();
             this.Diretores = new List<DiretorFilme>();
             this.Generos = new List<GeneroFilme>();
@@ -143,6 +125,33 @@ namespace MovieCheck.Clientes.Models
         #endregion
 
         #region Métodos
+        private void IniciarDicionarioMidia()
+        {
+            this.dicionarioMidia = new Dictionary<string, string>();
+
+            this.dicionarioMidia.Add("0", "DVD");
+            this.dicionarioMidia.Add("1", "Blu-Ray");
+        }
+
+        private void IniciarDicionarioIconeMidia()
+        {
+            this.dicionarioIconeMidia = new Dictionary<string, string>();
+
+            this.dicionarioIconeMidia.Add("0", "http://icons.iconseeker.com/png/fullsize/ivista-2-os-x-icons/dvd-52.png");
+            this.dicionarioIconeMidia.Add("1", "https://cdn.icon-icons.com/icons2/143/PNG/256/blu_ray_21074.png");
+        }
+
+        private void ValidarMidia(string midia)
+        {
+            IniciarDicionarioMidia();
+            IniciarDicionarioIconeMidia();
+
+            if (!dicionarioMidia.ContainsKey(midia))
+            {
+                throw new NewMovieFailedException("Mídia inválida");
+            }
+        }
+
         public void AdicionarAtor(Ator ator)
         {
             if (ator.Id <= 0)
@@ -213,6 +222,41 @@ namespace MovieCheck.Clientes.Models
             }
 
             return listaGenero;
+        }
+
+        public string ObterTipoMidia()
+        {
+            string tipoMidia = "";
+            ValidarMidia(this.midia);
+            foreach (var dm in dicionarioMidia)
+            {
+                if (dm.Key == this.midia)
+                {
+                    tipoMidia = dm.Value;
+                    break;
+                }
+            }
+            return tipoMidia;
+        }
+
+        public string ObterIconeMidia()
+        {
+            string iconeMidia = "";
+            ValidarMidia(this.midia);
+            foreach (var di in dicionarioIconeMidia)
+            {
+                if (di.Key == this.midia)
+                {
+                    iconeMidia = di.Value;
+                    break;
+                }
+            }
+            return iconeMidia;
+        }
+
+        public bool Disponivel()
+        {
+            return this.pendencias.Count <= 0 || this.pendencias.Any(p => p.Disponivel());
         }
         #endregion
     }

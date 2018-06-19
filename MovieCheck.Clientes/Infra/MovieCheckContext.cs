@@ -1,9 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MovieCheck.Clientes.Models;
+//using System.IO;
+//using Microsoft.Extensions.Configuration;
+
 namespace MovieCheck.Clientes.Infra
 {
     public class MovieCheckContext : DbContext
     {
+        #region Propriedades
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Dependente> Dependente { get; set; }
@@ -14,7 +18,9 @@ namespace MovieCheck.Clientes.Infra
         public DbSet<Genero> Genero { get; set; }
         public DbSet<Classificacao> Classificacao { get; set; }
         public DbSet<Pendencia> Pendencia { get; set; }
+        #endregion
 
+        #region Construtores
         public MovieCheckContext()
         {
 
@@ -24,7 +30,9 @@ namespace MovieCheck.Clientes.Infra
         {
 
         }
+        #endregion
 
+        #region Métodos
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //USUARIO
@@ -70,9 +78,17 @@ namespace MovieCheck.Clientes.Infra
             modelBuilder.Entity<Pendencia>().HasKey(pen => new { pen.Id });
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=MOVIE_CHECK;Integrated Security=True");
-        }
+        //Este método foi substituído por um serviço.
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    var builder = new ConfigurationBuilder()
+        //    .SetBasePath(Directory.GetCurrentDirectory())
+        //    .AddJsonFile("appsettings.json");
+
+        //    var configuration = builder.Build();
+
+        //    optionsBuilder.UseSqlServer(configuration["ConnectionStrings:Default"]);
+        //}
+        #endregion
     }
 }
