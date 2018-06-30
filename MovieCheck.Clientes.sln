@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCheck.Clientes", "MovieCheck.Clientes\MovieCheck.Clientes.csproj", "{FC2AFD7B-AED3-4ADE-B02A-AFF6466AEBC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieCheck.Clientes", "MovieCheck.Clientes\MovieCheck.Clientes.csproj", "{FC2AFD7B-AED3-4ADE-B02A-AFF6466AEBC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCheck.Api", "MovieCheck.Api\MovieCheck.Api\MovieCheck.Api.csproj", "{A8AB28B5-4799-4775-9F1C-C23D6A8E5923}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FC2AFD7B-AED3-4ADE-B02A-AFF6466AEBC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC2AFD7B-AED3-4ADE-B02A-AFF6466AEBC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC2AFD7B-AED3-4ADE-B02A-AFF6466AEBC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8AB28B5-4799-4775-9F1C-C23D6A8E5923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8AB28B5-4799-4775-9F1C-C23D6A8E5923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8AB28B5-4799-4775-9F1C-C23D6A8E5923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8AB28B5-4799-4775-9F1C-C23D6A8E5923}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
