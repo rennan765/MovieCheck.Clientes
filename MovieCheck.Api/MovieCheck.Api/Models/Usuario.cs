@@ -42,7 +42,7 @@ namespace MovieCheck.Api.Models
                 }
                 else
                 {
-                    this.senha = Util.HashPassword("");
+                    this.senha = "";
                 }
             }
         }
@@ -132,9 +132,9 @@ namespace MovieCheck.Api.Models
             }
         }
 
-        public string VerificarSenha(string senha)
+        public bool VerificarSenha(string senha)
         {
-            return Util.HashPassword(senha);
+            return Util.HashPassword(senha) == Util.HashPassword(this.senha);
         }
 
         public bool VerificaSeTrocouEmail(string email)

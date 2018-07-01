@@ -1,46 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MovieCheck.Api.Infra;
+using MovieCheck.Api.Models;
+using MovieCheck.Api.Models.ViewModel;
 
 namespace MovieCheck.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Login")]
+    [Route("api/[controller]")]
     public class LoginController : Controller
     {
-        // GET: api/Login
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        #region Atributos
+        private readonly IDataService _dataService;
+        #endregion
 
-        // GET: api/Login/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        #region Construtores
+        public LoginController(IDataService dataService)
         {
-            return "value";
+            this._dataService = dataService;
+        }
+        #endregion
+
+        #region Actions
+        // GET: api/Login/5
+        [HttpGet("{id}", Name = "GetById")]
+        public Usuario GetById(int id)
+        {
+            var usuario = _dataService.ObterUsuarioPorId(id);
+
+            return usuario;
         }
         
         // POST: api/Login
         [HttpPost]
-        public void Post([FromBody]string value)
+        public Usuario Post([FromBody]UsuarioViewModel usuarioViewModel)
         {
+            var usuario = _dataService.ObterUsuarioPorEmail(usuarioViewModel.Email);
+
+            if (!(usuario is null))
+            {
+                if (usuario.VerificarSenha(usuarioViewModel.Senha))
+                {
+                    if (usuario.Status == 1)
+                    {
+                        return usuario;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
         
         // PUT: api/Login/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]UsuarioViewModel usuarioViewModel)
         {
+            _dataService.AlterarSenha(_dataService.ObterUsuarioPorId(id), usuarioViewModel.Senha);
         }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        #endregion
     }
 }

@@ -9,14 +9,16 @@ namespace MovieCheck.Api.Infra
 {
     public class DataService : IDataService
     {
+        #region Atributos
         private readonly MovieCheckContext _contexto;
-        private readonly IHttpContextAccessor _contextAccessor;
+        #endregion
 
-        public DataService(MovieCheckContext contexto, IHttpContextAccessor contextAccessor)
+        #region Construtores
+        public DataService(MovieCheckContext contexto)
         {
             this._contexto = contexto;
-            this._contextAccessor = contextAccessor;
         }
+        #endregion
 
         #region Banco
         public void IniciarDb()
@@ -31,7 +33,7 @@ namespace MovieCheck.Api.Infra
         {
             bool resultado = false;
 
-            foreach(var entry in entityEntries)
+            foreach (var entry in entityEntries)
             {
                 if (entry.State.ToString() == "Added")
                 {
@@ -42,38 +44,24 @@ namespace MovieCheck.Api.Infra
             return resultado;
         }
 
-        private void HigienizaDadosUsuario()
+        public void HigienizaTelefone()
         {
             _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_telefone");
+        }
+
+        public void HigienizaEndereco()
+        {
             _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_endereco");
         }
 
-        private void HigienizaDadosFilme()
+        public void HigienizaAtor()
         {
             _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_ator");
+        }
+
+        public void HigienizaDiretor()
+        {
             _contexto.Database.ExecuteSqlCommand(@"EXEC sp_higieniza_diretor");
-        }
-        #endregion
-
-        #region Secao
-        public bool VerificarSecao()
-        {
-            return this._contextAccessor.HttpContext.Session.GetInt32("Id").HasValue;
-        }
-
-        public void IniciarSessao(Usuario usuario)
-        {
-            _contextAccessor.HttpContext.Session.SetInt32("Id", usuario.Id);
-        }
-
-        public void FinalizarSessao()
-        {
-            _contextAccessor.HttpContext.Session.Clear();
-        }
-
-        public Usuario ObterUsuarioSessao()
-        {
-            return this.ObterUsuarioPorId((int)this._contextAccessor.HttpContext.Session.GetInt32("Id"));
         }
         #endregion
 
@@ -178,8 +166,6 @@ namespace MovieCheck.Api.Infra
             //ATUALIZAR CONTEXTO
             _contexto.Usuario.Update(usuarioBanco);
             _contexto.SaveChanges();
-
-            HigienizaDadosUsuario();
         }
 
         public void ExcluirUsuario(Usuario usuario)
@@ -197,19 +183,26 @@ namespace MovieCheck.Api.Infra
             }
             _contexto.Usuario.Remove(usuario);
             _contexto.SaveChanges();
-
-            HigienizaDadosUsuario();
         }
 
         public void AlterarSenha(Usuario usuario, string novaSenha)
         {
-            usuario.Senha = novaSenha;
+            usuario.Senha = Util.HashPassword(novaSenha);
             _contexto.Usuario.Update(usuario);
             _contexto.SaveChanges();
         }
         #endregion
 
         #region Cliente
+        public IList<Cliente> ObterListaCliente()
+        {
+            return _contexto.Cliente
+                .Include(e => e.Endereco)
+                .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
+                .Include(d => d.Dependentes)
+                .ToList();
+        }
+
         public bool VerificarClientePorCpf(string cpf)
         {
             return _contexto.Cliente.Any(c => c.Cpf == cpf);
@@ -255,19 +248,44 @@ namespace MovieCheck.Api.Infra
 
             return listaEmail;
         }
+        
+        public void RemoverCliente(Cliente cliente)
+        {
+            cliente.RemoverTelefoneFixo();
+            cliente.RemoverTelefoneCelular();
+            cliente.RemoverEndereco();
+            foreach (Dependente dependente in cliente.Dependentes)
+            {
+                _contexto.Dependente.Remove(dependente);
+            }
+            _contexto.Cliente.Remove(cliente);
+            _contexto.SaveChanges();
+        }
         #endregion
 
         #region Dependente
+        public IList<Dependente> ObterListaDependente()
+        {
+            return _contexto.Dependente
+                .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
+                .Include(e => e.Endereco)
+                .Include(c => c.Cliente)
+                .ToList();
+        }
+
         public IList<Dependente> ObterListaDependente(Cliente cliente)
         {
-            return _contexto.Dependente.Where(d => d.ClienteId == cliente.Id).ToList();
+            return _contexto.Dependente
+                .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
+                .Include(e => e.Endereco)
+                .Include(c => c.Cliente)
+                .Where(d => d.ClienteId == cliente.Id).ToList();
         }
 
         public Dependente ObterDependente(int id)
         {
             return _contexto.Dependente
-                .Include(t => t.Telefones)
-                .ThenInclude(ut => ut.Telefone)
+                .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
                 .Include(e => e.Endereco)
                 .Include(c => c.Cliente)
                 .Where(d => d.Id == id).FirstOrDefault();
@@ -302,6 +320,71 @@ namespace MovieCheck.Api.Infra
             //ATUALIZA CONTEXTO
             _contexto.Dependente.Add(dependente);
             _contexto.Cliente.Update(responsavel);
+            _contexto.SaveChanges();
+        }
+        
+        public void RemoverDependente(Dependente dependente)
+        {
+            dependente.RemoverTelefoneFixo();
+            dependente.RemoverTelefoneCelular();
+            dependente.RemoverEndereco();
+            _contexto.Dependente.Remove(dependente);
+            _contexto.SaveChanges();
+        }
+
+        public void EditarDependente(int idDependente, Dependente dependenteEditado)
+        {
+            var dependenteBanco = ObterDependente(idDependente);
+
+            dependenteBanco.AtualizarUsuario(dependenteEditado);
+
+            //VERIFICA TELEFONE
+            //FIXO
+            if (dependenteEditado.ExisteTelefoneFixo())
+            {
+                if (!dependenteBanco.ObterTelefoneFixo().Equals(dependenteEditado.ObterTelefoneFixo()))
+                {
+                    if (this.ExisteTelefone(dependenteEditado.ObterTelefoneFixo()))
+                    {
+                        var fixo = this.ObterTelefone(dependenteEditado.ObterTelefoneFixo());
+                        dependenteBanco.EditarTelefoneFixo(fixo);
+                    }
+                    else
+                    {
+                        dependenteBanco.AdicionarTelefone(dependenteEditado.ObterTelefoneFixo());
+                    }
+                }
+            }
+            else
+            {
+                dependenteBanco.RemoverTelefoneFixo();
+            }
+
+            //CELULAR
+            if (dependenteEditado.ExisteTelefoneCelular())
+            {
+                if (!dependenteBanco.ObterTelefoneCelular().Equals(dependenteEditado.ObterTelefoneCelular()))
+                {
+                    if (this.ExisteTelefone(dependenteEditado.ObterTelefoneCelular()))
+                    {
+                        var celular = this.ObterTelefone(dependenteEditado.ObterTelefoneCelular());
+                        dependenteBanco.EditarTelefoneCelular(celular);
+                    }
+                    else
+                    {
+                        dependenteBanco.AdicionarTelefone(dependenteEditado.ObterTelefoneCelular());
+                    }
+                }
+            }
+            else
+            {
+                dependenteBanco.RemoverTelefoneCelular();
+            }
+
+            dependenteBanco.AtribuirResponsavel(dependenteEditado.Cliente);
+
+            //ATUALIZAR CONTEXTO
+            _contexto.Dependente.Update(dependenteBanco);
             _contexto.SaveChanges();
         }
         #endregion
@@ -569,8 +652,6 @@ namespace MovieCheck.Api.Infra
             }
 
             _contexto.SaveChanges();
-
-            HigienizaDadosFilme();
         }
 
         public bool TituloJaExiste(string titulo)
@@ -622,6 +703,28 @@ namespace MovieCheck.Api.Infra
             _contexto.SaveChanges();
         }
 
+        public void EditarTitulo(Filme filme, IList<Ator> atores, IList<Diretor> diretores, IList<Genero> generos)
+        {
+            Filme filmeEditar;
+
+            foreach (var filmeBanco in ObterListaFilmePorTitulo(filme.Titulo))
+            {
+                filmeEditar = filmeBanco;
+
+                filmeEditar.AtualizarTitulo(filme);
+                filmeEditar.RemoverAtores();
+                filmeEditar = AdicionarAtoresAoFilme(filmeEditar, atores);
+                filmeEditar.RemoverDiretores();
+                filmeEditar = AdicionarDiretoresAoFilme(filmeEditar, diretores);
+                filmeEditar.RemoverGeneros();
+                filmeEditar = AdicionarGenerosAoFilme(filmeEditar, generos);
+
+                _contexto.Filme.Update(filmeEditar);
+            }
+
+            _contexto.SaveChanges();
+        }
+
         public void ExcluirExemplar(Filme filme)
         {
             foreach (Pendencia pendencia in _contexto.Pendencia.Where(pen => pen.Filme.Id == filme.Id).ToList())
@@ -631,8 +734,6 @@ namespace MovieCheck.Api.Infra
 
             _contexto.Remove(filme);
             _contexto.SaveChanges();
-
-            HigienizaDadosFilme();
         }
 
         public Filme ObterFilmePorId(int id)
@@ -929,6 +1030,14 @@ namespace MovieCheck.Api.Infra
         #endregion
 
         #region Pendencia
+        public IList<Pendencia> ObterListaPendencia()
+        {
+            return _contexto.Pendencia
+                .Include(f => f.Filme)
+                .Include(u => u.Usuario)
+                .ToList();
+        }
+
         public bool ExistePendencia(Filme filme)
         {
             //O filme possui disponibilidade quando existe um filme 
@@ -965,6 +1074,12 @@ namespace MovieCheck.Api.Infra
         public void EditarPendencia(Pendencia pendencia)
         {
             _contexto.Pendencia.Update(pendencia);
+            _contexto.SaveChanges();
+        }
+
+        public void RemoverPendencia(Pendencia pendencia)
+        {
+            _contexto.Pendencia.Remove(pendencia);
             _contexto.SaveChanges();
         }
         #endregion

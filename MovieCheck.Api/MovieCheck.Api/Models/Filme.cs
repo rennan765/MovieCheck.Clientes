@@ -161,6 +161,14 @@ namespace MovieCheck.Api.Models
             }
         }
         
+        public void RemoverAtores()
+        {
+            foreach (var ator in this.atores)
+            {
+                this.atores.Remove(ator);
+            }
+        }
+
         public void AdicionarDiretor(Diretor diretor)
         {
             if(diretor.Id <= 0)
@@ -173,6 +181,14 @@ namespace MovieCheck.Api.Models
             }
         }
 
+        public void RemoverDiretores()
+        {
+            foreach (var diretor in this.diretores)
+            {
+                this.diretores.Remove(diretor);
+            }
+        }
+
         public void AdicionarGenero(Genero genero)
         {
             if (genero.Id <= 0)
@@ -182,6 +198,14 @@ namespace MovieCheck.Api.Models
             else
             {
                 this.generos.Add(new GeneroFilme() { GeneroId = genero.Id, Genero = genero });
+            }
+        }
+
+        public void RemoverGeneros()
+        {
+            foreach (var genero in this.generos)
+            {
+                this.generos.Remove(genero);
             }
         }
 
@@ -254,6 +278,16 @@ namespace MovieCheck.Api.Models
         public bool Disponivel()
         {
             return this.pendencias.Count <= 0 || this.pendencias.Any(p => p.Disponivel());
+        }
+
+        public void AtualizarTitulo(Filme filme)
+        {
+            this.titulo = filme.titulo;
+            this.ano = filme.ano;
+            this.poster = filme.poster;
+            this.sinopse = filme.sinopse;
+            this.midia = filme.midia;
+            this.classificacaoIndicativa = filme.ClassificacaoIndicativa;
         }
         #endregion
     }

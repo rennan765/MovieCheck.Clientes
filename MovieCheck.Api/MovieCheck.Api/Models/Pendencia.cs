@@ -159,6 +159,14 @@ namespace MovieCheck.Api.Models
                 && this.status != "5"
                 && this.status != "6";
         }
+
+        public void AtualizarPendencia(Pendencia pendencia)
+        {
+            this.usuario = pendencia.Usuario;
+            this.filme = pendencia.Filme;
+            this.dataReserva = pendencia.dataReserva;
+            this.status = pendencia.Status;
+        }
         #endregion
     }
 }

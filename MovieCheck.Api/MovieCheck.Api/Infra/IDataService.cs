@@ -7,13 +7,10 @@ namespace MovieCheck.Api.Infra
     {
         #region Banco
         void IniciarDb();
-        #endregion
-
-        #region Secao
-        void IniciarSessao(Usuario usuario);
-        bool VerificarSecao();
-        void FinalizarSessao();
-        Usuario ObterUsuarioSessao();
+        void HigienizaTelefone();
+        void HigienizaEndereco();
+        void HigienizaAtor();
+        void HigienizaDiretor();
         #endregion
 
         #region Usuario
@@ -27,15 +24,20 @@ namespace MovieCheck.Api.Infra
         #endregion
 
         #region Cliente
+        IList<Cliente> ObterListaCliente();
         void AdicionarCliente(Cliente cliente);
         bool VerificarClientePorCpf(string cpf);
         IList<string> ObterEmailAdministradores();
+        void RemoverCliente(Cliente cliente);
         #endregion
 
         #region Dependente
+        IList<Dependente> ObterListaDependente();
         IList<Dependente> ObterListaDependente(Cliente cliente);
         Dependente ObterDependente(int id);
         void AdicionarDependente(Cliente responsavel, Dependente dependente);
+        void RemoverDependente(Dependente dependente);
+        void EditarDependente(int idDependente, Dependente dependente);
         #endregion
 
         #region Telefone
@@ -49,6 +51,7 @@ namespace MovieCheck.Api.Infra
         void ExcluirTitulo(string titulo);
         bool TituloJaExiste(string titulo);
         void AdicionarExemplar(Filme filme, string midia);
+        void EditarTitulo(Filme filme, IList<Ator> atores, IList<Diretor> diretores, IList<Genero> generos);
         void ExcluirExemplar(Filme filme);
         Filme ObterFilmePorId(int id);
         IList<Filme> ObterCatalogoCompleto();
@@ -83,11 +86,13 @@ namespace MovieCheck.Api.Infra
         #endregion
 
         #region Pendencia
+        IList<Pendencia> ObterListaPendencia();
         bool ExistePendencia(Filme filme);
         IList<Pendencia> ObterPendenciaPorUsuario(Usuario usuario);
         Pendencia ObterPendenciaPorId(int id);
         void AdicionarPendencia(Pendencia pendencia);
         void EditarPendencia(Pendencia pendencia);
+        void RemoverPendencia(Pendencia pendencia);
         #endregion
     }
 }
