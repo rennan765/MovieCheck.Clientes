@@ -66,32 +66,55 @@ namespace MovieCheck.Api.Infra
         #endregion
 
         #region Usuario
-        public Usuario ObterUsuarioPorId(int id)
+        public IList<Usuario> ObterListaUsuario()
+        {
+            return _contexto.Usuario
+                .Include(e => e.Endereco)
+                .ToList();
+        }
+
+        public Usuario ObterUsuarioCompletoPorId(int id)
         {
             var usuario = this._contexto.Usuario.Find(id);
 
-            if (this.ObterTipoUsuario(usuario) == "Cliente")
+            if (!(usuario is null))
             {
-                Cliente cliente = _contexto.Cliente
-                    .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
-                    .Include(e => e.Endereco)
-                    .Include(d => d.Dependentes)
-                    .Where(c => c.Id == usuario.Id)
-                    .FirstOrDefault();
+                if (this.ObterTipoUsuario(usuario) == "Cliente")
+                {
+                    Cliente cliente = _contexto.Cliente
+                        .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
+                        .Include(e => e.Endereco)
+                        .Include(d => d.Dependentes)
+                        .Include(p => p.Pendencias).ThenInclude(f => f.Filme)
+                        .Where(c => c.Id == usuario.Id)
+                        .FirstOrDefault();
 
-                return cliente;
+                    return cliente;
+                }
+                else
+                {
+                    Dependente dependente = _contexto.Dependente
+                        .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
+                        .Include(e => e.Endereco)
+                        .Include(d => d.Cliente)
+                        .Where(c => c.Id == usuario.Id)
+                        .FirstOrDefault();
+
+                    return dependente;
+                }
             }
             else
             {
-                Dependente dependente = _contexto.Dependente
-                    .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
-                    .Include(e => e.Endereco)
-                    .Include(d => d.Cliente)
-                    .Where(c => c.Id == usuario.Id)
-                    .FirstOrDefault();
-
-                return dependente;
+                return null;
             }
+        }
+
+        public Usuario ObterUsuarioPorId(int id)
+        {
+            return this._contexto.Usuario
+                .Include(e => e.Endereco)
+                .Where(u => u.Id == id)
+                .FirstOrDefault();
         }
 
         public Usuario ObterUsuarioPorEmail(string email)
@@ -194,15 +217,6 @@ namespace MovieCheck.Api.Infra
         #endregion
 
         #region Cliente
-        public IList<Cliente> ObterListaCliente()
-        {
-            return _contexto.Cliente
-                .Include(e => e.Endereco)
-                .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
-                .Include(d => d.Dependentes)
-                .ToList();
-        }
-
         public bool VerificarClientePorCpf(string cpf)
         {
             return _contexto.Cliente.Any(c => c.Cpf == cpf);
@@ -267,28 +281,18 @@ namespace MovieCheck.Api.Infra
         public IList<Dependente> ObterListaDependente()
         {
             return _contexto.Dependente
-                .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
-                .Include(e => e.Endereco)
-                .Include(c => c.Cliente)
                 .ToList();
         }
 
         public IList<Dependente> ObterListaDependente(Cliente cliente)
         {
             return _contexto.Dependente
-                .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
-                .Include(e => e.Endereco)
-                .Include(c => c.Cliente)
                 .Where(d => d.ClienteId == cliente.Id).ToList();
         }
 
         public Dependente ObterDependente(int id)
         {
-            return _contexto.Dependente
-                .Include(t => t.Telefones).ThenInclude(ut => ut.Telefone)
-                .Include(e => e.Endereco)
-                .Include(c => c.Cliente)
-                .Where(d => d.Id == id).FirstOrDefault();
+            return _contexto.Dependente.Find();
         }
 
         public void AdicionarDependente(Cliente responsavel, Dependente dependente)
@@ -418,6 +422,28 @@ namespace MovieCheck.Api.Infra
         public Telefone ObterTelefone(Telefone telefone)
         {
             return _contexto.Telefone.Where(t => t.Tipo == telefone.Tipo && t.Ddd == telefone.Ddd && t.Numero == telefone.Numero ).FirstOrDefault();
+        }
+
+        public Telefone ObterTelefonePorId(int id)
+        {
+            return _contexto.Telefone.Find(id);
+        }
+
+        public IList<Telefone> ObterTelefonesPorUsuario(Usuario usuario)
+        {
+            var listaTelefone = new List<Telefone>();
+
+            if (usuario.ExisteTelefoneFixo())
+            {
+                listaTelefone.Add(usuario.ObterTelefoneFixo());
+            }
+
+            if (usuario.ExisteTelefoneCelular())
+            {
+                listaTelefone.Add(usuario.ObterTelefoneCelular());
+            }
+
+            return listaTelefone;
         }
         #endregion
 

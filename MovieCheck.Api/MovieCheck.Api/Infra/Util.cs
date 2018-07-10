@@ -1,11 +1,10 @@
 ﻿using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace MovieCheck.Api.Infra
 {
-    public class Util
+    public static class Util
     {
         public static string HashPassword(string senha)
         {
@@ -24,7 +23,7 @@ namespace MovieCheck.Api.Infra
 
             return hashValue.ToString();
         }
-
+        
         //private static bool ValidaEmail(string email)
         //{
         //    if (!Regex.IsMatch(email, "^([0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$"))

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MovieCheck.Api.Models
 {
+    [Serializable]
     public class Dependente : Usuario
     {
         #region Atributos

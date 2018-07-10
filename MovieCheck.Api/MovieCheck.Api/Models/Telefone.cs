@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MovieCheck.Api.Models
 {
+    [Serializable]
     public class Telefone
     {
         #region Atributos
@@ -9,7 +11,7 @@ namespace MovieCheck.Api.Models
         private int tipo;   //0 = FIXO - 1 = CELULAR
         private int ddd;
         private string numero;
-        private IList<UsuarioTelefone> usuarios;
+        private List<UsuarioTelefone> usuarios;
         #endregion
 
         #region Propriedades
@@ -33,7 +35,7 @@ namespace MovieCheck.Api.Models
             get { return this.numero; }
             set { this.numero = value; }
         }
-        public IList<UsuarioTelefone> Usuarios
+        public List<UsuarioTelefone> Usuarios
         {
             get { return this.usuarios; }
             set { this.usuarios = value; }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MovieCheck.Clientes.Infra;
-using System.Net;
+using MovieCheck.Api.Infra;
 using System.Net.Http;
 
 namespace MovieCheck.Api.Controllers
@@ -17,7 +16,6 @@ namespace MovieCheck.Api.Controllers
         public LoginController(IDataService dataService)
         {
             this._dataService = dataService;
-            response = Request.CreateResponse(HttpStatusCode.Created);
         }
         #endregion
 
@@ -34,8 +32,6 @@ namespace MovieCheck.Api.Controllers
         public void Post([FromBody]string email, string senha)
         {
             var usuario = this._dataService.ObterUsuarioPorEmail(email);
-
-
         }
         #endregion
     }

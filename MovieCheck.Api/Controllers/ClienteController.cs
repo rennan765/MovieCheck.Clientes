@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MovieCheck.Clientes.Infra;
-using MovieCheck.Clientes.Models;
+using MovieCheck.Api.Infra;
+using MovieCheck.Api.Infra.Exceptions;
+using MovieCheck.Api.Infra.Factory;
+using MovieCheck.Api.Models;
 using System;
-using System.Net;
-using System.Net.Http;
 
 namespace MovieCheck.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class ClienteController : Controller
+    [ApiController]
+    public class ClienteController : ControllerBase
     {
         #region Atributos
-        private IDataService _dataService;
-        private HttpResponseMessage response;
+        private readonly IDataService _dataService;
         #endregion
 
         #region Construtores
@@ -22,57 +22,92 @@ namespace MovieCheck.Api.Controllers
         }
         #endregion
 
-        #region Métodos
-        [HttpGet("{clienteId}")]
-        public HttpResponseMessage Get(int clienteId)
+        #region Actions
+        // GET: api/Cliente
+        [HttpGet]
+        public ActionResult<string> Get()
+        {
+            return NotFound("Método não implementado.");
+        }
+
+        // GET: api/Cliente/5
+        [HttpGet("{id}", Name = "ObterClientePorId")]
+        //[Route("/ObterClientePorId/{id}")]
+        public ActionResult<string> ObterClientePorId(int id)
         {
             try
             {
-                var usuario = _dataService.ObterUsuarioPorId(clienteId);
-
-                if (usuario is null)
-                {
-                    throw new NewUserFailedException("Usuário não encontrado. ");
-                }
-
-                response = Request.CreateResponse(HttpStatusCode.OK, usuario);
+                return Ok(_dataService.ObterCliente(id));
             }
-            catch (NewUserFailedException e)
+            catch (NotFoundException e)
             {
-                response = Request.CreateResponse(HttpStatusCode.NotFound, new HttpError(e.Descricao));
+                return NotFound(e);
             }
             catch (Exception e)
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest, new HttpError(e.Descricao));
+                return BadRequest(e.Message);
             }
-
-            response.Headers.Location = new Uri(Url.Link("DefaultApi", new { controller = "cliente", id = clienteId }));
-
-            return response;
         }
-
-        // POST api/values
+        
+        // POST: api/Cliente
         [HttpPost]
-        public HttpResponseMessage Post([FromBody] Cliente cliente)
+        public ActionResult<string> AdicionarCliente([FromBody]Cliente cliente)
         {
             try
             {
                 this._dataService.AdicionarCliente(cliente);
-                
-                response = Request.CreateResponse(HttpStatusCode.Created);
+
+                return Ok();
             }
-            catch (NewUserFailedException e)
+            catch(Exception e)
             {
-                response = Request.CreateResponse(HttpStatusCode.MethodNotAllowed, new HttpError(e.Desricao));
+                return BadRequest(e.Message);
+            }
+        }
+        
+        // PUT: api/Cliente/5
+        [HttpPut("{id}")]
+        public ActionResult<string> EditarCliente(int id, [FromBody]Cliente cliente)
+        {
+            try
+            {
+                if (!(_dataService.ObterUsuarioPorId(id) is null))
+                {
+                    this._dataService.EditarUsuario(cliente);
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             catch (Exception e)
             {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest, new HttpError(e.Message));
+                return BadRequest(e.Message);
             }
-
-            response.Headers.Location = new Uri(Url.Link("DefaultApi", new { controller = "cliente", id = cliente.Id }));
-
-            return response;
+        }
+        
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public ActionResult<string> RemoverCliente(int id)
+        {
+            try
+            {
+                Cliente cliente = (Cliente)_dataService.ObterUsuarioPorId(id);
+                if (!(cliente is null))
+                {
+                    _dataService.RemoverCliente(cliente);
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         #endregion
     }

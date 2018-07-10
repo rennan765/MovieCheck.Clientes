@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MovieCheck.Api.Models
 {
+    [Serializable]
     public class Cliente : Usuario
     {
         #region Atributos
         private string cpf;
         private int tipo;   //0 = NORMAL - 1 = ADMINISTRADOR
-        private IList<Dependente> dependentes;
+        private List<Dependente> dependentes;
         #endregion
 
         #region Propriedades
@@ -36,7 +38,7 @@ namespace MovieCheck.Api.Models
                 }
             }
         }
-        public IList<Dependente> Dependentes
+        public List<Dependente> Dependentes
         {
             get { return this.dependentes; }
             set { this.dependentes = value; }
@@ -73,12 +75,6 @@ namespace MovieCheck.Api.Models
         #endregion
 
         #region Metodos
-        public override bool Equals(object usuario)
-        {
-            var c = (Cliente)usuario;
-            return c.Email == this.Email && c.Nome == this.Nome && c.cpf == this.Cpf;
-        }
-
         public void AdicionarDependente(Dependente dependente)
         {
             this.Dependentes.Add(dependente);

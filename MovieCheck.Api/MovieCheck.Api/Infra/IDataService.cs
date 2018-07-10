@@ -14,6 +14,8 @@ namespace MovieCheck.Api.Infra
         #endregion
 
         #region Usuario
+        IList<Usuario> ObterListaUsuario();
+        Usuario ObterUsuarioCompletoPorId(int id);
         Usuario ObterUsuarioPorId(int id);
         Usuario ObterUsuarioPorEmail(string email);
         string ObterTipoUsuario(Usuario usuario);
@@ -24,7 +26,6 @@ namespace MovieCheck.Api.Infra
         #endregion
 
         #region Cliente
-        IList<Cliente> ObterListaCliente();
         void AdicionarCliente(Cliente cliente);
         bool VerificarClientePorCpf(string cpf);
         IList<string> ObterEmailAdministradores();
@@ -44,6 +45,8 @@ namespace MovieCheck.Api.Infra
         bool ExisteTelefone(Telefone telefone);
         bool ExisteOutroUsuarioTelefone(Usuario usuario, Telefone telefone);
         Telefone ObterTelefone(Telefone telefone);
+        Telefone ObterTelefonePorId(int id);
+        IList<Telefone> ObterTelefonesPorUsuario(Usuario usuario);
         #endregion
 
         #region Filme
