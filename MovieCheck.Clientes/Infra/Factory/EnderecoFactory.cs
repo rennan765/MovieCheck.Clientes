@@ -1,7 +1,7 @@
-﻿using MovieCheck.Clientes.Models;
+﻿using MovieCheck.Site.Models;
 using System.Linq;
 
-namespace MovieCheck.Clientes.Infra.Factory
+namespace MovieCheck.Site.Infra.Factory
 {
     public static class EnderecoFactory
     {

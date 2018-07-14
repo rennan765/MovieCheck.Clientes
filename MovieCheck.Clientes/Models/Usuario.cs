@@ -1,9 +1,9 @@
-﻿using MovieCheck.Clientes.Infra;
-using MovieCheck.Clientes.Infra.Factory;
+﻿using MovieCheck.Site.Infra;
+using MovieCheck.Site.Infra.Factory;
 using System;
 using System.Collections.Generic;
 
-namespace MovieCheck.Clientes.Models
+namespace MovieCheck.Site.Models
 {
     public abstract class Usuario : IDisposable
     {

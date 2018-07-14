@@ -1,10 +1,10 @@
-﻿using MovieCheck.Clientes.Models;
-using MovieCheck.Clientes.Models.ViewModels;
+﻿using MovieCheck.Site.Models;
+using MovieCheck.Site.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MovieCheck.Clientes.Infra.Factory
+namespace MovieCheck.Site.Infra.Factory
 {
     public static class PendenciaFactory
     {

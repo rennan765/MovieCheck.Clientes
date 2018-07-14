@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MovieCheck.Clientes.Infra
+namespace MovieCheck.Site.Infra
 {
     public class NewPendenciaFailedException : Exception
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MovieCheck.Clientes.Models.ViewModels
+namespace MovieCheck.Site.Models.ViewModels
 {
     public class MensagemViewModel : IDisposable
     {

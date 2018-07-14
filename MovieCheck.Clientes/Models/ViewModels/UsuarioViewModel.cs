@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MovieCheck.Clientes.Models.ViewModels
+namespace MovieCheck.Site.Models.ViewModels
 {
     public abstract class UsuarioViewModel
     {

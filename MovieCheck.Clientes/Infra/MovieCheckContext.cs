@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MovieCheck.Clientes.Models;
+using MovieCheck.Site.Models;
 //using System.IO;
 //using Microsoft.Extensions.Configuration;
 
-namespace MovieCheck.Clientes.Infra
+namespace MovieCheck.Site.Infra
 {
     public class MovieCheckContext : DbContext
     {

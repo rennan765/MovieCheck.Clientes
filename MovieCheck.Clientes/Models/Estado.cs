@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieCheck.Clientes.Models
+namespace MovieCheck.Site.Models
 {
     public class Estado
     {

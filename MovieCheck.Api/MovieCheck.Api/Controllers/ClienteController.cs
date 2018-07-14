@@ -28,7 +28,18 @@ namespace MovieCheck.Api.Controllers
         [HttpGet]
         public IList<Cliente> Get()
         {
-            return this._dataService.ObterListaCliente();
+            var listaUsuario = this._dataService.ObterListaUsuario();
+            var listaCliente = new List<Cliente>();
+
+            foreach (Usuario usuario in listaUsuario)
+            {
+                if (this._dataService.ObterTipoUsuario(usuario).Equals("Cliente"))
+                {
+                    listaCliente.Add((Cliente)usuario);
+                }
+            }
+
+            return listaCliente;
         }
 
         // GET: api/Cliente/5

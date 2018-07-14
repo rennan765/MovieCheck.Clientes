@@ -1,4 +1,4 @@
-﻿namespace MovieCheck.Clientes.Models.ViewModels
+﻿namespace MovieCheck.Site.Models.ViewModels
 {
     public class PendenciaViewModel
     {

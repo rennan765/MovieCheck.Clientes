@@ -21,7 +21,7 @@ namespace MovieCheck.Api.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Ator", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Ator", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -33,7 +33,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Ator");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.AtorFilme", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.AtorFilme", b =>
                 {
                     b.Property<int>("AtorId");
 
@@ -46,7 +46,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Ator_Filme");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Classificacao", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Classificacao", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -60,7 +60,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("Tb_Classificacao");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Diretor", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Diretor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -72,7 +72,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Diretor");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.DiretorFilme", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.DiretorFilme", b =>
                 {
                     b.Property<int>("DiretorId");
 
@@ -85,7 +85,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Diretor_Filme");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Endereco", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Endereco", b =>
                 {
                     b.Property<int>("UsuarioId")
                         .ValueGeneratedOnAdd();
@@ -109,7 +109,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Endereco");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Filme", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Filme", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -133,7 +133,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Filme");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Genero", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Genero", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -145,7 +145,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Genero");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.GeneroFilme", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.GeneroFilme", b =>
                 {
                     b.Property<int>("GeneroId");
 
@@ -158,7 +158,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Genero_Filme");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Pendencia", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Pendencia", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -180,7 +180,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Pendencia");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Telefone", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Telefone", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -196,7 +196,7 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Telefone");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Usuario", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -224,7 +224,7 @@ namespace MovieCheck.Api.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Usuario");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.UsuarioTelefone", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.UsuarioTelefone", b =>
                 {
                     b.Property<int>("UsuarioId");
 
@@ -237,9 +237,9 @@ namespace MovieCheck.Api.Migrations
                     b.ToTable("TB_Usuario_Telefone");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Cliente", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Cliente", b =>
                 {
-                    b.HasBaseType("MovieCheck.Clientes.Models.Usuario");
+                    b.HasBaseType("MovieCheck.Site.Models.Usuario");
 
                     b.Property<string>("Cpf");
 
@@ -250,9 +250,9 @@ namespace MovieCheck.Api.Migrations
                     b.HasDiscriminator().HasValue("Cliente");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Dependente", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Dependente", b =>
                 {
-                    b.HasBaseType("MovieCheck.Clientes.Models.Usuario");
+                    b.HasBaseType("MovieCheck.Site.Models.Usuario");
 
                     b.Property<int>("ClienteId");
 
@@ -263,89 +263,89 @@ namespace MovieCheck.Api.Migrations
                     b.HasDiscriminator().HasValue("Dependente");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.AtorFilme", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.AtorFilme", b =>
                 {
-                    b.HasOne("MovieCheck.Clientes.Models.Ator", "Ator")
+                    b.HasOne("MovieCheck.Site.Models.Ator", "Ator")
                         .WithMany("Filmes")
                         .HasForeignKey("AtorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MovieCheck.Clientes.Models.Filme", "Filme")
+                    b.HasOne("MovieCheck.Site.Models.Filme", "Filme")
                         .WithMany("Atores")
                         .HasForeignKey("FilmeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.DiretorFilme", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.DiretorFilme", b =>
                 {
-                    b.HasOne("MovieCheck.Clientes.Models.Diretor", "Diretor")
+                    b.HasOne("MovieCheck.Site.Models.Diretor", "Diretor")
                         .WithMany("Filmes")
                         .HasForeignKey("DiretorId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MovieCheck.Clientes.Models.Filme", "Filme")
+                    b.HasOne("MovieCheck.Site.Models.Filme", "Filme")
                         .WithMany("Diretores")
                         .HasForeignKey("FilmeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Filme", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Filme", b =>
                 {
-                    b.HasOne("MovieCheck.Clientes.Models.Classificacao", "ClassificacaoIndicativa")
+                    b.HasOne("MovieCheck.Site.Models.Classificacao", "ClassificacaoIndicativa")
                         .WithMany("Filmes")
                         .HasForeignKey("ClassificacaoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.GeneroFilme", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.GeneroFilme", b =>
                 {
-                    b.HasOne("MovieCheck.Clientes.Models.Filme", "Filme")
+                    b.HasOne("MovieCheck.Site.Models.Filme", "Filme")
                         .WithMany("Generos")
                         .HasForeignKey("FilmeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MovieCheck.Clientes.Models.Genero", "Genero")
+                    b.HasOne("MovieCheck.Site.Models.Genero", "Genero")
                         .WithMany("Filmes")
                         .HasForeignKey("GeneroId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Pendencia", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Pendencia", b =>
                 {
-                    b.HasOne("MovieCheck.Clientes.Models.Filme", "Filme")
+                    b.HasOne("MovieCheck.Site.Models.Filme", "Filme")
                         .WithMany("Pendencias")
                         .HasForeignKey("FilmeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MovieCheck.Clientes.Models.Usuario", "Usuario")
+                    b.HasOne("MovieCheck.Site.Models.Usuario", "Usuario")
                         .WithMany("Pendencias")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Usuario", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Usuario", b =>
                 {
-                    b.HasOne("MovieCheck.Clientes.Models.Endereco", "Endereco")
+                    b.HasOne("MovieCheck.Site.Models.Endereco", "Endereco")
                         .WithMany()
                         .HasForeignKey("EnderecoUsuarioId");
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.UsuarioTelefone", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.UsuarioTelefone", b =>
                 {
-                    b.HasOne("MovieCheck.Clientes.Models.Telefone", "Telefone")
+                    b.HasOne("MovieCheck.Site.Models.Telefone", "Telefone")
                         .WithMany("Usuarios")
                         .HasForeignKey("TelefoneId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MovieCheck.Clientes.Models.Usuario", "Usuario")
+                    b.HasOne("MovieCheck.Site.Models.Usuario", "Usuario")
                         .WithMany("Telefones")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("MovieCheck.Clientes.Models.Dependente", b =>
+            modelBuilder.Entity("MovieCheck.Site.Models.Dependente", b =>
                 {
-                    b.HasOne("MovieCheck.Clientes.Models.Cliente", "Cliente")
+                    b.HasOne("MovieCheck.Site.Models.Cliente", "Cliente")
                         .WithMany("Dependentes")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade);

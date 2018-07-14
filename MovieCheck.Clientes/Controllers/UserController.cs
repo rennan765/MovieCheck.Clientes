@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MovieCheck.Clientes.Infra;
-using MovieCheck.Clientes.Infra.Factory;
-using MovieCheck.Clientes.Models;
-using MovieCheck.Clientes.Models.ViewModels;
+using MovieCheck.Site.Infra;
+using MovieCheck.Site.Infra.Factory;
+using MovieCheck.Site.Models;
+using MovieCheck.Site.Models.ViewModels;
 using System;
 
-namespace MovieCheck.Clientes.Controllers
+namespace MovieCheck.Site.Controllers
 {
     public class UserController : Controller
     {

@@ -1,9 +1,9 @@
-﻿using MovieCheck.Clientes.Infra;
+﻿using MovieCheck.Site.Infra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MovieCheck.Clientes.Models
+namespace MovieCheck.Site.Models
 {
     public class Pendencia
     {

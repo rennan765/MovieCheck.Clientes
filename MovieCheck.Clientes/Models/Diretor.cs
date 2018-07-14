@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MovieCheck.Clientes.Models
+namespace MovieCheck.Site.Models
 {
     public class Diretor
     {

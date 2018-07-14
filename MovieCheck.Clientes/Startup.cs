@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MovieCheck.Clientes.Infra;
-using MovieCheck.Clientes.Infra.Factory;
+using MovieCheck.Site.Infra;
+using MovieCheck.Site.Infra.Factory;
 
-namespace MovieCheck.Clientes
+namespace MovieCheck.Site
 {
     public class Startup
     {

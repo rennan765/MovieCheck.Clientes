@@ -1,10 +1,10 @@
-﻿using MovieCheck.Clientes.Models;
+﻿using MovieCheck.Site.Models;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 
-namespace MovieCheck.Clientes.Infra
+namespace MovieCheck.Site.Infra
 {
     public class Email : IDisposable
     {

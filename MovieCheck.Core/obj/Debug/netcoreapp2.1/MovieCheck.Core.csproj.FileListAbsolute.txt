@@ -1,0 +1,11 @@
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\bin\Debug\netcoreapp2.1\MovieCheck.Core.deps.json
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\bin\Debug\netcoreapp2.1\MovieCheck.Core.dll
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\obj\Debug\netcoreapp2.1\MovieCheck.Core.csprojAssemblyReference.cache
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\obj\Debug\netcoreapp2.1\MovieCheck.Core.csproj.CoreCompileInputs.cache
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\obj\Debug\netcoreapp2.1\MovieCheck.Core.AssemblyInfoInputs.cache
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\obj\Debug\netcoreapp2.1\MovieCheck.Core.AssemblyInfo.cs
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\bin\Debug\netcoreapp2.1\MovieCheck.Core.runtimeconfig.json
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\bin\Debug\netcoreapp2.1\MovieCheck.Core.runtimeconfig.dev.json
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\bin\Debug\netcoreapp2.1\MovieCheck.Core.pdb
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\obj\Debug\netcoreapp2.1\MovieCheck.Core.dll
+C:\Users\Rennan\Documents\Visual Studio 2017\Projects\MovieCheck.Clientes\MovieCheck.Core\obj\Debug\netcoreapp2.1\MovieCheck.Core.pdb

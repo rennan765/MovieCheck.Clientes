@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MovieCheck.Clientes": {
+    "MovieCheck.Site": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

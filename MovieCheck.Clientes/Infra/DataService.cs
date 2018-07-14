@@ -3,9 +3,9 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using MovieCheck.Clientes.Models;
+using MovieCheck.Site.Models;
 
-namespace MovieCheck.Clientes.Infra
+namespace MovieCheck.Site.Infra
 {
     public class DataService : IDataService
     {

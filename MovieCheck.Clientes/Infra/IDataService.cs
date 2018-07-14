@@ -1,7 +1,7 @@
-﻿using MovieCheck.Clientes.Models;
+﻿using MovieCheck.Site.Models;
 using System.Collections.Generic;
 
-namespace MovieCheck.Clientes.Infra
+namespace MovieCheck.Site.Infra
 {
     public interface IDataService
     {

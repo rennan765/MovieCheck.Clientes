@@ -1,7 +1,7 @@
-﻿using MovieCheck.Clientes.Models;
+﻿using MovieCheck.Site.Models;
 using System;
 
-namespace MovieCheck.Clientes.Infra
+namespace MovieCheck.Site.Infra
 {
     public class CorpoEmail : IDisposable
     {

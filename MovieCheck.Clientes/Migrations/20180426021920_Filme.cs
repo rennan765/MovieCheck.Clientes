@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace MovieCheck.Clientes.Migrations
+namespace MovieCheck.Site.Migrations
 {
     public partial class Filme : Migration
     {

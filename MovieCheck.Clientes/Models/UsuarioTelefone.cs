@@ -1,4 +1,4 @@
-﻿namespace MovieCheck.Clientes.Models
+﻿namespace MovieCheck.Site.Models
 {
     public class UsuarioTelefone
     {

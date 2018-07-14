@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using MovieCheck.Clientes.Infra;
+using MovieCheck.Site.Infra;
 
-namespace MovieCheck.Clientes.Migrations
+namespace MovieCheck.Site.Migrations
 {
     [DbContext(typeof(MovieCheckContext))]
     [Migration("20171207001437_Usuario")]

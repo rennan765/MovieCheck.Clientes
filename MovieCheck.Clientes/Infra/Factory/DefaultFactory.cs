@@ -1,6 +1,6 @@
-﻿using MovieCheck.Clientes.Models.ViewModels;
+﻿using MovieCheck.Site.Models.ViewModels;
 
-namespace MovieCheck.Clientes.Infra.Factory
+namespace MovieCheck.Site.Infra.Factory
 {
     public static class DefaultFactory
     {
